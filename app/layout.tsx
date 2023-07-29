@@ -1,3 +1,4 @@
+import NavBar from "components/navbar";
 import "notion-on-next/non.css";
 import "./globals.css";
 import { Providers } from "./providers";
@@ -11,7 +12,10 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <head />
       <body>
-        <Providers>{children}</Providers>
+        <Providers>
+          <NavBar />
+          {children}
+        </Providers>
       </body>
     </html>
   );
