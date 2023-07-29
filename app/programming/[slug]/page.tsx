@@ -6,6 +6,8 @@ import { ProgrammingPageObjectResponse } from "../../../types/notion-on-next.typ
 import { cachedGetBlocks, cachedGetParsedPages } from "../../get";
 import Image from "next/image";
 
+export const revalidate = 60;
+
 const mediaMap: mediaMapInterface = _mediaMap;
 interface PageProps {
   slug: string;
