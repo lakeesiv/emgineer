@@ -3,7 +3,7 @@ import Image from "next/image";
 import _mediaMap from "../../public/notion-media/media-map.json";
 import { mediaMapInterface } from "notion-on-next/types/types";
 import { ProgrammingPageObjectResponse } from "../../types/notion-on-next.types";
-const mediaMap: mediaMapInterface = _mediaMap;
+const mediaMap = _mediaMap as mediaMapInterface;
 
 export const ProgrammingPageCard = ({
   page,

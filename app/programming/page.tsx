@@ -2,6 +2,8 @@ import { ProgrammingPageObjectResponse } from "../../types/notion-on-next.types"
 import { cachedGetParsedPages } from "../get";
 import { ProgrammingPageCard } from "./ProgrammingPageCard";
 
+export const revalidate = 60;
+
 const databaseId = "a83071d8-1416-44a9-98cf-45638a583a82";
 
 export default async function ProgrammingBlog() {

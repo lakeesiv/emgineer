@@ -8,7 +8,8 @@ import Image from "next/image";
 
 export const revalidate = 60;
 
-const mediaMap: mediaMapInterface = _mediaMap;
+const mediaMap = _mediaMap as mediaMapInterface;
+
 interface PageProps {
   slug: string;
 }
