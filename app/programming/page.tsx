@@ -19,6 +19,7 @@ export default async function ProgrammingBlog() {
           Blog Posts
           <ThemeChanger />
         </h1>
+        <Button>Well</Button>
         <div className="flex flex-col justify-center gap-8 max-w-[800px] mx-auto p-12">
           {pages.map((page) => (
             <ProgrammingPageCard

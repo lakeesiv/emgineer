@@ -4,36 +4,38 @@ import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 import { Button } from "./ui/button";
 
-const ThemeChanger = () => {
+import {
+  DropdownMenu,
+  DropdownMenuCheckboxItem,
+  DropdownMenuContent,
+  DropdownMenuLabel,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "./ui/dropdown-menu";
+import { Palette } from "lucide-react";
+
+const ThemeToggle = () => {
   const { theme, setTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-    // if (typeof window !== "undefined") {
-    //   const theme = localStorage.getItem("theme");
-    //   if (theme) {
-    //     setTheme(theme);
-    //   }
-    // }
-  }, [theme, mounted]);
-
-  if (!mounted) return null;
 
   return (
-    <div suppressHydrationWarning>
-      The current theme is: {theme}
-      <Button suppressHydrationWarning onClick={() => setTheme("light")}>
-        Light Mode
-      </Button>
-      <Button suppressHydrationWarning onClick={() => setTheme("dark")}>
-        Dark Mode
-      </Button>
-      <Button suppressHydrationWarning onClick={() => setTheme("pink")}>
-        Pink Mode
-      </Button>
-    </div>
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button variant="outline" size="icon">
+          <Palette className="h-[1.25rem] w-[1.25rem]" />
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent className="w-24">
+        <DropdownMenuLabel>Theme</DropdownMenuLabel>
+        <DropdownMenuSeparator />
+        <DropdownMenuRadioGroup value={theme} onValueChange={setTheme}>
+          <DropdownMenuRadioItem value="dark">Dark</DropdownMenuRadioItem>
+          <DropdownMenuRadioItem value="light">Light</DropdownMenuRadioItem>
+        </DropdownMenuRadioGroup>
+      </DropdownMenuContent>
+    </DropdownMenu>
   );
 };
 
-export default ThemeChanger;
+export default ThemeToggle;
