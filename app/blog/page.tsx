@@ -1,5 +1,5 @@
 import { Button } from "components/ui/button";
-import { ProgrammingPageObjectResponse } from "../../types/notion-on-next.types";
+import { ProgrammingPageObjectResponse } from "types/notion-on-next.types";
 import { cachedGetParsedPages } from "../get";
 import { ProgrammingPageCard } from "./ProgrammingPageCard";
 
