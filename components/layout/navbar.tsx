@@ -2,6 +2,8 @@
 
 import React from "react";
 import ThemeToggle from "./theme-toggle";
+import Image from "next/image";
+import Logo from "./logo";
 
 const NavBar = () => {
   return (
@@ -12,8 +14,7 @@ const NavBar = () => {
       <div className="py-2 px-3 mx-auto w-full md:flex md:justify-between max-w-8xl md:px-4">
         <div className="flex justify-between">
           <a className="flex items-center" href={"/"}>
-            {/* <Logo /> */}
-            Emgineer
+            <Logo />
           </a>
           <div className="flex items-center md:hidden">
             <ThemeToggle />
