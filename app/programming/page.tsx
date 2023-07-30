@@ -1,6 +1,6 @@
 import { Button } from "components/ui/button";
-import { ProgrammingPageObjectResponse } from "types/notion-on-next.types";
-import { cachedGetParsedPages } from "lib/utils";
+import { ProgrammingPageObjectResponse } from "../../types/notion-on-next.types";
+import { cachedGetParsedPages } from "../get";
 import { ProgrammingPageCard } from "./ProgrammingPageCard";
 
 export const revalidate = 60;
