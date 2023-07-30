@@ -1,9 +1,9 @@
 import { notFound } from "next/navigation";
 import { mediaMapInterface, NotionPageBody } from "notion-on-next";
 import React from "react";
-import _mediaMap from "../../../public/notion-media/media-map.json";
-import { ProgrammingPageObjectResponse } from "../../../types/notion-on-next.types";
-import { cachedGetBlocks, cachedGetParsedPages } from "../../get";
+import _mediaMap from "public/notion-media/media-map.json";
+import { ProgrammingPageObjectResponse } from "types/notion-on-next.types";
+import { cachedGetParsedPages, cachedGetBlocks } from "lib/utils";
 import Image from "next/image";
 
 export const revalidate = 60;
