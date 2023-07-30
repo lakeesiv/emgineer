@@ -1,4 +1,4 @@
-import NavBar from "components/navbar";
+import NavBar from "components/layout/navbar";
 import "notion-on-next/non.css";
 import "./globals.css";
 import { Providers } from "./providers";

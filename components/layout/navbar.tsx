@@ -6,7 +6,7 @@ import ThemeToggle from "./theme-toggle";
 const NavBar = () => {
   return (
     <header
-      className="top-0 z-40  flex-none mx-auto w-full md:backdrop-blur-sm border-b dark:border-b-0"
+      className="top-0 z-40  flex-none mx-auto w-full md:backdrop-blur-sm"
       id="header"
     >
       <div className="py-2 px-3 mx-auto w-full md:flex md:justify-between max-w-8xl md:px-4">

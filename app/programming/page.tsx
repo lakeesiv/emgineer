@@ -1,4 +1,3 @@
-import ThemeChanger from "components/theme-toggle";
 import { Button } from "components/ui/button";
 import { ProgrammingPageObjectResponse } from "../../types/notion-on-next.types";
 import { cachedGetParsedPages } from "../get";
@@ -17,7 +16,6 @@ export default async function ProgrammingBlog() {
       <main className="">
         <h1 className="text-center font-bold text-3xl m-6 md:m-12">
           Blog Posts
-          <ThemeChanger />
         </h1>
         <Button>Well</Button>
         <div className="flex flex-col justify-center gap-8 max-w-[800px] mx-auto p-12">
