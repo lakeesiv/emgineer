@@ -3,101 +3,18 @@ import React from "react";
 
 export default function Home() {
   return (
-    <div>
-      <main>
-        <div className="mx-auto  flex justify-center items-center">
-          <div className="max-w-[700px] p-12 mb-[200px]">
-            <h1 className="text-4xl font-bold md:pt-24">
-              <span className="">Build Next + Notion apps easily with</span>{" "}
-              <span className="text-gray-500">notion-on-next</span>
-            </h1>
-            <Section title="Why?">
-              <ul className="flex flex-wrap gap-2">
-                <Tag text="⚡️ Fast" />
-                <Tag text="💵 Free" />
-                <Tag text="📖 Open Source" />
-                <Tag text="💯 Lighthouse Scores" />
-                <Tag text="🖍 Edit in Notion" />
-                <Tag text="⌨️ Automatic Types" />
-                <Tag text="🏞 Automatic Image Optimization" />
-                <Tag text="🔧 Customizable" />
-              </ul>
-            </Section>
-            <hr />
-            <Section
-              title="Examples"
-              description="You can use notion-on-next to connect to multiple databases! The
-              examples below show two different databases being used in
-              different ways."
-            >
-              <div className="grid md:grid-cols-1 gap-4">
-                <Card
-                  url={"/programming"}
-                  title="Programming Blog"
-                  description="An example to show how you would use notion-on-next to build a blog."
-                />
-                <Card
-                  url={"/dogs"}
-                  title="Dog Breeds"
-                  description="You can use notion-on-next for content other than blog posts too! This example displays a database of dog breed info."
-                />
-                <Card
-                  url="https://notion-on-next-starter.vercel.app/programming/Notion-on-next-Supported-Blocks-Examples"
-                  title={"Supported Block Examples"}
-                  description="Clone this repo and follow the setup instructions to connect and deploy your app in minutes!"
-                />
-              </div>
-            </Section>
-            <hr />
-            <Section
-              title="Repositories"
-              description="You can find documentation in either readme"
-            >
-              <div className="grid md:grid-cols-2 md:grid-rows-1 gap-4">
-                <Card
-                  url={"https://github.com/williamlmao/notion-on-next"}
-                  title={<TitleWithGithubIcon text="notion-on-next" />}
-                  description="The primary repo for this library. Use this if you want to install in an existing app, or if you want to build a new app from scratch."
-                />
-                <Card
-                  url="https://github.com/williamlmao/notion-on-next-starter"
-                  title={<TitleWithGithubIcon text="notion-on-next-starter" />}
-                  description="Use this repo if you want most of the setup handled for you. Clone it, connect your databases, and customize from there. Comes preloaded with Tailwind."
-                />
-              </div>
-            </Section>
-          </div>
+    <main>
+      <div className="mx-auto flex justify-center items-center">
+        <div className="max-w-[900px] p-12 mb-[200px]">
+          <h1 className="text-4xl font-bold">
+            <span className="">Emmanuel Engineers</span>
+          </h1>
+          <Card url={"/blog"} title="Blog" description="Blog Page" />
         </div>
-      </main>
-    </div>
+      </div>
+    </main>
   );
 }
-
-const Tag = ({ text }: { text: string }) => {
-  return (
-    <li className="whitespace-nowrap bg-gray-100 py-2 px-4 rounded-md">
-      {text}
-    </li>
-  );
-};
-
-const Section = ({
-  title,
-  description,
-  children,
-}: {
-  title: string;
-  description?: string;
-  children: React.ReactNode;
-}) => {
-  return (
-    <div className="my-12">
-      <h2 className="text-2xl font-semibold">{title}</h2>
-      <p>{description}</p>
-      <div className="mt-4">{children}</div>
-    </div>
-  );
-};
 
 const Card = ({
   url,
