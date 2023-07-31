@@ -46,7 +46,9 @@ export default async function BlogPage({
         <div className="mt-4 mb-8">
           <div className="text-3xl  font-bold">{page.title}</div>
           <div className="text-gray-400">
-            {new Date(page.created_time).toLocaleDateString()}
+            {new Date(
+              page.properties.Date.date?.start as string
+            ).toLocaleDateString() || "No Date"}
           </div>
         </div>
       </div>
