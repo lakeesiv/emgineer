@@ -1,10 +1,9 @@
 "use client";
 
-import React from "react";
-import ThemeToggle from "./theme-toggle";
-import Image from "next/image";
-import Logo from "./logo";
 import Link from "next/link";
+import Logo from "./logo";
+import MobileNav from "./mobile-nav";
+import ThemeToggle from "./theme-toggle";
 
 const links = [
   {
@@ -38,8 +37,7 @@ const NavBar = () => {
             <Logo />
           </a>
           <div className="flex items-center md:hidden">
-            <ThemeToggle />
-            {/* <ToggleMenu /> */}
+            <MobileNav links={links} />
           </div>
         </div>
         <nav
