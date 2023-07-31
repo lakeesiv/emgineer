@@ -14,9 +14,11 @@ export default function RootLayout({
       <head />
       <body>
         <Providers>
-          <NavBar />
-          {children}
-          <Footer />
+          <div className="flex flex-col min-h-screen">
+            <NavBar />
+            <main className="mb-auto">{children}</main>
+            <Footer />
+          </div>
         </Providers>
       </body>
     </html>
