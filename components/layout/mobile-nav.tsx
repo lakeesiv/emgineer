@@ -34,7 +34,7 @@ const MobileNav: FC<MobileNavProps> = ({ links }) => {
           <DropdownMenuItem key={link.name}>
             <Link
               href={link.href}
-              className="text-emma-navy dark:text-emma-pink"
+              className="text-emma-navy dark:text-emma-pink font-extrabold"
             >
               {link.name}
             </Link>

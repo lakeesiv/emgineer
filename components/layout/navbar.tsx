@@ -46,24 +46,15 @@ const NavBar = () => {
             {links.map((link) => (
               <li key={link.name}>
                 <Link
-                  className="px-4 py-3 flex items-center transition duration-150 ease-in-out"
+                  className="px-4 py-3 flex items-center 
+                  hover:scale-105  transition-transform duration-200 ease-in-out
+                  "
                   href={link.href}
                 >
                   {link.name}
                 </Link>
               </li>
             ))}
-
-            {/* <li className="hidden md:block">
-              <div className="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 md:flex items-center transition duration-150 ease-in-out">
-                <DropdownNav client:load />
-              </div>
-            </li>
-            <li className="block md:hidden">
-              <div className="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 md:flex items-center transition duration-150 ease-in-out">
-                <DropdownNav client:load mobile />
-              </div>
-            </li> */}
           </ul>
         </nav>
       </div>
