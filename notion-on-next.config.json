@@ -1,9 +1,1 @@
-{
-  "databases": {
-    "a83071d8-1416-44a9-98cf-45638a583a82": {
-      "id": "a83071d8-1416-44a9-98cf-45638a583a82",
-      "name": "Programming"
-    }
-  },
-  "typesFolderPath": "./types"
-}
+{"databases":{"a83071d8-1416-44a9-98cf-45638a583a82":{"id":"a83071d8-1416-44a9-98cf-45638a583a82","name":"Blog"}},"typesFolderPath":"./types"}

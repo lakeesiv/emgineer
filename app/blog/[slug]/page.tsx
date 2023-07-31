@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 import { mediaMapInterface, NotionPageBody } from "notion-on-next";
 import React from "react";
 import _mediaMap from "public/notion-media/media-map.json";
-import { ProgrammingPageObjectResponse } from "types/notion-on-next.types";
+import { BlogPageObjectResponse } from "types/notion-on-next.types";
 import { cachedGetBlocks, cachedGetParsedPages } from "../../get";
 import Image from "next/image";
 
@@ -23,9 +23,7 @@ export default async function BlogPage({
   const { slug } = params;
   // This may seem like a roundabout way to retrieve the page, but getParsedPages is a per-request cached function. You can read more about it here https://beta.nextjs.org/docs/data-fetching/caching#preload-pattern-with-cache
   // The reason why we have to get all of the pages and then filter is because the Notion API can only search for pages via page id and not slug.
-  const pages = await cachedGetParsedPages<ProgrammingPageObjectResponse>(
-    databaseId
-  );
+  const pages = await cachedGetParsedPages<BlogPageObjectResponse>(databaseId);
   const page = pages.find((page) => page.slug === slug);
   if (!page) {
     notFound();
@@ -65,9 +63,7 @@ export default async function BlogPage({
 
 export async function generateStaticParams() {
   // This generates routes using the slugs created from getParsedPages
-  const pages = await cachedGetParsedPages<ProgrammingPageObjectResponse>(
-    databaseId
-  );
+  const pages = await cachedGetParsedPages<BlogPageObjectResponse>(databaseId);
   return pages.map((page) => ({
     slug: page.slug,
   }));

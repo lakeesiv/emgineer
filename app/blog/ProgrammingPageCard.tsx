@@ -2,18 +2,18 @@ import Link from "next/link";
 import Image from "next/image";
 import _mediaMap from "public/notion-media/media-map.json";
 import { mediaMapInterface } from "notion-on-next/types/types";
-import { ProgrammingPageObjectResponse } from "types/notion-on-next.types";
+import { BlogPageObjectResponse } from "types/notion-on-next.types";
 const mediaMap = _mediaMap as mediaMapInterface;
 
 export const ProgrammingPageCard = ({
   page,
   databaseId,
 }: {
-  page: ProgrammingPageObjectResponse;
+  page: BlogPageObjectResponse;
   databaseId: string;
 }) => {
   return (
-    <Link href={`/programming/${page.slug}`} key={page.id}>
+    <Link href={`/blog/${page.slug}`} key={page.id}>
       <div className="flex flex-col md:flex-row shadow-sm hover:shadow-lg  rounded-md outline-gray-100  outline-1 outline transition ease-in-out hover:-translate-y-1">
         <div className="md:w-1/2 h-[300px]  overflow-hidden">
           {mediaMap[databaseId]?.[page.id]?.cover && (

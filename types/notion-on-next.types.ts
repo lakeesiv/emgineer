@@ -1,6 +1,7 @@
 import {
   PageObjectResponse,
   RichTextPropertyItemObjectResponse,
+  DatePropertyItemObjectResponse,
   MultiSelectPropertyItemObjectResponse,
   TitlePropertyItemObjectResponse,
 } from "@notionhq/client/build/src/api-endpoints";
@@ -18,9 +19,10 @@ export interface mediaMapInterface {
   };
 }
 
-export type ProgrammingPageObjectResponse = NotionOnNextPageObjectResponse & {
+export type BlogPageObjectResponse = NotionOnNextPageObjectResponse & {
   properties: {
     Description: RichTextPropertyItemObjectResponse;
+    Date: DatePropertyItemObjectResponse;
     Tags: MultiSelectPropertyItemObjectResponse;
     Name: TitlePropertyItemObjectResponse;
   };
