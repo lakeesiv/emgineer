@@ -3,7 +3,6 @@
 import Link from "next/link";
 import Logo from "./logo";
 import MobileNav from "./mobile-nav";
-import ThemeToggle from "./theme-toggle";
 
 const links = [
   {
@@ -11,17 +10,16 @@ const links = [
     href: "/blog",
   },
   {
-    name: "About",
-    href: "/about",
+    name: "Events",
+    href: "/events",
   },
-  {
-    name: "Committee",
-    href: "/committee",
-  },
-
   {
     name: "Funding",
     href: "/funding",
+  },
+  {
+    name: "About",
+    href: "/about",
   },
 ];
 
