@@ -4,6 +4,11 @@
 
 @layer base {
   :root {
+    --emma-navy: #111144;
+    --emma-pink: #ffcccc;
+  }
+
+  :root {
     --background: 0 0% 100%;
     --foreground: 222.2 84% 4.9%;
 
@@ -37,6 +42,8 @@
 
     --logo-filter: invert(9%) sepia(46%) saturate(4664%) hue-rotate(235deg)
       brightness(82%) contrast(124%);
+
+    --emma-text: var(--emma-navy);
   }
 
   .dark {
@@ -71,6 +78,8 @@
 
     --logo-filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg)
       brightness(0%) contrast(0%);
+
+    --emma-text: var(--emma-pink);
   }
 }
 

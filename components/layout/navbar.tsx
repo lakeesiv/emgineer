@@ -4,14 +4,35 @@ import React from "react";
 import ThemeToggle from "./theme-toggle";
 import Image from "next/image";
 import Logo from "./logo";
+import Link from "next/link";
+
+const links = [
+  {
+    name: "Blog",
+    href: "/blog",
+  },
+  {
+    name: "About",
+    href: "/about",
+  },
+  {
+    name: "Committee",
+    href: "/committee",
+  },
+
+  {
+    name: "Funding",
+    href: "/funding",
+  },
+];
 
 const NavBar = () => {
   return (
     <header
-      className="top-0 z-40  flex-none mx-auto w-full md:backdrop-blur-sm"
+      className="top-0 z-40 flex  flex-row mx-auto w-full md:backdrop-blur-sm"
       id="header"
     >
-      <div className="py-2 px-3 mx-auto w-full md:flex md:justify-between max-w-8xl md:px-4">
+      <div className="py-2 px-3 mx-auto w-full  md:flex md:justify-between max-w-8xl md:px-4">
         <div className="flex justify-between">
           <a className="flex items-center" href={"/"}>
             <Logo />
@@ -22,18 +43,21 @@ const NavBar = () => {
           </div>
         </div>
         <nav
-          className="items-center w-full md:w-auto hidden md:flex h-screen md:h-auto"
+          className="items-center w-full md:w-auto hidden md:flex h-screen md:h-auto "
           aria-label="Main navigation"
         >
-          <ul className="flex flex-col pt-8 md:pt-0 md:flex-row md:self-center w-full md:w-auto text-xl md:text-sm">
-            <li>
-              <a
-                className="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out"
-                href={"/blog"}
-              >
-                Blog
-              </a>
-            </li>
+          <ul className="flex flex-col pt-8 md:pt-0 md:flex-row md:self-center w-full md:w-auto text-xl md:text-md font-extrabold text-emma-navy dark:text-emma-pink">
+            {links.map((link) => (
+              <li key={link.name}>
+                <Link
+                  className="px-4 py-3 flex items-center transition duration-150 ease-in-out"
+                  href={link.href}
+                >
+                  {link.name}
+                </Link>
+              </li>
+            ))}
+
             {/* <li className="hidden md:block">
               <div className="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 md:flex items-center transition duration-150 ease-in-out">
                 <DropdownNav client:load />
@@ -44,23 +68,6 @@ const NavBar = () => {
                 <DropdownNav client:load mobile />
               </div>
             </li> */}
-
-            <li>
-              <a
-                className="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out"
-                href="/about"
-              >
-                About
-              </a>
-            </li>
-            <li>
-              <a
-                className="font-medium hover:text-gray-900 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out"
-                href="/contact"
-              >
-                Contact
-              </a>
-            </li>
           </ul>
           <div className="md:self-center flex items-center mb-4 md:mb-0 ml-2">
             <div className="hidden items-center md:flex">
@@ -68,6 +75,17 @@ const NavBar = () => {
             </div>
           </div>
         </nav>
+      </div>
+      <div className="grid overflow-hidden ">
+        <div className="w-16 " style={{ gridArea: "1 / 1" }}>
+          <div
+            className=" h-24  bg-emma-navy -rotate-45  transform origin-top-left "
+            style={{
+              background:
+                "linear-gradient(90deg, var(--emma-navy) 0 28%, var(--emma-pink) 0 40%, var(--emma-navy) 0 100%)",
+            }}
+          />
+        </div>
       </div>
     </header>
   );
