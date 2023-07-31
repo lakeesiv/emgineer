@@ -69,11 +69,6 @@ const NavBar = () => {
               </div>
             </li> */}
           </ul>
-          <div className="md:self-center flex items-center mb-4 md:mb-0 ml-2">
-            <div className="hidden items-center md:flex">
-              <ThemeToggle />
-            </div>
-          </div>
         </nav>
       </div>
       <div className="grid overflow-hidden ">
