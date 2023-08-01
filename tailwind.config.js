@@ -17,9 +17,13 @@ module.exports = {
     },
     extend: {
       colors: {
+        "emma-blue": "var(--emma-blue)",
         "emma-navy": "var(--emma-navy)",
+        "emma-navy-secondary": "var(--emma-navy-secondary)",
         "emma-pink": "var(--emma-pink)",
+        "emma-pink-secondary": "var(--emma-pink-secondary)",
         "emma-text": "var(--emma-text)",
+        "emma-text-secondary": "var(--emma-text-secondary)",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
