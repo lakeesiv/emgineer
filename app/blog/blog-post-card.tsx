@@ -3,16 +3,16 @@ import Image from "next/image";
 import _mediaMap from "public/notion-media/media-map.json";
 import { mediaMapInterface } from "notion-on-next/types/types";
 import { BlogPageObjectResponse } from "types/notion-on-next.types";
+import siteConfig from "site.config";
 const mediaMap = _mediaMap as mediaMapInterface;
 
 export const BlogPostCard = ({
   page,
-  databaseId,
 }: {
   page: BlogPageObjectResponse;
   databaseId: string;
 }) => {
-  const image = mediaMap[databaseId]?.[page.id]?.cover;
+  const image = mediaMap[siteConfig.blogDatabaseId]?.[page.id]?.cover;
 
   return (
     <article
@@ -24,7 +24,7 @@ export const BlogPostCard = ({
         <Link className="relative block group" href={`/blog/${page.slug}`}>
           <Image
             alt={page.title || "Cover Image for " + page.id}
-            src={mediaMap[databaseId]?.[page.id]?.cover}
+            src={image}
             className="max-h-[300px] w-full rounded-md  object-cover object-center"
             width={300}
             height={300}

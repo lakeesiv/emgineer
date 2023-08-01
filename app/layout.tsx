@@ -1,8 +1,8 @@
 import Footer from "components/layout/footer";
 import NavBar from "components/layout/navbar";
 import "notion-on-next/non.css";
-import "./globals.css";
-import { Providers } from "./providers";
+import "components/globals.css";
+import { Providers } from "components/layout/providers";
 
 export default function RootLayout({
   children,

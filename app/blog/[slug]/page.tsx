@@ -3,8 +3,8 @@ import { notFound } from "next/navigation";
 import { mediaMapInterface, NotionPageBody } from "notion-on-next";
 import _mediaMap from "public/notion-media/media-map.json";
 import React from "react";
-import { BlogPageObjectResponse } from "types/notion-on-next.types";
-import { cachedGetBlocks, cachedGetParsedPages } from "../../get";
+import siteConfig from "site.config";
+import { cachedGetBlocks, getBlogPages } from "../../get";
 import { formatDate } from "../blog-post-card";
 
 export const revalidate = 60;
@@ -14,7 +14,7 @@ const mediaMap = _mediaMap as mediaMapInterface;
 interface PageProps {
   slug: string;
 }
-const databaseId = "a83071d8-1416-44a9-98cf-45638a583a82";
+const databaseId = siteConfig.blogDatabaseId;
 
 export default async function BlogPage({
   params,
@@ -22,7 +22,7 @@ export default async function BlogPage({
   params: PageProps;
 }): Promise<React.ReactNode> {
   const { slug } = params;
-  const pages = await cachedGetParsedPages<BlogPageObjectResponse>(databaseId);
+  const pages = await getBlogPages();
   const page = pages.find((page) => page.slug === slug);
   if (!page) {
     notFound();
@@ -64,7 +64,7 @@ export default async function BlogPage({
 
 export async function generateStaticParams() {
   // This generates routes using the slugs created from getParsedPages
-  const pages = await cachedGetParsedPages<BlogPageObjectResponse>(databaseId);
+  const pages = await getBlogPages();
   return pages.map((page) => ({
     slug: page.slug,
   }));
