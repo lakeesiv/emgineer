@@ -6,7 +6,7 @@ const BlogSection = async () => {
   const pages = await getBlogPages(4);
 
   return (
-    <section className="p-8 px-24">
+    <section className="p-8 md:px-24">
       <h2 className="text-3xl font-extrabold text-emma-text sm:text-center md:text-left">
         Our Blog
       </h2>
