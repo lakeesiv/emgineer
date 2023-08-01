@@ -1,1 +1,17 @@
-{"databases":{"a83071d8-1416-44a9-98cf-45638a583a82":{"id":"a83071d8-1416-44a9-98cf-45638a583a82","name":"Blog"}},"typesFolderPath":"./types"}
+{
+  "databases": {
+    "a83071d8-1416-44a9-98cf-45638a583a82": {
+      "id": "a83071d8-1416-44a9-98cf-45638a583a82",
+      "name": "Blog"
+    },
+    "533a35ca-b69f-4a5d-add8-35c083eaa97e": {
+      "id": "533a35ca-b69f-4a5d-add8-35c083eaa97e",
+      "name": "Events"
+    },
+    "68bdc66c-47c7-4ec3-8353-895c3fce0ecc": {
+      "id": "68bdc66c-47c7-4ec3-8353-895c3fce0ecc",
+      "name": "SignUp"
+    }
+  },
+  "typesFolderPath": "./types"
+}

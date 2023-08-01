@@ -2,9 +2,12 @@ import {
   PageObjectResponse,
   RichTextPropertyItemObjectResponse,
   DatePropertyItemObjectResponse,
-  PeoplePropertyItemObjectResponse,
-  MultiSelectPropertyItemObjectResponse,
   TitlePropertyItemObjectResponse,
+  UrlPropertyItemObjectResponse,
+  CheckboxPropertyItemObjectResponse,
+  NumberPropertyItemObjectResponse,
+  EmailPropertyItemObjectResponse,
+  MultiSelectPropertyItemObjectResponse,
 } from "@notionhq/client/build/src/api-endpoints";
 
 export interface NotionOnNextPageObjectResponse extends PageObjectResponse {
@@ -24,8 +27,26 @@ export type BlogPageObjectResponse = NotionOnNextPageObjectResponse & {
   properties: {
     Description: RichTextPropertyItemObjectResponse;
     Date: DatePropertyItemObjectResponse;
-    Author: PeoplePropertyItemObjectResponse;
-    Tags: MultiSelectPropertyItemObjectResponse;
+    Name: TitlePropertyItemObjectResponse;
+  };
+};
+export type EventsPageObjectResponse = NotionOnNextPageObjectResponse & {
+  properties: {
+    "Sign Up Link": UrlPropertyItemObjectResponse;
+    "Requires Payment": CheckboxPropertyItemObjectResponse;
+    Description: RichTextPropertyItemObjectResponse;
+    Location: RichTextPropertyItemObjectResponse;
+    Start: DatePropertyItemObjectResponse;
+    Hide: CheckboxPropertyItemObjectResponse;
+    "Duration (hrs)": NumberPropertyItemObjectResponse;
+    Name: TitlePropertyItemObjectResponse;
+  };
+};
+export type SignUpPageObjectResponse = NotionOnNextPageObjectResponse & {
+  properties: {
+    Email: EmailPropertyItemObjectResponse;
+    Status: MultiSelectPropertyItemObjectResponse;
+    hasPaid: RichTextPropertyItemObjectResponse;
     Name: TitlePropertyItemObjectResponse;
   };
 };
