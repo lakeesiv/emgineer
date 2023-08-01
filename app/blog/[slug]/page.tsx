@@ -1,3 +1,4 @@
+import { formatDate } from "components/blog-card";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import { mediaMapInterface, NotionPageBody } from "notion-on-next";
@@ -5,16 +6,14 @@ import _mediaMap from "public/notion-media/media-map.json";
 import React from "react";
 import siteConfig from "site.config";
 import { cachedGetBlocks, getBlogPages } from "../../get";
-import { formatDate } from "../blog-post-card";
 
 export const revalidate = 60;
-
 const mediaMap = _mediaMap as mediaMapInterface;
+const databaseId = siteConfig.blogDatabaseId;
 
 interface PageProps {
   slug: string;
 }
-const databaseId = siteConfig.blogDatabaseId;
 
 export default async function BlogPage({
   params,
