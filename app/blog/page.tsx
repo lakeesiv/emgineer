@@ -12,16 +12,14 @@ export default async function ProgrammingBlog() {
 
   return (
     <div>
-      <main className="">
-        <h1 className="text-center font-extrabold text-emma-text text-3xl m-6 md:m-6">
-          Blog Posts
-        </h1>
-        <div className="space-y-8 gap-8 max-w-[800px] mx-auto p-12">
-          {sortedPages.map((page) => (
-            <BlogPostCard page={page} databaseId={databaseId} key={page.id} />
-          ))}
-        </div>
-      </main>
+      <h1 className="text-center font-extrabold text-emma-text text-3xl m-6 md:m-6">
+        Blog Posts
+      </h1>
+      <div className="space-y-8 gap-8 max-w-[800px] mx-auto p-12">
+        {sortedPages.map((page) => (
+          <BlogPostCard page={page} databaseId={databaseId} key={page.id} />
+        ))}
+      </div>
     </div>
   );
 }

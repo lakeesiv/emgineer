@@ -58,7 +58,7 @@ export const BlogPostCard = ({
   );
 };
 
-const formatDate = (date: string | undefined) => {
+export const formatDate = (date: string | undefined) => {
   const d = new Date(date as string) || new Date();
   // format date as Mon, Day Year (e.g. Nov 4, 2020)
   return d.toLocaleDateString(undefined, {

@@ -1,10 +1,11 @@
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import { mediaMapInterface, NotionPageBody } from "notion-on-next";
-import React from "react";
 import _mediaMap from "public/notion-media/media-map.json";
+import React from "react";
 import { BlogPageObjectResponse } from "types/notion-on-next.types";
 import { cachedGetBlocks, cachedGetParsedPages } from "../../get";
-import Image from "next/image";
+import { formatDate } from "../blog-post-card";
 
 export const revalidate = 60;
 
@@ -21,38 +22,36 @@ export default async function BlogPage({
   params: PageProps;
 }): Promise<React.ReactNode> {
   const { slug } = params;
-  // This may seem like a roundabout way to retrieve the page, but getParsedPages is a per-request cached function. You can read more about it here https://beta.nextjs.org/docs/data-fetching/caching#preload-pattern-with-cache
-  // The reason why we have to get all of the pages and then filter is because the Notion API can only search for pages via page id and not slug.
   const pages = await cachedGetParsedPages<BlogPageObjectResponse>(databaseId);
   const page = pages.find((page) => page.slug === slug);
   if (!page) {
     notFound();
   }
   const blocks = await cachedGetBlocks(page.id);
+  const image = mediaMap[databaseId]?.[page.id]?.cover;
 
   return (
     <div className="p-8 md:p-12 max-w-[800px] mx-auto">
       <div className="">
-        {mediaMap[databaseId]?.[page.id]?.cover && (
+        {image && (
           <Image
-            src={mediaMap[databaseId]?.[page.id]?.cover}
+            src={image}
             alt={page.title || "Blog Post"}
             width={500}
             height={500}
-            className="w-full h-[200px] md:h-[500px] object-cover object-center"
+            className="w-full h-[200px] md:h-[400px] rounded-md object-cover object-center"
           />
         )}
 
-        <div className="mt-4 mb-8">
-          <div className="text-3xl  font-bold">{page.title}</div>
+        <div className="mt-4">
+          <div className="text-3xl font-extrabold text-emma-text hover:text-emma-text-secondary transition ease-in duration-200 mb-2">
+            {page.title}
+          </div>
           <div className="text-gray-400">
-            {new Date(
-              page.properties.Date.date?.start as string
-            ).toLocaleDateString() || "No Date"}
+            {formatDate(page.properties.Date.date?.start) || "No Date"}
           </div>
         </div>
       </div>
-      <hr />
       <NotionPageBody
         blocks={blocks}
         pageId={page.id}
