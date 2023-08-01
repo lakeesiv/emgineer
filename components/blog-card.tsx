@@ -6,12 +6,7 @@ import { BlogPageObjectResponse } from "types/notion-on-next.types";
 import siteConfig from "site.config";
 const mediaMap = _mediaMap as mediaMapInterface;
 
-export const BlogPostCard = ({
-  page,
-}: {
-  page: BlogPageObjectResponse;
-  databaseId: string;
-}) => {
+export const BlogCard = ({ page }: { page: BlogPageObjectResponse }) => {
   const image = mediaMap[siteConfig.blogDatabaseId]?.[page.id]?.cover;
 
   return (
