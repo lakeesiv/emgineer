@@ -21,7 +21,7 @@ export const BlogPostCard = ({
       }`}
     >
       {image && (
-        <a className="relative block group" href={`/blog/${page.slug}`}>
+        <Link className="relative block group" href={`/blog/${page.slug}`}>
           <Image
             alt={page.title || "Cover Image for " + page.id}
             src={mediaMap[databaseId]?.[page.id]?.cover}
@@ -29,17 +29,17 @@ export const BlogPostCard = ({
             width={300}
             height={300}
           />
-        </a>
+        </Link>
       )}
       <div>
         <header>
           <h2 className="text-xl sm:text-2xl font-bold leading-snug mb-2 font-heading">
-            <a
-              className="text-emma-text underline underline-offset-4 decoration-1 transition ease-in duration-200"
+            <Link
+              className="text-emma-text hover:text-emma-text-secondary underline underline-offset-4 decoration-1 transition ease-in duration-200"
               href={`/blog/${page.slug}`}
             >
               {page.title}
-            </a>
+            </Link>
           </h2>
         </header>
         <p className="text-md sm:text-lg flex-grow">
