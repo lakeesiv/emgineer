@@ -33,6 +33,69 @@ export const getEventPages = cache(
   }
 );
 
+interface ParsedEventsPageObjectResponse extends EventsPageObjectResponse {
+  parsed: {
+    title: string;
+    description: string;
+    location: string;
+    date: Date;
+    duration: number;
+    signUpLink: string;
+    hide: boolean;
+    requiresPayment: boolean;
+  };
+}
+
+export const getParsedEventPages = cache(
+  async (): Promise<ParsedEventsPageObjectResponse[]> => {
+    const pages: EventsPageObjectResponse[] = await getEventPages();
+    const parsedPages = pages.map((page) => {
+      try {
+        //@ts-ignore
+        const title = page.properties.Name.title[0].plain_text as string;
+        //@ts-ignore
+        const description = page.properties.Description.rich_text[0]
+          .plain_text as string;
+        //@ts-ignore
+        const location = page.properties.Location.rich_text[0]
+          .plain_text as string;
+        //@ts-ignore
+        const duration = page.properties["Duration (hrs)"].number as number;
+
+        const fixedTypesProps = { title, description, location, duration };
+
+        const date =
+          new Date(page.properties.Date.date?.start as string) || new Date();
+        const hide = page.properties.Hide.checkbox as boolean;
+
+        if (hide) return null;
+
+        const parsedResults = {
+          ...fixedTypesProps,
+          date: date,
+          hide: hide,
+          signUpLink: page.properties["Sign Up Link"].url as string,
+          requiresPayment: page.properties["Requires Payment"]
+            .checkbox as boolean,
+        };
+
+        const parsedPage: ParsedEventsPageObjectResponse = {
+          ...page,
+          parsed: parsedResults,
+        };
+        return parsedPage;
+      } catch (error) {
+        return null;
+      }
+    });
+    const filteredPages = parsedPages.filter(
+      (page) => page !== null
+    ) as ParsedEventsPageObjectResponse[];
+
+    return filteredPages;
+  }
+);
+
 const sortPages = <T extends BlogPageObjectResponse | EventsPageObjectResponse>(
   pages: T[]
 ) => {

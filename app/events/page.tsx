@@ -1,9 +1,9 @@
-import { getEventPages } from "../get";
+import { getEventPages, getParsedEventPages } from "../get";
 
 export const revalidate = 60;
 
 export default async function EventIndex() {
-  const pages = await getEventPages();
+  const pages = await getParsedEventPages();
 
   return (
     <div>
@@ -16,7 +16,7 @@ export default async function EventIndex() {
             key={page.id}
             className="pre-wrap whitespace-pre-wrap break-words font-mono"
           >
-            {JSON.stringify(page.properties, null, 2)}
+            {JSON.stringify(page.parsed, null, 2)}
           </span>
         ))}
       </div>
