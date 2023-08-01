@@ -5,25 +5,25 @@ import { mediaMapInterface, NotionPageBody } from "notion-on-next";
 import _mediaMap from "public/notion-media/media-map.json";
 import React from "react";
 import siteConfig from "site.config";
-import { cachedGetBlocks, getBlogPages } from "../../get";
+import { cachedGetBlocks, getEventPages } from "app/get";
 
 export const revalidate = 60;
 const mediaMap = _mediaMap as mediaMapInterface;
-const databaseId = siteConfig.blogDatabaseId;
+const databaseId = siteConfig.eventsDatabaseId;
 
 interface PageProps {
   slug: string;
 }
 
-export default async function BlogPage({
+export default async function EventPage({
   params,
 }: {
   params: PageProps;
 }): Promise<React.ReactNode> {
   const { slug } = params;
   const decodedSlug = decodeURIComponent(slug).replace(" ", "-");
+  const pages = await getEventPages();
 
-  const pages = await getBlogPages();
   const page = pages.find((page) => page.slug === decodedSlug);
   if (!page) {
     notFound();
@@ -65,7 +65,7 @@ export default async function BlogPage({
 
 export async function generateStaticParams() {
   // This generates routes using the slugs created from getParsedPages
-  const pages = await getBlogPages();
+  const pages = await getEventPages();
   return pages.map((page) => ({
     slug: page.slug,
   }));

@@ -36,7 +36,7 @@ export type EventsPageObjectResponse = NotionOnNextPageObjectResponse & {
     "Requires Payment": CheckboxPropertyItemObjectResponse;
     Description: RichTextPropertyItemObjectResponse;
     Location: RichTextPropertyItemObjectResponse;
-    Start: DatePropertyItemObjectResponse;
+    Date: DatePropertyItemObjectResponse;
     Hide: CheckboxPropertyItemObjectResponse;
     "Duration (hrs)": NumberPropertyItemObjectResponse;
     Name: TitlePropertyItemObjectResponse;

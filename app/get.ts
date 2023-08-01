@@ -4,15 +4,11 @@ import {
 } from "@notionhq/client/build/src/api-endpoints";
 import { getBlocks, getParsedPages } from "notion-on-next";
 import { cache } from "react";
-import { BlogPageObjectResponse } from "types/notion-on-next.types";
+import {
+  BlogPageObjectResponse,
+  EventsPageObjectResponse,
+} from "types/notion-on-next.types";
 import siteConfig from "site.config";
-
-export const cachedGetParsedPages = cache(
-  async <Type>(pageId: string): Promise<Type[]> => {
-    const pages: Type[] = await getParsedPages(pageId);
-    return pages;
-  }
-);
 
 export const getBlogPages = cache(
   async (limit?: number): Promise<BlogPageObjectResponse[]> => {
@@ -27,7 +23,19 @@ export const getBlogPages = cache(
   }
 );
 
-const sortPages = (pages: BlogPageObjectResponse[]) => {
+export const getEventPages = cache(
+  async (): Promise<EventsPageObjectResponse[]> => {
+    const pages: EventsPageObjectResponse[] = await getParsedPages(
+      siteConfig.eventsDatabaseId
+    );
+    const sortedPages = sortPages(pages);
+    return sortedPages;
+  }
+);
+
+const sortPages = <T extends BlogPageObjectResponse | EventsPageObjectResponse>(
+  pages: T[]
+) => {
   // get all pages with a date
   const datedPages = pages.filter((page) => page.properties.Date.date?.start);
   // sort pages by date descending

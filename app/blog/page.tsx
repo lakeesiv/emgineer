@@ -3,7 +3,7 @@ import { getBlogPages } from "../get";
 
 export const revalidate = 60;
 
-export default async function ProgrammingBlog() {
+export default async function BlogIndex() {
   const pages = await getBlogPages();
 
   return (
