@@ -24,7 +24,7 @@ const MobileNav: FC<MobileNavProps> = ({ links }) => {
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger>
+      <DropdownMenuTrigger asChild>
         <Button variant="outline" className="px-3">
           <Menu className="h-[1.25rem] w-[1.25rem]" />
         </Button>
