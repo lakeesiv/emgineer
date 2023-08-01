@@ -2,6 +2,7 @@ import {
   PageObjectResponse,
   RichTextPropertyItemObjectResponse,
   DatePropertyItemObjectResponse,
+  PeoplePropertyItemObjectResponse,
   MultiSelectPropertyItemObjectResponse,
   TitlePropertyItemObjectResponse,
 } from "@notionhq/client/build/src/api-endpoints";
@@ -23,6 +24,7 @@ export type BlogPageObjectResponse = NotionOnNextPageObjectResponse & {
   properties: {
     Description: RichTextPropertyItemObjectResponse;
     Date: DatePropertyItemObjectResponse;
+    Author: PeoplePropertyItemObjectResponse;
     Tags: MultiSelectPropertyItemObjectResponse;
     Name: TitlePropertyItemObjectResponse;
   };
