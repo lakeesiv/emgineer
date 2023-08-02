@@ -33,7 +33,8 @@ export const getEventPages = cache(
   }
 );
 
-interface ParsedEventsPageObjectResponse extends EventsPageObjectResponse {
+export interface ParsedEventsPageObjectResponse
+  extends EventsPageObjectResponse {
   parsed: {
     title: string;
     description: string;
