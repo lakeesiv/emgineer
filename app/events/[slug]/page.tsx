@@ -15,11 +15,7 @@ interface PageProps {
   slug: string;
 }
 
-export default async function EventPage({
-  params,
-}: {
-  params: PageProps;
-}): Promise<React.ReactNode> {
+export default async function EventPage({ params }: { params: PageProps }) {
   const { slug } = params;
   const decodedSlug = decodeURIComponent(slug).replace(" ", "-");
   const pages = await getEventPages();
