@@ -72,9 +72,19 @@ export const authOptions: NextAuthOptions = {
   ],
 };
 
+interface Session {
+  user: {
+    name: string;
+    email: string;
+    image: string;
+    id: string;
+  };
+}
+
 /**
  * Wrapper for `getServerSession` so that you don't need to import the `authOptions` in every file.
  *
  * @see https://next-auth.js.org/configuration/nextjs
  */
-export const getServerAuthSession = () => getServerSession(authOptions);
+export const getServerAuthSession = () =>
+  getServerSession(authOptions) as unknown as Promise<Session | null>;
