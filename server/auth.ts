@@ -41,15 +41,23 @@ export const authOptions: NextAuthOptions = {
         id: token.sub,
       },
     }),
+    signIn: async ({ account, profile }) => {
+      if (
+        account?.provider === "google" &&
+        profile?.email?.endsWith("@example.com")
+      ) {
+        return true;
+      } else {
+        return false;
+      }
+    },
   },
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID as string,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
-      authorization: {
-        url: "https://accounts.google.com/o/oauth2/v2/auth?hd=cam.ac.uk",
-        params: {},
-      },
+      authorization:
+        "https://accounts.google.com/o/oauth2/auth?response_type=code&hd=cam.ac.uk",
     }),
 
     /**
