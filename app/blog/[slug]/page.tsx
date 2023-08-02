@@ -15,11 +15,7 @@ interface PageProps {
   slug: string;
 }
 
-export default async function BlogPage({
-  params,
-}: {
-  params: PageProps;
-}): Promise<React.ReactNode> {
+export default async function BlogPage({ params }: { params: PageProps }) {
   const { slug } = params;
   const decodedSlug = decodeURIComponent(slug).replace(" ", "-");
 

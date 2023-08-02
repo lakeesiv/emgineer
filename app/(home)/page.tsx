@@ -17,7 +17,6 @@ export default function Home() {
           Emmanuel College Engineering Society
         </p>
       </section>
-      {/* @ts-expect-error Server Component */}
       <BlogSection />
     </>
   );
