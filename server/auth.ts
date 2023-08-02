@@ -57,7 +57,7 @@ export const authOptions: NextAuthOptions = {
       clientId: process.env.GOOGLE_CLIENT_ID as string,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
       authorization:
-        "https://accounts.google.com/o/oauth2/auth?response_type=code&hd=cam.ac.uk",
+        "https://accounts.google.com/o/oauth2/auth?response_type=code&hd=cam.ac.uk&prompt=consent&access_type=offline",
     }),
 
     /**
