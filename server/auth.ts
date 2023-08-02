@@ -44,7 +44,7 @@ export const authOptions: NextAuthOptions = {
     signIn: async ({ account, profile }) => {
       if (
         account?.provider === "google" &&
-        profile?.email?.endsWith("@example.com")
+        profile?.email?.endsWith("@cam.ac.uk")
       ) {
         return true;
       } else {
