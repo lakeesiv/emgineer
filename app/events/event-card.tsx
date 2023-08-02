@@ -46,9 +46,12 @@ export const EventCard = ({
           {page.properties?.Description?.rich_text[0]?.plain_text}
         </p>
         <footer className="mt-4">
-          <div>
+          <div className="flex flex-col">
             <span className="text-gray-500 dark:text-slate-400">
-              {formatDate(page.parsed.date)}
+              {formatDate(page.parsed.date)} @ {page.parsed.location}
+            </span>
+            <span className="text-gray-500 dark:text-slate-400">
+              Duration ~ {page.parsed.duration} hrs
             </span>
           </div>
         </footer>
