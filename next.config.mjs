@@ -4,6 +4,7 @@ import million from "million/compiler";
 const nextConfig = {
   experimental: {
     appDir: true,
+    serverActions: true,
   },
   images: {
     remotePatterns: [
@@ -14,4 +15,4 @@ const nextConfig = {
   },
 };
 
-export default million.next(nextConfig);
+export default nextConfig;
