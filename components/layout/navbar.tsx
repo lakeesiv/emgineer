@@ -3,6 +3,11 @@
 import Link from "next/link";
 import Logo from "./logo";
 import MobileNav from "./mobile-nav";
+import dynamic from "next/dynamic";
+
+const UserAvatar = dynamic(() => import("components/auth/user-avatar"), {
+  ssr: false,
+});
 
 const links = [
   {
@@ -55,6 +60,9 @@ const NavBar = () => {
                 </Link>
               </li>
             ))}
+            <li className="mt-[0.72rem] ml-1">
+              <UserAvatar />
+            </li>
           </ul>
         </nav>
       </div>
