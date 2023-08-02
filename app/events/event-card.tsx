@@ -4,6 +4,7 @@ import _mediaMap from "public/notion-media/media-map.json";
 import { mediaMapInterface } from "notion-on-next/types/types";
 import siteConfig from "site.config";
 import { ParsedEventsPageObjectResponse } from "app/get";
+import { Badge } from "components/ui/badge";
 const mediaMap = _mediaMap as mediaMapInterface;
 
 export const EventCard = ({
@@ -53,6 +54,13 @@ export const EventCard = ({
             <span className="text-gray-500 dark:text-slate-400">
               Duration ~ {page.parsed.duration} hrs
             </span>
+            {page.parsed.requiresPayment && (
+              <div>
+                <Badge variant="destructive" className="mt-2">
+                  Requires Payment
+                </Badge>
+              </div>
+            )}
           </div>
         </footer>
       </div>

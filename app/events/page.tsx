@@ -15,9 +15,9 @@ export default async function EventIndex() {
         {pages.map((page) => (
           <>
             <EventCard page={page} />
-            <span className="pre-wrap whitespace-pre-wrap break-words font-mono">
+            {/* <span className="pre-wrap whitespace-pre-wrap break-words font-mono">
               {JSON.stringify(page.parsed, null, 2)}
-            </span>
+            </span> */}
           </>
         ))}
       </div>
