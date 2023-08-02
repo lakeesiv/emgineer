@@ -1,6 +1,10 @@
 "use client";
 import React from "react";
-import ThemeToggle from "./theme-toggle";
+import dynamic from "next/dynamic";
+
+const ThemeToggleNoSSR = dynamic(() => import("./theme-toggle"), {
+  ssr: false,
+});
 
 const Footer = () => {
   return (
@@ -8,7 +12,7 @@ const Footer = () => {
       <div className="text-emma-text font-extrabold ">
         Emgineers | {new Date().getFullYear()}
       </div>
-      <ThemeToggle />
+      <ThemeToggleNoSSR />
     </footer>
   );
 };
