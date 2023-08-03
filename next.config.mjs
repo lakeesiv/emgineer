@@ -4,6 +4,7 @@ import million from "million/compiler";
 const nextConfig = {
   experimental: {
     appDir: true,
+    serverActions: true,
   },
   images: {
     remotePatterns: [
