@@ -45,8 +45,10 @@ export type EventsPageObjectResponse = NotionOnNextPageObjectResponse & {
 export type SignUpPageObjectResponse = NotionOnNextPageObjectResponse & {
   properties: {
     Email: EmailPropertyItemObjectResponse;
+    "Extra Details": RichTextPropertyItemObjectResponse;
     Status: MultiSelectPropertyItemObjectResponse;
-    hasPaid: RichTextPropertyItemObjectResponse;
+    Event: RichTextPropertyItemObjectResponse;
+    Payment: MultiSelectPropertyItemObjectResponse;
     Name: TitlePropertyItemObjectResponse;
   };
 };
