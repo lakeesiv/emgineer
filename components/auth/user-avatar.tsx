@@ -14,19 +14,21 @@ import {
 import { LogIn, LogOut } from "lucide-react";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
+import { signOut, signIn } from "next-auth/react";
 
 const UserAvatar = () => {
   const { data: session } = useSession();
 
   if (!session) {
     return (
-      <Link href="/signin">
-        <Avatar className="h-8 w-8 ">
-          <AvatarFallback className="bg-transparent">
-            <LogIn className="h-6 w-6 text-emma-text font-extrabold" />
-          </AvatarFallback>
-        </Avatar>
-      </Link>
+      <Avatar
+        className="h-8 w-8 hover:scale-110 transition-all duration-200 ease-in-out cursor-pointer "
+        onClick={() => signIn("google")}
+      >
+        <AvatarFallback className="bg-transparent">
+          <LogIn className="h-6 w-6 text-emma-text font-extrabold" />
+        </AvatarFallback>
+      </Avatar>
     );
   }
 
@@ -58,11 +60,9 @@ const UserAvatar = () => {
           </div>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuItem asChild>
-          <Link href="/signout">
-            <LogOut className="mr-2 h-4 w-4" />
-            <span>Log out</span>
-          </Link>
+        <DropdownMenuItem onClick={() => signOut()}>
+          <LogOut className="mr-2 h-4 w-4" />
+          <span>Log out</span>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
