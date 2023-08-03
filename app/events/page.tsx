@@ -14,7 +14,7 @@ export default async function EventIndex() {
         Events
       </h1>
       <div className="space-y-8 gap-8 max-w-[800px] mx-auto p-12">
-        <div className=" text-emma-text text-xl">
+        <div className="items-center text-center text-emma-text text-xl">
           <UserDetails />
         </div>
         {pages.map((page) => (

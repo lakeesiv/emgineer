@@ -1,8 +1,9 @@
 import { Button } from "components/ui/button";
-import { signIn } from "next-auth/react";
+import { ArrowUpRight } from "lucide-react";
 import React from "react";
 import { api } from "trpc/server";
 import SignIn from "./sign-in";
+import Link from "next/link";
 
 interface UserDetailsProps {
   fallback?: React.JSX.Element;
@@ -10,8 +11,15 @@ interface UserDetailsProps {
 
 const UserDetails = async (props: UserDetailsProps) => {
   try {
-    const user = await api.user.me.query();
-    return <div>{JSON.stringify(user)}</div>;
+    await api.user.me.query();
+    return (
+      <Link href="/user" target="_blank">
+        <Button className="pl-2 bg-emma-text">
+          <ArrowUpRight className="inline-block mr-2" size={24} />
+          View Your Booked Events
+        </Button>
+      </Link>
+    );
   } catch (error) {
     return props.fallback || <SignIn />;
   }
