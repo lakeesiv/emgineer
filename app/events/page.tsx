@@ -7,7 +7,6 @@ export const revalidate = 60;
 
 export default async function EventIndex() {
   const pages = await getParsedEventPages();
-  console.log(pages);
 
   return (
     <div>

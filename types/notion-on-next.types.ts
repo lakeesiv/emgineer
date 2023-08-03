@@ -1,5 +1,5 @@
 
-      import { PageObjectResponse, RichTextPropertyItemObjectResponse, DatePropertyItemObjectResponse, TitlePropertyItemObjectResponse, CheckboxPropertyItemObjectResponse, NumberPropertyItemObjectResponse, EmailPropertyItemObjectResponse, MultiSelectPropertyItemObjectResponse, LastEditedByPropertyItemObjectResponse, SelectPropertyItemObjectResponse, CreatedTimePropertyItemObjectResponse } from "@notionhq/client/build/src/api-endpoints";;;;
+      import { PageObjectResponse, RichTextPropertyItemObjectResponse, DatePropertyItemObjectResponse, TitlePropertyItemObjectResponse, CheckboxPropertyItemObjectResponse, NumberPropertyItemObjectResponse, EmailPropertyItemObjectResponse, SelectPropertyItemObjectResponse, LastEditedByPropertyItemObjectResponse, CreatedTimePropertyItemObjectResponse } from "@notionhq/client/build/src/api-endpoints";;;;
       
       export interface NotionOnNextPageObjectResponse extends PageObjectResponse {
         slug: string | undefined;
@@ -37,7 +37,7 @@ export type SignUpPageObjectResponse = NotionOnNextPageObjectResponse & {
 	properties: {
 		'Email': EmailPropertyItemObjectResponse;
 		'Extra Details': RichTextPropertyItemObjectResponse;
-		'Going': MultiSelectPropertyItemObjectResponse;
+		'Going': SelectPropertyItemObjectResponse;
 		'Last edited time': LastEditedByPropertyItemObjectResponse;
 		'Event': RichTextPropertyItemObjectResponse;
 		'Payment': SelectPropertyItemObjectResponse;

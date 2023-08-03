@@ -101,8 +101,8 @@ export class Notion {
       Going: {
         // @ts-ignore
         type: "select",
+        // @ts-ignore
         select: {
-          // @ts-ignore
           name: status,
         },
       },
@@ -190,8 +190,8 @@ export class Notion {
       Going: {
         // @ts-ignore
         type: "select",
+        // @ts-ignore
         select: {
-          // @ts-ignore
           name: status,
         },
       },
