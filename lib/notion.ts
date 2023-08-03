@@ -9,7 +9,7 @@ export class Notion {
 
   constructor() {
     this.notion = new Client({
-      auth: process.env.NOTION_TOKEN,
+      auth: process.env.NOTION_KEY,
     });
     this.eventsDatabaseId = siteConfig.eventsDatabaseId;
     this.signUpDatabaseId = siteConfig.signUpDatabaseId;
@@ -19,9 +19,11 @@ export class Notion {
     const properties: Partial<SignUpPageObjectResponse["properties"]> = {
       // @ts-ignore
       Email: {
+        type: "email",
         email: email,
       },
       Name: {
+        type: "title",
         // @ts-ignore
         title: [
           {
@@ -33,10 +35,13 @@ export class Notion {
       },
       Status: {
         // @ts-ignore
-        select: {
-          name: status,
-          color: status === "Yes" ? "green" : "red",
-        },
+        type: "multi_select",
+        multi_select: [
+          // @ts-ignore
+          {
+            name: status,
+          },
+        ],
       },
     };
 
