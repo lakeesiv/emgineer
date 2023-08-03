@@ -11,7 +11,7 @@ interface SignUpStatusProps {
 
 const SignUpStatus = async ({ eventId, slug }: SignUpStatusProps) => {
   try {
-    const status = await api.events.userSignUpStatus.query({
+    const { status } = await api.events.userSignUpStatus.query({
       eventId: eventId,
     });
     let buttonClassName = "w-full mt-4 ";

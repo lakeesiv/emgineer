@@ -5,7 +5,8 @@ import { mediaMapInterface, NotionPageBody } from "notion-on-next";
 import _mediaMap from "public/notion-media/media-map.json";
 import React from "react";
 import siteConfig from "site.config";
-import { cachedGetBlocks, getEventPages } from "app/get";
+import { cachedGetBlocks, getEventPages, getParsedEventPages } from "app/get";
+import RegisterForm from "../_components/register-form";
 
 export const revalidate = 60;
 const mediaMap = _mediaMap as mediaMapInterface;
@@ -18,7 +19,7 @@ interface PageProps {
 export default async function EventPage({ params }: { params: PageProps }) {
   const { slug } = params;
   const decodedSlug = decodeURIComponent(slug).replace(" ", "-");
-  const pages = await getEventPages();
+  const pages = await getParsedEventPages();
 
   const page = pages.find((page) => page.slug === decodedSlug);
   if (!page) {
@@ -55,6 +56,7 @@ export default async function EventPage({ params }: { params: PageProps }) {
         databaseId={databaseId}
         mediaMap={mediaMap}
       />
+      <RegisterForm eventId={page.parsed.eventId} />
     </div>
   );
 }

@@ -33,30 +33,45 @@ export const userSignUpStatus = protectedProcedure
     const res = await ctx.notion.getSignUp(name, email, eventId);
 
     if (!res) {
-      return "RVSP";
+      return {
+        status: "RVSP",
+        extraDetails: "",
+        going: "No",
+        payment: "Not Needed",
+      };
     }
 
-    const going = res.properties.Going.select?.name || ("No" as "Yes" | "No");
+    const going = res.properties.Going.select?.name as "Yes" | "No";
     const payment = res.properties.Payment.select?.name as
       | "Paid"
       | "Not Paid"
       | "Not Needed";
 
+    let status = "";
+
     if (going === "No") {
-      return "Not Going";
+      status = "Not Going";
     }
 
     if (going === "Yes" && payment === "Paid") {
-      return "Going (Paid)";
+      status = "Going (Paid)";
     }
 
     if (going === "Yes" && payment === "Not Paid") {
-      return "Awaiting Payment/Approval";
+      status = "Awaiting Payment/Approval";
     }
 
     if (going === "Yes" && payment === "Not Needed") {
-      return "Going";
+      status = "Going";
     }
+
+    return {
+      status,
+      // @ts-ignore
+      extraDetails: res.properties["Extra Details"].rich_text[0].plain_text,
+      going,
+      payment,
+    };
   });
 
 export const eventRouter = createTRPCRouter({
