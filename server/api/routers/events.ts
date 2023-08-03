@@ -9,11 +9,19 @@ export const signUp = protectedProcedure
   .input(
     z.object({
       status: z.enum(["Yes", "No"]),
+      eventId: z.string(),
+      extraDetails: z.string().optional(),
     })
   )
-  .mutation(async ({ ctx, input: { status } }) => {
+  .mutation(async ({ ctx, input: { status, eventId, extraDetails } }) => {
     const { name, email } = ctx.session.user;
-    const res = ctx.notion.addSignUp(name, email, status);
+    const res = ctx.notion.upsertSignUp(
+      name,
+      email,
+      eventId,
+      status,
+      extraDetails
+    );
 
     return res;
   });

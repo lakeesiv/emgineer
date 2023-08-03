@@ -41,7 +41,6 @@ export interface ParsedEventsPageObjectResponse
     location: string;
     date: Date;
     duration: number;
-    signUpLink: string;
     hide: boolean;
     requiresPayment: boolean;
   };
@@ -75,7 +74,6 @@ export const getParsedEventPages = cache(
           ...fixedTypesProps,
           date: date,
           hide: hide,
-          signUpLink: page.properties["Sign Up Link"].url as string,
           requiresPayment: page.properties["Requires Payment"]
             .checkbox as boolean,
         };

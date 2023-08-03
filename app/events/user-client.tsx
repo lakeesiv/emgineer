@@ -10,6 +10,8 @@ const UserClient = () => {
       onClick={async () => {
         const res = await api.events.signUp.mutate({
           status: "Yes",
+          eventId: "2",
+          extraDetails: "Sounds like fun",
         });
       }}
     >

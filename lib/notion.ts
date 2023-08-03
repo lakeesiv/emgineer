@@ -1,6 +1,9 @@
 import { Client } from "@notionhq/client";
 import siteConfig from "site.config";
-import { SignUpPageObjectResponse } from "types/notion-on-next.types";
+import {
+  EventsPageObjectResponse,
+  SignUpPageObjectResponse,
+} from "types/notion-on-next.types";
 
 export class Notion {
   notion: Client;
@@ -15,8 +18,159 @@ export class Notion {
     this.signUpDatabaseId = siteConfig.signUpDatabaseId;
   }
 
-  async addSignUp(name: string, email: string, status: "Yes" | "No") {
+  async getEvent(id: string) {
+    const res = await this.notion.databases.query({
+      database_id: this.eventsDatabaseId,
+      filter: {
+        property: "Id",
+        rich_text: {
+          equals: id,
+        },
+      },
+    });
+
+    return res.results[0] as EventsPageObjectResponse;
+  }
+
+  private async eventValidateAndPaymentCheck(name: string) {
+    const event = await this.getEvent(name);
+
+    if (!event) {
+      throw new Error(`Event ${name} not found`);
+    }
+
+    return {
+      paymentRequired: event.properties["Requires Payment"].checkbox,
+      // @ts-ignore
+      eventName: event.properties.Name.title[0].plain_text,
+    };
+  }
+
+  async getSignUp(name: string, email: string, eventId: string) {
+    const res = await this.notion.databases.query({
+      database_id: this.signUpDatabaseId,
+      filter: {
+        and: [
+          {
+            property: "Name",
+            title: {
+              equals: name,
+            },
+          },
+          {
+            property: "Email",
+            email: {
+              equals: email,
+            },
+          },
+          {
+            property: "EventId",
+            rich_text: {
+              equals: eventId,
+            },
+          },
+        ],
+      },
+    });
+
+    return res.results[0];
+  }
+
+  async upsertSignUp(
+    name: string,
+    email: string,
+    eventId: string,
+    status: "Yes" | "No",
+    extraDetails?: string
+  ) {
+    const signUp = await this.getSignUp(name, email, eventId);
+
+    if (!signUp) {
+      console.log(
+        "Creating new sign up",
+        name,
+        email,
+        eventId,
+        status,
+        extraDetails
+      );
+      return await this.addSignUp(name, email, eventId, status, extraDetails);
+    }
+
     const properties: Partial<SignUpPageObjectResponse["properties"]> = {
+      Going: {
+        // @ts-ignore
+        type: "select",
+        select: {
+          // @ts-ignore
+          name: status,
+        },
+      },
+      "Extra Details": {
+        type: "rich_text",
+        // @ts-ignore
+        rich_text: [
+          {
+            text: {
+              content: extraDetails || "",
+            },
+          },
+        ],
+      },
+    };
+
+    const response = await this.notion.pages.update({
+      page_id: signUp.id,
+      // @ts-ignore
+      properties,
+    });
+
+    return response;
+  }
+
+  private async addSignUp(
+    name: string,
+    email: string,
+    eventId: string,
+    status: "Yes" | "No",
+    extraDetails?: string
+  ) {
+    const { eventName, paymentRequired } =
+      await this.eventValidateAndPaymentCheck(eventId);
+
+    const properties: Partial<SignUpPageObjectResponse["properties"]> = {
+      Event: {
+        type: "rich_text",
+        // @ts-ignore
+        rich_text: [
+          {
+            // @ts-ignore
+            text: {
+              content: eventName,
+            },
+          },
+        ],
+      },
+      EventId: {
+        type: "rich_text",
+        // @ts-ignore
+        rich_text: [
+          {
+            // @ts-ignore
+            text: {
+              content: eventId,
+            },
+          },
+        ],
+      },
+
+      Payment: {
+        type: "select",
+        // @ts-ignore
+        select: {
+          name: paymentRequired ? "No" : "Not Needed",
+        },
+      },
       // @ts-ignore
       Email: {
         type: "email",
@@ -33,13 +187,22 @@ export class Notion {
           },
         ],
       },
-      Status: {
+      Going: {
         // @ts-ignore
-        type: "multi_select",
-        multi_select: [
+        type: "select",
+        select: {
           // @ts-ignore
+          name: status,
+        },
+      },
+      "Extra Details": {
+        type: "rich_text",
+        // @ts-ignore
+        rich_text: [
           {
-            name: status,
+            text: {
+              content: extraDetails || "",
+            },
           },
         ],
       },
