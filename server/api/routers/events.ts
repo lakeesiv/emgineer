@@ -32,6 +32,7 @@ export const userSignUpStatus = protectedProcedure
     const { name, email } = ctx.session.user;
     const res = await ctx.notion.getSignUp(name, email, eventId);
 
+    const going = res.properties.Going.select?.name as "Yes" | "No";
     let status = "RVSP" as
       | "RVSP"
       | "Not Going"
@@ -39,20 +40,18 @@ export const userSignUpStatus = protectedProcedure
       | "Going"
       | "Awaiting Payment/Approval";
 
-    if (!res) {
-      return {
-        status: status,
-        extraDetails: "",
-        going: "No",
-        payment: "Not Needed",
-      };
-    }
-
-    const going = res.properties.Going.select?.name as "Yes" | "No";
     const payment = res.properties.Payment.select?.name as
       | "Paid"
       | "Not Paid"
       | "Not Needed";
+    if (!res) {
+      return {
+        status: status,
+        extraDetails: "",
+        going: going,
+        payment: "Not Needed",
+      };
+    }
 
     if (going === "No") {
       status = "Not Going";
