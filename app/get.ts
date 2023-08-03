@@ -37,6 +37,7 @@ export interface ParsedEventsPageObjectResponse
   extends EventsPageObjectResponse {
   parsed: {
     title: string;
+    eventId: string;
     description: string;
     location: string;
     date: Date;
@@ -60,9 +61,17 @@ export const getParsedEventPages = cache(
         const location = page.properties.Location.rich_text[0]
           .plain_text as string;
         //@ts-ignore
+        const eventId = page.properties["Id"].rich_text[0].plain_text as string;
+        //@ts-ignore
         const duration = page.properties["Duration (hrs)"].number as number;
 
-        const fixedTypesProps = { title, description, location, duration };
+        const fixedTypesProps = {
+          title,
+          description,
+          location,
+          duration,
+          eventId,
+        };
 
         const date =
           new Date(page.properties.Date.date?.start as string) || new Date();
