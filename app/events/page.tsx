@@ -1,8 +1,6 @@
-import UserAvatar from "components/auth/user-avatar";
-import { getEventPages, getParsedEventPages } from "../get";
-import { EventCard } from "./event-card";
 import UserDetails from "components/auth/user-details";
-import EventSignUp from "./event-sign-up";
+import { getParsedEventPages } from "../get";
+import { EventCard } from "./event-card";
 import UserClient from "./user-client";
 
 export const revalidate = 60;
