@@ -4,7 +4,6 @@ import { Button } from "components/ui/button";
 import React, { use, useEffect, useState } from "react";
 import { api, RouterOutputs } from "trpc/client";
 import Login from "./login-in";
-import { ErrorBoundary } from "react-error-boundary";
 import Link from "next/link";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -25,6 +24,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "components/ui/select";
+import { Textarea } from "components/ui/textarea";
 
 const formSchema = z.object({
   going: z.enum(["Yes", "No", "Maybe"]),
@@ -36,16 +36,16 @@ interface RegisterFormProps {
   extraDetails?: string;
 }
 
-const RegisterForm = ({ eventId }: RegisterFormProps) => {
+const RegisterForm = ({ eventId, extraDetails }: RegisterFormProps) => {
   const eventSignUpForm = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
   });
 
-  // 2. Define a submit handler.
   function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(values);
+    userSignUp({
+      going: values.going,
+      extraDetails: values.extraDetails,
+    });
   }
 
   // #region Not Logged In Error Handling
@@ -83,12 +83,19 @@ const RegisterForm = ({ eventId }: RegisterFormProps) => {
   }
   // #endregion
 
-  async function userSignUp() {
+  async function userSignUp({
+    going,
+    extraDetails,
+  }: z.infer<typeof formSchema> 
+  
+  ) 
+  
+  {
     try {
       const res = await api.events.signUp.mutate({
-        status: "Yes",
+        going: going,
         eventId: eventId,
-        extraDetails: undefined,
+        extraDetails: extraDetails,
       });
       window.location.reload();
     } catch (error) {
@@ -132,18 +139,31 @@ const RegisterForm = ({ eventId }: RegisterFormProps) => {
             </FormItem>
           )}
         />
+        {!extraDetails && (
+          <FormField
+            control={eventSignUpForm.control}
+            name="extraDetails"
+            defaultValue={userSignUpStatus.extraDetails}
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Extra Details</FormLabel>
+                <FormControl>
+                  <Textarea className="resize-none" {...field} />
+                </FormControl>
+                <FormDescription>
+                  We require the following details: {extraDetails}, please enter
+                  them in the box above.
+                </FormDescription>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        )}
+
         <Button type="submit">Submit</Button>
       </form>
     </Form>
   );
 };
 
-const WithErrorBoundary = (props: RegisterFormProps) => {
-  return (
-    <ErrorBoundary fallback={<div>Oh no</div>}>
-      <RegisterForm {...props} />
-    </ErrorBoundary>
-  );
-};
-
-export default WithErrorBoundary;
+export default RegisterForm;

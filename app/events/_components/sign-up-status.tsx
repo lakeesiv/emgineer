@@ -1,8 +1,6 @@
 import { Button } from "components/ui/button";
-import React from "react";
-import { getServerAuthSession } from "server/auth";
-import Login from "./login-in";
 import { api } from "trpc/server";
+import Login from "./login-in";
 
 interface SignUpStatusProps {
   eventId: string;
@@ -26,6 +24,8 @@ const SignUpStatus = async ({ eventId, slug }: SignUpStatusProps) => {
       case "Not Going":
         buttonClassName += "bg-red-500 hover:bg-red-600";
         break;
+      case "Maybe":
+        buttonClassName += "bg-yellow-500 hover:bg-yellow-600";
       case "RVSP":
         buttonClassName += "bg-blue-500 hover:bg-blue-600";
         break;

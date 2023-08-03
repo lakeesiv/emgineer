@@ -8,18 +8,18 @@ import {
 export const signUp = protectedProcedure
   .input(
     z.object({
-      status: z.enum(["Yes", "No"]),
+      going: z.enum(["Yes", "No", "Maybe"]),
       eventId: z.string(),
       extraDetails: z.string().optional(),
     })
   )
-  .mutation(async ({ ctx, input: { status, eventId, extraDetails } }) => {
+  .mutation(async ({ ctx, input: { going, eventId, extraDetails } }) => {
     const { name, email } = ctx.session.user;
     const res = ctx.notion.upsertSignUp(
       name,
       email,
       eventId,
-      status,
+      going,
       extraDetails
     );
 
@@ -32,13 +32,14 @@ export const userSignUpStatus = protectedProcedure
     const { name, email } = ctx.session.user;
     const res = await ctx.notion.getSignUp(name, email, eventId);
 
-    const going = res.properties.Going.select?.name as "Yes" | "No";
+    const going = res.properties.Going.select?.name as "Yes" | "No" | "Maybe";
     let status = "RVSP" as
       | "RVSP"
       | "Not Going"
       | "Going (Paid)"
       | "Going"
-      | "Awaiting Payment/Approval";
+      | "Awaiting Payment/Approval"
+      | "Maybe";
 
     const payment = res.properties.Payment.select?.name as
       | "Paid"
@@ -55,6 +56,9 @@ export const userSignUpStatus = protectedProcedure
 
     if (going === "No") {
       status = "Not Going";
+    }
+    if (going === "Maybe") {
+      status = "Maybe";
     }
 
     if (going === "Yes" && payment === "Paid") {

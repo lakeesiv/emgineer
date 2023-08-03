@@ -80,7 +80,7 @@ export class Notion {
     name: string,
     email: string,
     eventId: string,
-    going: "Yes" | "No",
+    going: "Yes" | "No" | "Maybe",
     extraDetails?: string
   ) {
     const signUp = await this.getSignUp(name, email, eventId);
@@ -132,7 +132,7 @@ export class Notion {
     name: string,
     email: string,
     eventId: string,
-    status: "Yes" | "No",
+    status: "Yes" | "No" | "Maybe",
     extraDetails?: string
   ) {
     const { eventName, paymentRequired } =
