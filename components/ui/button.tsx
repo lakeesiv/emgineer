@@ -49,7 +49,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 
     if (href) {
       return (
-        <Link href={href} passHref>
+        <Link href={href} passHref className="w-full">
           <Comp
             className={cn(buttonVariants({ variant, size, className }))}
             ref={ref}

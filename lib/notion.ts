@@ -32,11 +32,11 @@ export class Notion {
     return res.results[0] as EventsPageObjectResponse;
   }
 
-  private async eventValidateAndPaymentCheck(name: string) {
-    const event = await this.getEvent(name);
+  private async eventValidateAndPaymentCheck(id: string) {
+    const event = await this.getEvent(id);
 
     if (!event) {
-      throw new Error(`Event ${name} not found`);
+      throw new Error(`Event ${id} not found`);
     }
 
     return {
@@ -73,14 +73,14 @@ export class Notion {
       },
     });
 
-    return res.results[0];
+    return res.results[0] as SignUpPageObjectResponse;
   }
 
   async upsertSignUp(
     name: string,
     email: string,
     eventId: string,
-    status: "Yes" | "No",
+    going: "Yes" | "No",
     extraDetails?: string
   ) {
     const signUp = await this.getSignUp(name, email, eventId);
@@ -91,10 +91,10 @@ export class Notion {
         name,
         email,
         eventId,
-        status,
+        going,
         extraDetails
       );
-      return await this.addSignUp(name, email, eventId, status, extraDetails);
+      return await this.addSignUp(name, email, eventId, going, extraDetails);
     }
 
     const properties: Partial<SignUpPageObjectResponse["properties"]> = {
@@ -103,7 +103,7 @@ export class Notion {
         type: "select",
         // @ts-ignore
         select: {
-          name: status,
+          name: going,
         },
       },
       "Extra Details": {
@@ -168,7 +168,7 @@ export class Notion {
         type: "select",
         // @ts-ignore
         select: {
-          name: paymentRequired ? "No" : "Not Needed",
+          name: paymentRequired ? "Not Paid" : "Not Needed",
         },
       },
       // @ts-ignore
