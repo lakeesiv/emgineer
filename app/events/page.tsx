@@ -1,6 +1,7 @@
 import UserAvatar from "components/auth/user-avatar";
 import { getEventPages, getParsedEventPages } from "../get";
 import { EventCard } from "./event-card";
+import UserDetails from "components/auth/user-details";
 
 export const revalidate = 60;
 
@@ -13,6 +14,9 @@ export default async function EventIndex() {
         Events
       </h1>
       <div className="space-y-8 gap-8 max-w-[800px] mx-auto p-12">
+        <div className=" text-emma-text text-xl">
+          <UserDetails />
+        </div>
         {pages.map((page) => (
           <>
             <EventCard page={page} />

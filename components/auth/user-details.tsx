@@ -4,12 +4,16 @@ import React from "react";
 import { api } from "trpc/server";
 import SignIn from "./sign-in";
 
-const UserDetails = async () => {
+interface UserDetailsProps {
+  fallback?: React.JSX.Element;
+}
+
+const UserDetails = async (props: UserDetailsProps) => {
   try {
     const user = await api.user.me.query();
     return <div>{JSON.stringify(user)}</div>;
   } catch (error) {
-    return <SignIn />;
+    return props.fallback || <SignIn />;
   }
 };
 

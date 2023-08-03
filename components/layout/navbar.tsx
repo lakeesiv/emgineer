@@ -4,6 +4,7 @@ import Link from "next/link";
 import Logo from "./logo";
 import MobileNav from "./mobile-nav";
 import dynamic from "next/dynamic";
+import { Suspense } from "react";
 
 const UserAvatar = dynamic(() => import("components/auth/user-avatar"), {
   ssr: false,
@@ -41,7 +42,9 @@ const NavBar = () => {
           </a>
           <div className="flex items-center space-x-5 md:hidden">
             <MobileNav links={links} />
-            <UserAvatar />
+            <Suspense>
+              <UserAvatar />
+            </Suspense>
           </div>
         </div>
         <nav
