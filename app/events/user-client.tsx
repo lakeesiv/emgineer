@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "components/ui/button";
-import React from "react";
+import React, { use } from "react";
 import { api } from "trpc/client";
 
 const UserClient = () => {
@@ -13,7 +13,7 @@ const UserClient = () => {
         });
       }}
     >
-      Add Entry
+      A
     </Button>
   );
 };
