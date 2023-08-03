@@ -16,4 +16,18 @@ export const eventRouter = createTRPCRouter({
         user: JSON.stringify(user, null, 2),
       };
     }),
+  signUp: protectedProcedure
+    .input(
+      z.object({
+        name: z.string(),
+        email: z.string().email(),
+        status: z.enum(["Yes", "No"]),
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      const { name, email, status } = input;
+      const res = ctx.notion.addSignUp(name, email, status);
+
+      return res;
+    }),
 });

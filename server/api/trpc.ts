@@ -14,6 +14,7 @@ import { headers } from "next/headers";
 import superjson from "superjson";
 import { ZodError } from "zod";
 import { getServerAuthSession } from "server/auth";
+import { Notion } from "lib/notion";
 
 /**
  * 1. CONTEXT
@@ -39,10 +40,12 @@ type CreateContextOptions = {
  */
 export const createInnerTRPCContext = async (opts: CreateContextOptions) => {
   const session = await getServerAuthSession();
+  const notion = new Notion();
 
   return {
     session,
     headers: opts.headers,
+    notion,
   };
 };
 
