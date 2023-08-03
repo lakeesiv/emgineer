@@ -47,7 +47,12 @@ export const userSignUpStatus = protectedProcedure
       | "Not Paid"
       | "Not Needed";
 
-    let status = "";
+    let status = "" as
+      | "RVSP"
+      | "Not Going"
+      | "Going (Paid)"
+      | "Going"
+      | "Awaiting Payment/Approval";
 
     if (going === "No") {
       status = "Not Going";
