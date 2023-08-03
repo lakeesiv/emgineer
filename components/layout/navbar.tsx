@@ -39,8 +39,9 @@ const NavBar = () => {
           <a className="flex items-center" href={"/"}>
             <Logo />
           </a>
-          <div className="flex items-center md:hidden">
+          <div className="flex items-center space-x-5 md:hidden">
             <MobileNav links={links} />
+            <UserAvatar />
           </div>
         </div>
         <nav
@@ -60,7 +61,7 @@ const NavBar = () => {
                 </Link>
               </li>
             ))}
-            <li className="mt-[0.72rem] ml-1">
+            <li className="mt-[0.7rem] ml-4">
               <UserAvatar />
             </li>
           </ul>
