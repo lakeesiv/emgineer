@@ -28,7 +28,7 @@ export const EventCard = ({
       }`}
     >
       {image && (
-        <Link className="relative block group" href={`/eventsy/${page.slug}`}>
+        <Link className="relative block group" href={`/events/${page.slug}`}>
           <Image
             alt={page.title || "Cover Image for " + page.id}
             src={image}
@@ -49,7 +49,7 @@ export const EventCard = ({
             </Link>
           </h2>
         </header>
-        <p className="text-md sm:text-lg flex-grow">{description}</p>
+        {/* <p className="text-md sm:text-lg flex-grow">{description}</p> */}
         <footer className="mt-4">
           <div className="flex flex-col">
             <span className="text-gray-500 dark:text-slate-400">
