@@ -8,16 +8,15 @@ import {
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
-  DropdownMenuShortcut,
   DropdownMenuTrigger,
 } from "components/ui/dropdown-menu";
 import { LogIn, LogOut } from "lucide-react";
-import { useSession } from "next-auth/react";
-import Link from "next/link";
-import { signOut, signIn } from "next-auth/react";
+import { signIn, signOut, useSession } from "next-auth/react";
 
 const UserAvatar = () => {
   const { data: session } = useSession();
+  const isBrowser = typeof window !== "undefined";
+  if (!isBrowser) return null;
 
   if (!session) {
     return (

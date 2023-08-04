@@ -6,7 +6,7 @@ import MobileNav from "./mobile-nav";
 import dynamic from "next/dynamic";
 import { Suspense } from "react";
 
-const UserAvatar = dynamic(() => import("components/auth/user-avatar"), {
+const UserAvatar = dynamic(() => import("components/layout/user-avatar"), {
   ssr: false,
 });
 
