@@ -21,7 +21,7 @@ export default async function EventPage({ params }: { params: PageProps }) {
   const decodedSlug = decodeURIComponent(slug).replace(" ", "-");
   const pages = await getParsedEventPages();
 
-  const page = pages.find((page) => page.slug === decodedSlug);
+  const page = pages.find((page) => page.parsed.eventId === decodedSlug);
   if (!page) {
     notFound();
   }

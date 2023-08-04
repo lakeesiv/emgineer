@@ -21,6 +21,8 @@ export const EventCard = ({
   const description = page.properties?.Description?.rich_text[0]
     ?.plain_text as string;
 
+  const slug = page.parsed.eventId;
+
   return (
     <article
       className={`max-w-md mx-auto md:max-w-none grid gap-6 md:gap-8 ${
@@ -28,7 +30,7 @@ export const EventCard = ({
       }`}
     >
       {image && (
-        <Link className="relative block group" href={`/events/${page.slug}`}>
+        <Link className="relative block group" href={`/events/${slug}`}>
           <Image
             alt={page.title || "Cover Image for " + page.id}
             src={image}
@@ -43,7 +45,7 @@ export const EventCard = ({
           <h2 className="text-xl sm:text-2xl font-bold leading-snug mb-2 font-heading">
             <Link
               className="text-emma-primary hover:text-emma-secondary underline underline-offset-4 decoration-1 transition ease-in duration-200"
-              href={`/events/${page.slug}`}
+              href={`/events/${slug}`}
             >
               {page.title}
             </Link>
