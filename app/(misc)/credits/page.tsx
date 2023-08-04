@@ -6,7 +6,7 @@ const CreditsPage = () => {
     <>
       <section className="flex flex-col items-center justify-center p-12">
         <h1
-          className="animate-fade-up bg-gradient-to-br from-emma-text to-emma-text-secondary bg-clip-text text-center text-6xl font-extrabold tracking-[-0.02em] text-transparent opacity-0 drop-shadow-sm md:text-7xl/[5rem] pb-[0.8rem]"
+          className="animate-fade-up bg-gradient-to-br from-emma-primary to-emma-secondary bg-clip-text text-center text-6xl font-extrabold tracking-[-0.02em] text-transparent opacity-0 drop-shadow-sm md:text-7xl/[5rem] pb-[0.8rem]"
           style={{ animationDelay: "0.20s", animationFillMode: "forwards" }}
         >
           Credits
@@ -19,7 +19,7 @@ const CreditsPage = () => {
           <Link
             href="https://lakeesiv.com"
             target="_blank"
-            className="text-emma-text ml-1 hover:text-emma-text-secondary transition-colors font-mono"
+            className="text-emma-primary ml-1 hover:text-emma-secondary transition-colors font-mono"
           >
             Lakee Sivaraya
           </Link>
@@ -32,7 +32,7 @@ const CreditsPage = () => {
           <Link
             href="https://github.com/lakeesiv/emgineer"
             target="_blank"
-            className="text-emma-text ml-1 hover:text-emma-text-secondary transition-colors font-mono"
+            className="text-emma-primary ml-1 hover:text-emma-secondary transition-colors font-mono"
           >
             github/lakeesiv/emgineer
           </Link>
@@ -47,7 +47,7 @@ const CreditsPage = () => {
       </section>
       <section className=" flex flex-col items-center justify-center px-12 pb-12">
         <h2
-          className="mt-6 animate-fade-up bg-gradient-to-br from-emma-text to-emma-text-secondary bg-clip-text text-center text-5xl font-extrabold tracking-[-0.02em] text-transparent opacity-0 drop-shadow-sm md:text-5xl/[5rem] pb-[0.8rem]"
+          className="mt-6 animate-fade-up bg-gradient-to-br from-emma-primary to-emma-secondary bg-clip-text text-center text-5xl font-extrabold tracking-[-0.02em] text-transparent opacity-0 drop-shadow-sm md:text-5xl/[5rem] pb-[0.8rem]"
           style={{ animationDelay: "0.20s", animationFillMode: "forwards" }}
         >
           Stack
@@ -59,7 +59,7 @@ const CreditsPage = () => {
           {"Wouldn't"} be possible without these:
         </p>
         <p
-          className="font-mono mt-2 animate-fade-up text-center text-emma-text opacity-0 md:text-xl"
+          className="font-mono mt-2 animate-fade-up text-center text-emma-primary opacity-0 md:text-xl"
           style={{ animationDelay: "0.30s", animationFillMode: "forwards" }}
         >
           Next.js, TailwindCSS, Next-Auth, notion-on-next, shadcn/ui, radix-ui,

@@ -46,8 +46,8 @@
     --logo-filter: invert(9%) sepia(46%) saturate(4664%) hue-rotate(235deg)
       brightness(82%) contrast(124%);
 
-    --emma-text: var(--emma-navy);
-    --emma-text-secondary: var(--emma-navy-secondary);
+    --emma-primary: var(--emma-navy);
+    --emma-secondary: var(--emma-navy-secondary);
   }
 
   .dark {
@@ -83,8 +83,8 @@
     --logo-filter: invert(83%) sepia(9%) saturate(846%) hue-rotate(314deg)
       brightness(98%) contrast(110%);
 
-    --emma-text: var(--emma-pink);
-    --emma-text-secondary: var(--emma-pink-secondary);
+    --emma-primary: var(--emma-pink);
+    --emma-secondary: var(--emma-pink-secondary);
   }
 }
 
@@ -92,7 +92,7 @@ p.notion_paragraph a {
   text-decoration: underline;
   text-decoration-thickness: 2px;
   text-underline-offset: 6px;
-  @apply font-extrabold hover:brightness-150 hover:text-blue-500 hover:decoration-blue-500 transition-colors text-emma-text decoration-emma-text;
+  @apply font-extrabold hover:brightness-150 hover:text-blue-500 hover:decoration-blue-500 transition-colors text-emma-primary decoration-emma-primary;
 }
 
 @layer base {

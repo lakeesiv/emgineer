@@ -38,7 +38,7 @@ clickable and triggers the `signIn` function with the "google" provider as an ar
         onClick={() => signIn("google")}
       >
         <AvatarFallback className="bg-transparent">
-          <LogIn className="h-6 w-6 text-emma-text font-extrabold" />
+          <LogIn className="h-6 w-6 text-emma-primary font-extrabold" />
         </AvatarFallback>
       </Avatar>
     );

@@ -30,7 +30,7 @@ export const BlogCard = ({ page }: { page: BlogPageObjectResponse }) => {
         <header>
           <h2 className="text-xl sm:text-2xl font-bold leading-snug mb-2 font-heading">
             <Link
-              className="text-emma-text hover:text-emma-text-secondary underline underline-offset-4 decoration-1 transition ease-in duration-200"
+              className="text-emma-primary hover:text-emma-secondary underline underline-offset-4 decoration-1 transition ease-in duration-200"
               href={`/blog/${page.slug}`}
             >
               {page.title}

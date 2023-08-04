@@ -51,12 +51,12 @@ const NavBar = () => {
           className="items-center w-full md:w-auto hidden md:flex h-screen md:h-auto "
           aria-label="Main navigation"
         >
-          <ul className="flex flex-col pt-8 md:pt-0 md:flex-row md:self-center w-full md:w-auto text-xl md:text-md font-extrabold text-emma-text">
+          <ul className="flex flex-col pt-8 md:pt-0 md:flex-row md:self-center w-full md:w-auto text-xl md:text-md font-extrabold text-emma-primary">
             {links.map((link) => (
               <li key={link.name}>
                 <Link
                   className="px-4 py-3 flex items-center 
-                  hover:scale-105  hover:text-emma-text-secondary  transition-all  duration-200 ease-in-out
+                  hover:scale-105  hover:text-emma-secondary  transition-all  duration-200 ease-in-out
                   "
                   href={link.href}
                 >

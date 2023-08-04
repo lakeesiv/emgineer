@@ -11,18 +11,18 @@ const Footer = () => {
   return (
     <footer className="w-full p-2 px-4 bg-white border-t border-gray-300 shadow flex items-center justify-between  dark:bg-gray-800 dark:border-gray-600">
       <div className="flex items-center space-x-6">
-        <div className="text-emma-text font-extrabold ">
+        <div className="text-emma-primary font-extrabold ">
           Emgineers {new Date().getFullYear()}
         </div>
         <Link
           href="/credits"
-          className="text-emma-text hover:text-emma-text-secondary transition-colors font-extrabold"
+          className="text-emma-primary hover:text-emma-secondary transition-colors font-extrabold"
         >
           Credits
         </Link>
         <Link
           href="/cookies"
-          className="text-emma-text hover:text-emma-text-secondary transition-colors font-extrabold"
+          className="text-emma-primary hover:text-emma-secondary transition-colors font-extrabold"
         >
           Cookies
         </Link>
