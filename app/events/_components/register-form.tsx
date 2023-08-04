@@ -50,14 +50,14 @@ const RegisterForm = ({ eventId, extraDetails }: RegisterFormProps) => {
 
   // #region Not Logged In Error Handling
   const [userSignUpStatus, setUserSignUpStatus] = useState<
-    RouterOutputs["events"]["userSignUpStatus"] | undefined
+    RouterOutputs["events"]["signUpStatus"] | undefined
   >(undefined);
   const [unauthorized, setUnauthorized] = useState<boolean>(false);
 
   useEffect(() => {
     async function getUserSignUpStatus() {
       try {
-        const res = await api.events.userSignUpStatus.query({
+        const res = await api.events.signUpStatus.query({
           eventId: eventId,
         });
         setUserSignUpStatus(res);

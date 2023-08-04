@@ -13,7 +13,7 @@ const EventSignUpStatus: FC<EventSignUpStatusProps> = async ({
   slug,
 }) => {
   try {
-    const { status } = await api.events.userSignUpStatus.query({
+    const { status } = await api.events.signUpStatus.query({
       eventId: eventId,
     });
     let buttonClassName = "w-full mt-4 ";

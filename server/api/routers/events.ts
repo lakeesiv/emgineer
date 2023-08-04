@@ -88,16 +88,6 @@ export const userSignUpStatus = protectedProcedure
   });
 
 export const eventRouter = createTRPCRouter({
-  status: protectedProcedure
-    .input(z.object({ id: z.string() }))
-    .query(({ input, ctx }) => {
-      const id = input.id;
-      const user = ctx.session.user;
-      return {
-        id: `${id}`,
-        user: JSON.stringify(user, null, 2),
-      };
-    }),
   signUp: signUp,
-  userSignUpStatus: userSignUpStatus,
+  signUpStatus: userSignUpStatus,
 });
