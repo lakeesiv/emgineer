@@ -22,9 +22,11 @@ import { signIn, signOut, useSession } from "next-auth/react";
  * the user's avatar and a dropdown menu with the user's name, email, and a logout option.
  */
 const UserAvatar = () => {
-  const { data: session } = useSession();
-  const isBrowser = typeof window !== "undefined";
-  if (!isBrowser) return null;
+  const { data: session, status } = useSession();
+
+  if (status === "loading") {
+    return null;
+  }
 
   /* The code block is checking if there is no session (user is not logged in). If there is no session,
 it returns an `Avatar` component with a fallback icon for logging in. The `Avatar` component is
