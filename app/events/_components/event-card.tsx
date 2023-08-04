@@ -6,6 +6,9 @@ import siteConfig from "site.config";
 import { ParsedEventsPageObjectResponse } from "app/get";
 import SignUpStatus from "./event-sign-up-status";
 const mediaMap = _mediaMap as mediaMapInterface;
+import dynamic from "next/dynamic";
+
+const AddToCal = dynamic(() => import("./add-to-cal"), { ssr: false });
 
 export const EventCard = ({
   page,
@@ -13,6 +16,10 @@ export const EventCard = ({
   page: ParsedEventsPageObjectResponse;
 }) => {
   const image = mediaMap[siteConfig.eventsDatabaseId]?.[page.id]?.cover;
+
+  // @ts-ignore
+  const description = page.properties?.Description?.rich_text[0]
+    ?.plain_text as string;
 
   return (
     <article
@@ -42,18 +49,24 @@ export const EventCard = ({
             </Link>
           </h2>
         </header>
-        <p className="text-md sm:text-lg flex-grow">
-          {/* @ts-ignore -- Notion Team currently has incorrect type for RichTextObjectResponse. The API returns an an array of RichTextObjectResponse inside of RichTextPropertyItemObjectResponse, but the type definition is not aware of that yet  */}
-          {page.properties?.Description?.rich_text[0]?.plain_text}
-        </p>
+        <p className="text-md sm:text-lg flex-grow">{description}</p>
         <footer className="mt-4">
           <div className="flex flex-col">
             <span className="text-gray-500 dark:text-slate-400">
               {formatDate(page.parsed.date)} @ {page.parsed.location}
             </span>
-            <span className="text-gray-500 dark:text-slate-400">
-              Duration ~ {page.parsed.duration} hrs
-            </span>
+            <div className="flex space-x-4 items-center mt-2">
+              <span className="text-gray-500 dark:text-slate-400 mb-1">
+                Duration ~ {page.parsed.duration} hrs
+              </span>
+              <AddToCal
+                start={page.parsed.date}
+                duration={page.parsed.duration}
+                name={page.title as string}
+                description={description}
+                location={page.parsed.location}
+              />
+            </div>
             {page.parsed.date > new Date() && (
               <SignUpStatus
                 eventId={page.parsed.eventId}

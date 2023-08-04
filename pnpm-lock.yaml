@@ -41,6 +41,9 @@ dependencies:
   '@trpc/server':
     specifier: ^10.27.1
     version: 10.27.1
+  add-to-calendar-button-react:
+    specifier: ^2.3.1
+    version: 2.3.1(react-dom@18.2.0)(react@18.2.0)
   class-variance-authority:
     specifier: ^0.7.0
     version: 0.7.0
@@ -1479,6 +1482,25 @@ packages:
     resolution: {integrity: sha512-F0SAmZ8iUtS//m8DmCTA0jlh6TDKkHQyK6xc6V4KDTyZKA9dnvX9/3sRTVQrWm79glUAZbnmmNcdYwUIHWVybw==}
     engines: {node: '>=0.4.0'}
     hasBin: true
+    dev: false
+
+  /add-to-calendar-button-react@2.3.1(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-Daqjv+zPvvS4XC9lIdv39Xe7pFu8AFQGVKrhpDe+0VDJ/sDBCvhkWap4INRUiW7s36AZ5AYQ9ekgWTwJh620UQ==}
+    engines: {node: '>=16.18.1', npm: '>=8.19.2'}
+    peerDependencies:
+      react: '>=18.0.0'
+      react-dom: '>=18.0.0'
+    dependencies:
+      add-to-calendar-button: 2.3.1
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+    dev: false
+
+  /add-to-calendar-button@2.3.1:
+    resolution: {integrity: sha512-M0DCX839Q5o/YffcpsQjhlGqLk2z51t6ti2kxSaiHJs2S6VtG1t6e5a0R2e/WiBea3l5yU9B/P8ff2NR6bQZuw==}
+    engines: {node: '>=16.18.1', npm: '>=8.19.2'}
+    dependencies:
+      timezones-ical-library: 1.7.1
     dev: false
 
   /ajv@6.12.6:
@@ -4433,6 +4455,11 @@ packages:
 
   /text-table@0.2.0:
     resolution: {integrity: sha512-N+8UisAXDGk8PFXP4HAzVR9nbfmVJ3zYLAWiTIoqC5v5isinhr+r5uaO8+7r3BMfuNIufIsA7RdpVgacC2cSpw==}
+    dev: false
+
+  /timezones-ical-library@1.7.1:
+    resolution: {integrity: sha512-kMklJHvitGSl51ewFyDuFmgN+QRM2y4FmW6bOSl+etzUfOkGVWRmoGAoyaNunmVFY5jw0Puezg2cXwvsgaOkFQ==}
+    engines: {node: '>=14.20.0'}
     dev: false
 
   /titleize@3.0.0:
