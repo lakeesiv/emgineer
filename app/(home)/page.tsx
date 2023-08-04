@@ -1,5 +1,7 @@
+import { Suspense } from "react";
 import BlogSection from "./blog-section";
 import EventSection from "./event-section";
+import Loading from "./loading";
 
 export default function Home() {
   return (
@@ -18,8 +20,10 @@ export default function Home() {
           Emmanuel College Engineering Society
         </p>
       </section>
-      <EventSection />
-      <BlogSection />
+      <Suspense fallback={<Loading />}>
+        <EventSection />
+        <BlogSection />
+      </Suspense>
     </>
   );
 }
