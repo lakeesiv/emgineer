@@ -54,10 +54,12 @@ export const EventCard = ({
             <span className="text-gray-500 dark:text-slate-400">
               Duration ~ {page.parsed.duration} hrs
             </span>
-            <SignUpStatus
-              eventId={page.parsed.eventId}
-              slug={page.slug as string}
-            />
+            {page.parsed.date > new Date() && (
+              <SignUpStatus
+                eventId={page.parsed.eventId}
+                slug={page.slug as string}
+              />
+            )}
           </div>
         </footer>
       </div>
