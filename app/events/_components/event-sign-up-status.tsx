@@ -1,13 +1,17 @@
 import { Button } from "components/ui/button";
+import { FC } from "react";
 import { api } from "trpc/server";
 import Login from "./login-in";
 
-interface SignUpStatusProps {
+interface EventSignUpStatusProps {
   eventId: string;
   slug: string;
 }
 
-const SignUpStatus = async ({ eventId, slug }: SignUpStatusProps) => {
+const EventSignUpStatus: FC<EventSignUpStatusProps> = async ({
+  eventId,
+  slug,
+}) => {
   try {
     const { status } = await api.events.userSignUpStatus.query({
       eventId: eventId,
@@ -44,4 +48,4 @@ const SignUpStatus = async ({ eventId, slug }: SignUpStatusProps) => {
   }
 };
 
-export default SignUpStatus;
+export default EventSignUpStatus;

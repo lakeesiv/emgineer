@@ -86,18 +86,15 @@ const RegisterForm = ({ eventId, extraDetails }: RegisterFormProps) => {
   async function userSignUp({
     going,
     extraDetails,
-  }: z.infer<typeof formSchema> 
-  
-  ) 
-  
-  {
+  }: z.infer<typeof formSchema>) {
     try {
-      const res = await api.events.signUp.mutate({
+      await api.events.signUp.mutate({
         going: going,
         eventId: eventId,
         extraDetails: extraDetails,
       });
-      window.location.reload();
+      // redirect to /events
+      window.location.href = "/events";
     } catch (error) {
       console.log((error as { message: string }).message);
     }
@@ -139,7 +136,7 @@ const RegisterForm = ({ eventId, extraDetails }: RegisterFormProps) => {
             </FormItem>
           )}
         />
-        {!extraDetails && (
+        {extraDetails && (
           <FormField
             control={eventSignUpForm.control}
             name="extraDetails"
@@ -151,8 +148,7 @@ const RegisterForm = ({ eventId, extraDetails }: RegisterFormProps) => {
                   <Textarea className="resize-none" {...field} />
                 </FormControl>
                 <FormDescription>
-                  We require the following details: {extraDetails}, please enter
-                  them in the box above.
+                  {extraDetails}. Please enter them below
                 </FormDescription>
                 <FormMessage />
               </FormItem>

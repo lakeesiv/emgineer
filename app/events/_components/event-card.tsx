@@ -4,7 +4,7 @@ import _mediaMap from "public/notion-media/media-map.json";
 import { mediaMapInterface } from "notion-on-next/types/types";
 import siteConfig from "site.config";
 import { ParsedEventsPageObjectResponse } from "app/get";
-import SignUpStatus from "./sign-up-status";
+import SignUpStatus from "./event-sign-up-status";
 const mediaMap = _mediaMap as mediaMapInterface;
 
 export const EventCard = ({
@@ -21,7 +21,7 @@ export const EventCard = ({
       }`}
     >
       {image && (
-        <Link className="relative block group" href={`/blog/${page.slug}`}>
+        <Link className="relative block group" href={`/eventsy/${page.slug}`}>
           <Image
             alt={page.title || "Cover Image for " + page.id}
             src={image}
