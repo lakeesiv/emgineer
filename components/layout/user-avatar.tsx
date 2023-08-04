@@ -13,11 +13,22 @@ import {
 import { LogIn, LogOut } from "lucide-react";
 import { signIn, signOut, useSession } from "next-auth/react";
 
+/**
+ * The `UserAvatar` component is a React component that displays a user's avatar and name, and provides
+ * options to sign in or sign out.
+ * @returns The `UserAvatar` component returns JSX elements based on the conditionals and data
+ * provided. If there is no session, it returns an `Avatar` component with a fallback icon for logging
+ * in. If there is a session, it returns a `DropdownMenu` component with a trigger button displaying
+ * the user's avatar and a dropdown menu with the user's name, email, and a logout option.
+ */
 const UserAvatar = () => {
   const { data: session } = useSession();
   const isBrowser = typeof window !== "undefined";
   if (!isBrowser) return null;
 
+  /* The code block is checking if there is no session (user is not logged in). If there is no session,
+it returns an `Avatar` component with a fallback icon for logging in. The `Avatar` component is
+clickable and triggers the `signIn` function with the "google" provider as an argument when clicked. */
   if (!session) {
     return (
       <Avatar
