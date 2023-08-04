@@ -24,12 +24,23 @@ export const getBlogPages = cache(
 );
 
 export const getEventPages = cache(
-  async (): Promise<EventsPageObjectResponse[]> => {
+  async (
+    removePastEvents: boolean = false
+  ): Promise<EventsPageObjectResponse[]> => {
     const pages: EventsPageObjectResponse[] = await getParsedPages(
       siteConfig.eventsDatabaseId
     );
     const sortedPages = sortPages(pages);
-    return sortedPages;
+    if (!removePastEvents) return sortedPages;
+
+    const now = new Date();
+
+    const filteredPages = sortedPages.filter((page) => {
+      const pageDate = new Date(page.properties.Date.date?.start as string);
+      return pageDate.getTime() > now.getTime();
+    });
+
+    return filteredPages;
   }
 );
 
@@ -48,8 +59,12 @@ export interface ParsedEventsPageObjectResponse
 }
 
 export const getParsedEventPages = cache(
-  async (): Promise<ParsedEventsPageObjectResponse[]> => {
-    const pages: EventsPageObjectResponse[] = await getEventPages();
+  async (
+    removePastEvents: boolean = false
+  ): Promise<ParsedEventsPageObjectResponse[]> => {
+    const pages: EventsPageObjectResponse[] = await getEventPages(
+      removePastEvents
+    );
     const parsedPages = pages.map((page) => {
       try {
         //@ts-ignore

@@ -1,4 +1,5 @@
 import BlogSection from "./blog-section";
+import EventSection from "./event-section";
 
 export default function Home() {
   return (
@@ -17,6 +18,7 @@ export default function Home() {
           Emmanuel College Engineering Society
         </p>
       </section>
+      <EventSection />
       <BlogSection />
     </>
   );
