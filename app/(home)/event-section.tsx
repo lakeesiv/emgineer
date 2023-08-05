@@ -1,10 +1,8 @@
 import { EventCard } from "app/events/_components/event-card";
 import { getParsedEventPages } from "app/get";
-import { revalidatePath } from "next/cache";
 
 const EventSection = async () => {
   const pages = await getParsedEventPages(true);
-  revalidatePath("/events");
 
   return (
     <>
