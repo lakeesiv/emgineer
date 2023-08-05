@@ -3,6 +3,8 @@ import BlogSection from "./blog-section";
 import EventSection from "./event-section";
 import Loading from "./loading";
 
+export const revalidate = 60;
+
 export default function Home() {
   return (
     <>
