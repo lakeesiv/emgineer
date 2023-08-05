@@ -1,7 +1,7 @@
 import { BlogCard } from "components/blog-card";
 import { getBlogPages } from "../get";
 
-export const revalidate = 60;
+export const revalidate = 600;
 
 export default async function BlogIndex() {
   const pages = await getBlogPages();

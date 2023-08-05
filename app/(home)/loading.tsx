@@ -14,10 +14,7 @@ const Loading: FC = ({}) => {
         <h2 className="text-3xl font-extrabold text-emma-primary sm:text-center md:text-left">
           Our Blog
         </h2>
-        <Skeleton
-          className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8 p-32 "
-          rounded-md
-        />
+        <Skeleton className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8 p-32 rounded-md" />
       </section>
     </>
   );
