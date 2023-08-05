@@ -37,9 +37,9 @@ const NavBar = () => {
     >
       <div className="py-2 px-3 mx-auto w-full  md:flex md:justify-between max-w-8xl md:px-4">
         <div className="flex justify-between">
-          <a className="flex items-center" href={"/"}>
+          <Link className="flex items-center" href={"/"}>
             <Logo />
-          </a>
+          </Link>
           <div className="flex items-center space-x-5 md:hidden">
             <MobileNav links={links} />
             <Suspense>
