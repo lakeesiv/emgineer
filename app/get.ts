@@ -55,6 +55,7 @@ export interface ParsedEventsPageObjectResponse
     duration: number;
     hide: boolean;
     requiresPayment: boolean;
+    extraDetails?: string;
   };
 }
 
@@ -79,6 +80,9 @@ export const getParsedEventPages = cache(
         const eventId = page.properties["Id"].rich_text[0].plain_text as string;
         //@ts-ignore
         const duration = page.properties["Duration (hrs)"].number as number;
+        // @ts-ignore
+        const extraDetails = page.properties["Extra Details"]?.rich_text[0]
+          ?.plain_text as string;
 
         const fixedTypesProps = {
           title,
@@ -86,6 +90,7 @@ export const getParsedEventPages = cache(
           location,
           duration,
           eventId,
+          extraDetails,
         };
 
         const date =

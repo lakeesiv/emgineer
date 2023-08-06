@@ -56,7 +56,12 @@ export default async function EventPage({ params }: { params: PageProps }) {
         databaseId={databaseId}
         mediaMap={mediaMap}
       />
-      <RegisterForm eventId={page.parsed.eventId} />
+      {page.parsed.date > new Date() && (
+        <RegisterForm
+          eventId={page.parsed.eventId}
+          extraDetails={page.parsed.extraDetails}
+        />
+      )}
     </div>
   );
 }
