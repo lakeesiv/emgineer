@@ -49,7 +49,11 @@ const AddToCal: FC<AddToCalProps> = ({
       endTime={endTime}
       timeZone="Europe/London"
       location={location}
-      options="'Apple','Google','iCal','Outlook.com'"
+      styleDark="--btn-shadow: none; --btn-shadow-hover: none; --bth-shadow-active: none; --list-shadow: none; --list-shadow-hover: none; --list-shadow-active: none;
+      --btn-background: var(--background); --btn-background-hover: var(--foreground);"
+      styleLight="--btn-shadow: none; --btn-shadow-hover: none; --bth-shadow-active: none; --list-shadow: none; --list-shadow-hover: none; --list-shadow-active: none;
+      --btn-background: var(--background); --btn-background-hover: var(--foreground);"
+      options="'Apple','Google','iCal'"
       trigger="click"
       hideTextLabelButton
       hideBackground
