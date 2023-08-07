@@ -1,6 +1,8 @@
 import { EventCard } from "app/events/_components/event-card";
+import EventSignUpStatus from "app/events/_components/event-sign-up-status";
 import { getParsedEventPages } from "app/get";
 import { Skeleton } from "components/ui/skeleton";
+import { Suspense } from "react";
 
 const EventSection = async () => {
   const pages = await getParsedEventPages(true);
@@ -14,7 +16,16 @@ const EventSection = async () => {
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
             {pages.reverse().map((page) => (
-              <EventCard key={page.id} page={page} />
+              <EventCard page={page} key={page.parsed.eventId}>
+                <Suspense
+                  fallback={<Skeleton className="w-full p-5 mt-4"></Skeleton>}
+                >
+                  <EventSignUpStatus
+                    eventId={page.parsed.eventId}
+                    slug={page.parsed.eventId}
+                  />
+                </Suspense>
+              </EventCard>
             ))}
           </div>
         </section>

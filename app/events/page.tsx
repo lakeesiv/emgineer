@@ -1,6 +1,9 @@
 import { AnimatedTitle } from "components/text";
 import { getParsedEventPages } from "../get";
 import { EventCard } from "./_components/event-card";
+import EventSignUpStatus from "./_components/event-sign-up-status";
+import { Suspense } from "react";
+import { Skeleton } from "components/ui/skeleton";
 
 export const revalidate = 60;
 
@@ -17,7 +20,16 @@ export default async function EventIndex() {
       <div className="space-y-8 gap-8 max-w-[800px] mx-auto p-12">
         {upcomingPages.map((page) => (
           <>
-            <EventCard page={page} />
+            <EventCard page={page}>
+              <Suspense
+                fallback={<Skeleton className="w-full p-5 mt-4"></Skeleton>}
+              >
+                <EventSignUpStatus
+                  eventId={page.parsed.eventId}
+                  slug={page.parsed.eventId}
+                />
+              </Suspense>
+            </EventCard>
           </>
         ))}
       </div>

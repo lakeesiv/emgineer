@@ -1,3 +1,4 @@
+"use client";
 import Link from "next/link";
 import Image from "next/image";
 import _mediaMap from "public/notion-media/media-map.json";
@@ -12,8 +13,10 @@ const AddToCal = dynamic(() => import("./add-to-cal"), { ssr: false });
 
 export const EventCard = ({
   page,
+  children,
 }: {
   page: ParsedEventsPageObjectResponse;
+  children?: React.ReactNode;
 }) => {
   const image = mediaMap[siteConfig.eventsDatabaseId]?.[page.id]?.cover;
 
@@ -69,12 +72,13 @@ export const EventCard = ({
                 location={page.parsed.location}
               />
             </div>
-            {page.parsed.date > new Date() && (
-              <SignUpStatus
-                eventId={page.parsed.eventId}
-                slug={page.slug as string}
-              />
-            )}
+            {page.parsed.date > new Date() &&
+              children && ( // <SignUpStatus
+                //   eventId={page.parsed.eventId}
+                //   slug={page.slug as string}
+                // />
+                <>{children}</>
+              )}
           </div>
         </footer>
       </div>
