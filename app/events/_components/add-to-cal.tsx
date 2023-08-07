@@ -12,6 +12,7 @@ interface AddToCalProps {
   name: string;
   description: string;
   location: string;
+  size?: number;
 }
 
 const AddToCal: FC<AddToCalProps> = ({
@@ -20,6 +21,7 @@ const AddToCal: FC<AddToCalProps> = ({
   name,
   description,
   location,
+  size = 1,
 }) => {
   const { theme } = useTheme();
 
@@ -58,7 +60,7 @@ const AddToCal: FC<AddToCalProps> = ({
       hideTextLabelButton
       hideBackground
       hideCheckmark
-      size="1"
+      size={`${size}`}
       label=" "
       lightMode={theme}
     />

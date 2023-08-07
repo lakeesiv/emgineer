@@ -27,18 +27,29 @@ import {
 import { Textarea } from "components/ui/textarea";
 import { Card } from "components/ui/card";
 import { Skeleton } from "components/ui/skeleton";
+import AddToCal from "./add-to-cal";
+import { ParsedEventsPageObjectResponse } from "app/get";
+import { Badge } from "components/ui/badge";
 
 const formSchema = z.object({
   going: z.enum(["Yes", "No", "Maybe"]),
   extraDetails: z.string().optional(),
 });
 
-interface RegisterFormProps {
-  eventId: string;
-  extraDetails?: string;
-}
+interface RegisterFormProps extends ParsedEventsPageObjectResponse {}
 
-const RegisterForm = ({ eventId, extraDetails }: RegisterFormProps) => {
+const RegisterForm = ({
+  parsed: {
+    extraDetails,
+    eventId,
+    date,
+    description,
+    location,
+    requiresPayment,
+    title,
+    duration,
+  },
+}: RegisterFormProps) => {
   const eventSignUpForm = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
   });
@@ -79,9 +90,12 @@ const RegisterForm = ({ eventId, extraDetails }: RegisterFormProps) => {
   if (!userSignUpStatus && !unauthorized) {
     return (
       <Card className="mt-10 p-6">
-        <h1 className="text-4xl font-extrabold  text-emma-primary mb-7">
-          Sign Up
-        </h1>
+        <div className="flex flex-col mb-6 space-y-4">
+          <h1 className="text-4xl font-extrabold  text-emma-primary">
+            Sign Up
+          </h1>
+          <div></div>
+        </div>
         <Skeleton className="h-96 w-full" />
       </Card>
     );
@@ -111,9 +125,10 @@ const RegisterForm = ({ eventId, extraDetails }: RegisterFormProps) => {
 
   return (
     <Card className="mt-10 p-6">
-      <h1 className="text-4xl font-extrabold  text-emma-primary mb-7">
-        Sign Up
-      </h1>
+      <div className="flex flex-col mb-6 space-y-4">
+        <h1 className="text-4xl font-extrabold  text-emma-primary">Sign Up</h1>
+        <div>{requiresPayment && <Badge>Requires Payment</Badge>}</div>
+      </div>
       <Form {...eventSignUpForm}>
         <form
           onSubmit={eventSignUpForm.handleSubmit(onSubmit)}
@@ -126,7 +141,7 @@ const RegisterForm = ({ eventId, extraDetails }: RegisterFormProps) => {
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Are you going to event?</FormLabel>
-                <FormDescription>
+                <FormDescription className="pb-2">
                   If you change your mind, you can always change it later by
                   going back to this page
                 </FormDescription>
@@ -160,7 +175,9 @@ const RegisterForm = ({ eventId, extraDetails }: RegisterFormProps) => {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Extra Details</FormLabel>
-                  <FormDescription>{extraDetails}.</FormDescription>
+                  <FormDescription className="pb-2">
+                    {extraDetails}.
+                  </FormDescription>
                   <FormControl>
                     <Textarea className="resize-y" {...field} />
                   </FormControl>
@@ -169,7 +186,17 @@ const RegisterForm = ({ eventId, extraDetails }: RegisterFormProps) => {
               )}
             />
           )}
-          <Button type="submit">Submit</Button>
+          <div className="flex flex-row items-center space-x-2">
+            <Button type="submit">Submit</Button>
+            <AddToCal
+              start={date}
+              duration={duration}
+              name={title}
+              description={description}
+              location={location}
+              size={5}
+            />
+          </div>
         </form>
       </Form>
     </Card>
