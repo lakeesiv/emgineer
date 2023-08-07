@@ -26,6 +26,7 @@ import {
 } from "components/ui/select";
 import { Textarea } from "components/ui/textarea";
 import { Card } from "components/ui/card";
+import { Skeleton } from "components/ui/skeleton";
 
 const formSchema = z.object({
   going: z.enum(["Yes", "No", "Maybe"]),
@@ -76,7 +77,14 @@ const RegisterForm = ({ eventId, extraDetails }: RegisterFormProps) => {
   }
 
   if (!userSignUpStatus && !unauthorized) {
-    return <div>Loading...</div>;
+    return (
+      <Card className="mt-10 p-6">
+        <h1 className="text-4xl font-extrabold  text-emma-primary mb-7">
+          Sign Up
+        </h1>
+        <Skeleton className="h-96 w-full" />
+      </Card>
+    );
   }
 
   if (!userSignUpStatus) {
