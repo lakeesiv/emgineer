@@ -1,3 +1,4 @@
+"use client";
 import Link from "next/link";
 import Image from "next/image";
 import _mediaMap from "public/notion-media/media-map.json";
