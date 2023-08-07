@@ -1,4 +1,4 @@
-import { formatDate } from "components/blog-card";
+import { formatDate } from "../_components/event-card";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import { mediaMapInterface, NotionPageBody } from "notion-on-next";
@@ -30,7 +30,7 @@ export default async function EventPage({ params }: { params: PageProps }) {
 
   return (
     <div className="p-8 md:p-12 max-w-[800px] mx-auto">
-      <div className="">
+      <div className="mb-5">
         {image && (
           <Image
             src={image}
@@ -45,8 +45,16 @@ export default async function EventPage({ params }: { params: PageProps }) {
           <div className="text-3xl font-extrabold text-emma-primary hover:text-emma-secondary transition ease-in duration-200 mb-2">
             {page.title}
           </div>
-          <div className="text-gray-400">
-            {formatDate(page.properties.Date.date?.start) || "No Date"}
+
+          <div className="flex flex-col">
+            <span className="text-gray-500 dark:text-slate-400">
+              {formatDate(page.parsed.date)} @ {page.parsed.location}
+            </span>
+            <div className="flex space-x-4 items-center mt-2">
+              <span className="text-gray-500 dark:text-slate-400 mb-1">
+                Duration ~ {page.parsed.duration} hrs
+              </span>
+            </div>
           </div>
         </div>
       </div>
