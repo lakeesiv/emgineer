@@ -1,4 +1,3 @@
-import { formatDate } from "../_components/event-card";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import { mediaMapInterface, NotionPageBody } from "notion-on-next";
@@ -76,3 +75,20 @@ export async function generateStaticParams() {
     slug: page.slug,
   }));
 }
+
+const formatDate = (date: Date) => {
+  const days = date.toLocaleDateString(undefined, {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+  });
+
+  // time: HH:MM AM/PM
+  const time = date.toLocaleTimeString(undefined, {
+    hour: "numeric",
+    minute: "numeric",
+    hour12: true,
+  });
+
+  return `${time}, ${days}`;
+};
