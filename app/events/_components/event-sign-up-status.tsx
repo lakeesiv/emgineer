@@ -30,6 +30,7 @@ const EventSignUpStatus: FC<EventSignUpStatusProps> = async ({
         break;
       case "Maybe":
         buttonClassName += "bg-yellow-500 hover:bg-yellow-600";
+        break;
       case "RVSP":
         buttonClassName += "bg-blue-500 hover:bg-blue-600";
         break;
