@@ -25,6 +25,7 @@ import {
   SelectValue,
 } from "components/ui/select";
 import { Textarea } from "components/ui/textarea";
+import { Card } from "components/ui/card";
 
 const formSchema = z.object({
   going: z.enum(["Yes", "No", "Maybe"]),
@@ -101,64 +102,69 @@ const RegisterForm = ({ eventId, extraDetails }: RegisterFormProps) => {
   }
 
   return (
-    <Form {...eventSignUpForm}>
-      <form
-        onSubmit={eventSignUpForm.handleSubmit(onSubmit)}
-        className="space-y-8"
-      >
-        <FormField
-          control={eventSignUpForm.control}
-          defaultValue={userSignUpStatus.going}
-          name="going"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Are you going to event?</FormLabel>
-              <Select onValueChange={field.onChange} defaultValue={field.value}>
-                <FormControl>
-                  <SelectTrigger>
-                    <SelectValue
-                      defaultValue={userSignUpStatus.going}
-                      placeholder={userSignUpStatus.going}
-                    />
-                  </SelectTrigger>
-                </FormControl>
-                <SelectContent>
-                  <SelectItem value="Yes">Yes</SelectItem>
-                  <SelectItem value="Maybe">Maybe</SelectItem>
-                  <SelectItem value="No">No</SelectItem>
-                </SelectContent>
-              </Select>
-              <FormDescription>
-                If you change your mind, you can always change it later by going
-                back to thi page
-              </FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        {extraDetails && (
+    <Card className="mt-10 p-6">
+      <h1 className="text-4xl font-extrabold  text-emma-primary mb-7">
+        Sign Up
+      </h1>
+      <Form {...eventSignUpForm}>
+        <form
+          onSubmit={eventSignUpForm.handleSubmit(onSubmit)}
+          className="space-y-8"
+        >
           <FormField
             control={eventSignUpForm.control}
-            name="extraDetails"
-            defaultValue={userSignUpStatus.extraDetails}
+            defaultValue={userSignUpStatus.going}
+            name="going"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Extra Details</FormLabel>
-                <FormControl>
-                  <Textarea className="resize-none" {...field} />
-                </FormControl>
+                <FormLabel>Are you going to event?</FormLabel>
                 <FormDescription>
-                  {extraDetails}. Please enter them below
+                  If you change your mind, you can always change it later by
+                  going back to this page
                 </FormDescription>
+                <Select
+                  onValueChange={field.onChange}
+                  defaultValue={field.value}
+                >
+                  <FormControl>
+                    <SelectTrigger>
+                      <SelectValue
+                        defaultValue={userSignUpStatus.going}
+                        placeholder={userSignUpStatus.going}
+                      />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    <SelectItem value="Yes">Yes</SelectItem>
+                    <SelectItem value="Maybe">Maybe</SelectItem>
+                    <SelectItem value="No">No</SelectItem>
+                  </SelectContent>
+                </Select>
                 <FormMessage />
               </FormItem>
             )}
           />
-        )}
-
-        <Button type="submit">Submit</Button>
-      </form>
-    </Form>
+          {extraDetails && (
+            <FormField
+              control={eventSignUpForm.control}
+              name="extraDetails"
+              defaultValue={userSignUpStatus.extraDetails}
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Extra Details</FormLabel>
+                  <FormDescription>{extraDetails}.</FormDescription>
+                  <FormControl>
+                    <Textarea className="resize-y" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          )}
+          <Button type="submit">Submit</Button>
+        </form>
+      </Form>
+    </Card>
   );
 };
 
