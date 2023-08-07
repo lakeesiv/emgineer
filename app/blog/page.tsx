@@ -1,5 +1,6 @@
 import { BlogCard } from "components/blog-card";
 import { getBlogPages } from "../get";
+import { AnimatedTitle } from "components/text";
 
 export const revalidate = 600;
 
@@ -8,12 +9,9 @@ export default async function BlogIndex() {
 
   return (
     <div>
-      <h1
-        className="animate-fade-up bg-gradient-to-br from-emma-primary to-emma-secondary bg-clip-text text-center text-6xl font-extrabold tracking-[-0.02em] text-transparent opacity-0 drop-shadow-sm md:text-7xl/[5rem] pb-[0.8rem]"
-        style={{ animationDelay: "0.20s", animationFillMode: "forwards" }}
-      >
+      <AnimatedTitle variant="h3" size="sm">
         Blog Posts
-      </h1>
+      </AnimatedTitle>
       <div className="space-y-8 gap-8 max-w-[800px] mx-auto p-12">
         {pages.map((page) => (
           <BlogCard page={page} key={page.id} />

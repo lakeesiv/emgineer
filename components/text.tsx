@@ -1,20 +1,35 @@
 import { FC } from "react";
 
-interface AnimatedTitleProps {
+interface AnimatedTitleProps
+  extends React.DetailedHTMLProps<
+    React.HTMLAttributes<HTMLHeadingElement>,
+    HTMLHeadingElement
+  > {
   variant?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
+  size?: "sm" | "md" | "lg";
   children: React.ReactNode;
 }
 
 export const AnimatedTitle: FC<AnimatedTitleProps> = ({
   variant = "h1",
+  size = "lg",
   children,
   ...props
 }) => {
   const Comp = variant;
 
+  const textClass =
+    size === "sm"
+      ? "text-4xl md:text-5xl/[3.5rem]"
+      : size === "md"
+      ? "text-5xl md:text-6xl/[4rem]"
+      : size === "lg"
+      ? "text-6xl md:text-7xl/[5rem]"
+      : "text-5xl md:text-6xl/[4rem]";
+
   return (
     <Comp
-      className="animate-fade-up bg-gradient-to-br from-emma-primary to-emma-secondary bg-clip-text text-center text-6xl font-extrabold tracking-[-0.02em] text-transparent opacity-0 drop-shadow-sm md:text-7xl/[5rem] pb-[0.8rem]"
+      className={`${textClass}  animate-fade-up bg-gradient-to-br from-emma-primary to-emma-secondary bg-clip-text text-center font-extrabold tracking-[-0.02em] text-transparent opacity-0 drop-shadow-sm pb-[0.8rem] `}
       style={{ animationDelay: "0.20s", animationFillMode: "forwards" }}
       {...props}
     >
@@ -23,7 +38,11 @@ export const AnimatedTitle: FC<AnimatedTitleProps> = ({
   );
 };
 
-interface AnimatedDescriptionProps {
+interface AnimatedDescriptionProps
+  extends React.DetailedHTMLProps<
+    React.HTMLAttributes<HTMLParagraphElement>,
+    HTMLParagraphElement
+  > {
   children: React.ReactNode;
 }
 
