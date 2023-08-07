@@ -1,7 +1,6 @@
 import { Suspense } from "react";
-import BlogSection from "./blog-section";
-import EventSection from "./event-section";
-import Loading from "./loading";
+import BlogSection, { BlogSectionLoading } from "./blog-section";
+import EventSection, { EventSectionLoading } from "./event-section";
 import { AnimatedDescription, AnimatedTitle } from "components/text";
 
 export const revalidate = 60;
@@ -15,8 +14,10 @@ export default function Home() {
           Emmanuel College Engineering Society
         </AnimatedDescription>
       </section>
-      <Suspense fallback={<Loading />}>
+      <Suspense fallback={<EventSectionLoading />}>
         <EventSection />
+      </Suspense>
+      <Suspense fallback={<BlogSectionLoading />}>
         <BlogSection />
       </Suspense>
     </>
