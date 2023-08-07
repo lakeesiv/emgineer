@@ -1,3 +1,4 @@
+import { cn } from "lib/utils";
 import { FC } from "react";
 
 interface AnimatedTitleProps
@@ -27,11 +28,16 @@ export const AnimatedTitle: FC<AnimatedTitleProps> = ({
       ? "text-6xl md:text-7xl/[5rem]"
       : "text-5xl md:text-6xl/[4rem]";
 
+  const className = cn(
+    `${textClass}  animate-fade-up bg-gradient-to-br from-emma-primary to-emma-secondary bg-clip-text text-center font-extrabold tracking-[-0.02em] text-transparent opacity-0 drop-shadow-sm pb-[0.8rem] `,
+    props.className
+  );
+
   return (
     <Comp
-      className={`${textClass}  animate-fade-up bg-gradient-to-br from-emma-primary to-emma-secondary bg-clip-text text-center font-extrabold tracking-[-0.02em] text-transparent opacity-0 drop-shadow-sm pb-[0.8rem] `}
-      style={{ animationDelay: "0.20s", animationFillMode: "forwards" }}
       {...props}
+      className={className}
+      style={{ animationDelay: "0.20s", animationFillMode: "forwards" }}
     >
       {children}
     </Comp>
@@ -51,9 +57,12 @@ export const AnimatedDescription: FC<AnimatedDescriptionProps> = ({
   ...props
 }) => (
   <p
-    className="mt-6 animate-fade-up text-center text-muted-foreground/80 opacity-0 md:text-xl"
-    style={{ animationDelay: "0.30s", animationFillMode: "forwards" }}
     {...props}
+    className={cn(
+      "mt-6 animate-fade-up text-center text-muted-foreground/80 opacity-0 md:text-xl",
+      props.className
+    )}
+    style={{ animationDelay: "0.30s", animationFillMode: "forwards" }}
   >
     {children}
   </p>
