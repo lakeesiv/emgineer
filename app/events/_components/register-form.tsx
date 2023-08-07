@@ -94,7 +94,6 @@ const RegisterForm = ({
           <h1 className="text-4xl font-extrabold  text-emma-primary">
             Sign Up
           </h1>
-          <div></div>
         </div>
         <Skeleton className="h-96 w-full" />
       </Card>
@@ -127,7 +126,11 @@ const RegisterForm = ({
     <Card className="mt-10 p-6">
       <div className="flex flex-col mb-6 space-y-4">
         <h1 className="text-4xl font-extrabold  text-emma-primary">Sign Up</h1>
-        <div>{requiresPayment && <Badge>Requires Payment</Badge>}</div>
+        {requiresPayment && (
+          <div>
+            <Badge>Requires Payment</Badge>
+          </div>
+        )}
       </div>
       <Form {...eventSignUpForm}>
         <form
