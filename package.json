@@ -22,6 +22,7 @@
     "@trpc/next": "^10.27.1",
     "@trpc/react-query": "^10.27.1",
     "@trpc/server": "^10.27.1",
+    "@vercel/analytics": "^1.0.1",
     "add-to-calendar-button-react": "^2.3.1",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",

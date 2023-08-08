@@ -3,6 +3,7 @@ import NavBar from "components/layout/navbar";
 import "notion-on-next/non.css";
 import "components/globals.css";
 import { Providers } from "components/layout/providers";
+import { Analytics } from "@vercel/analytics/react";
 
 export default function RootLayout({
   children,
@@ -33,6 +34,7 @@ export default function RootLayout({
             <main className="mb-auto">{children}</main>
             <Footer />
           </div>
+          <Analytics />
         </Providers>
       </body>
     </html>
