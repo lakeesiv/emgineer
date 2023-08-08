@@ -72,13 +72,7 @@ export const EventCard = ({
                 location={page.parsed.location}
               />
             </div>
-            {page.parsed.date > new Date() &&
-              children && ( // <SignUpStatus
-                //   eventId={page.parsed.eventId}
-                //   slug={page.slug as string}
-                // />
-                <>{children}</>
-              )}
+            {page.parsed.date > new Date() && children && <>{children}</>}
           </div>
         </footer>
       </div>

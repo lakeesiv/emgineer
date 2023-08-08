@@ -1,5 +1,4 @@
 "use client";
-// TODO: Validate time works with timezones
 
 import { AddToCalendarButton } from "add-to-calendar-button-react";
 import { useTheme } from "next-themes";
@@ -28,14 +27,19 @@ const AddToCal: FC<AddToCalProps> = ({
   // date: YYYY-MM-DD
   const dateString = start.toISOString().split("T")[0];
   // start time: HH:MM 24hr
-  const startTime = start
+  const localStartTime = new Date(
+    start.getTime() - start.getTimezoneOffset() * 60000
+  )
     .toISOString()
     .split("T")[1]
     .split(":")
     .slice(0, 2)
     .join(":");
-  // end time: HH:MM 24hr
-  const endTime = new Date(start.getTime() + duration * 60 * 60 * 1000)
+  const localEndTime = new Date(
+    start.getTime() +
+      duration * 60 * 60 * 1000 -
+      start.getTimezoneOffset() * 60000
+  )
     .toISOString()
     .split("T")[1]
     .split(":")
@@ -47,8 +51,8 @@ const AddToCal: FC<AddToCalProps> = ({
       name={name}
       description={description}
       startDate={dateString}
-      startTime={startTime}
-      endTime={endTime}
+      startTime={localStartTime}
+      endTime={localEndTime}
       timeZone="Europe/London"
       location={location}
       styleDark="--btn-shadow: none; --btn-shadow-hover: none; --bth-shadow-active: none; --list-shadow: none; --list-shadow-hover: none; --list-shadow-active: none;
