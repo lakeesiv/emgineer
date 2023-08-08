@@ -6,7 +6,7 @@
   :root {
     --emma-navy: #111144;
     --emma-pink: #ffcccc;
-    --emma-navy-secondary: #222266;
+    --emma-navy-secondary: hsl(240, 60%, 35%);
     --emma-pink-secondary: #e9689dce;
     --emma-blue: #0000d8;
   }
