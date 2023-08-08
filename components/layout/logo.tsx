@@ -6,8 +6,8 @@ const Logo = () => {
     <Image
       src="/logo.svg"
       alt="Logo"
-      width={60}
-      height={60}
+      width={50}
+      height={50}
       style={{
         filter: "var(--logo-filter)",
       }}
