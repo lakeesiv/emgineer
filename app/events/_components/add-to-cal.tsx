@@ -25,40 +25,49 @@ const AddToCal: FC<AddToCalProps> = ({
   const { theme } = useTheme();
 
   // date: YYYY-MM-DD
-  const dateString = start.toISOString().split("T")[0];
   // start time: HH:MM 24hr
-  const localStartTime = new Date(
+  const localStartTimeString = new Date(
     start.getTime() - start.getTimezoneOffset() * 60000
-  )
-    .toISOString()
-    .split("T")[1]
-    .split(":")
-    .slice(0, 2)
-    .join(":");
-  const localEndTime = new Date(
-    start.getTime() +
-      duration * 60 * 60 * 1000 -
-      start.getTimezoneOffset() * 60000
-  )
-    .toISOString()
+  ).toISOString();
+
+  const localStartTime = localStartTimeString
     .split("T")[1]
     .split(":")
     .slice(0, 2)
     .join(":");
 
+  const localStartDate = localStartTimeString.split("T")[0];
+
+  const localEndTimeString = new Date(
+    start.getTime() +
+      duration * 60 * 60 * 1000 -
+      start.getTimezoneOffset() * 60000
+  ).toISOString();
+
+  const localEndTime = localEndTimeString
+    .split("T")[1]
+    .split(":")
+    .slice(0, 2)
+    .join(":");
+
+  const localEndDate = localEndTimeString.split("T")[0];
+
+  console.log(localStartTime, localEndTime);
+
   return (
     <AddToCalendarButton
       name={name}
       description={description}
-      startDate={dateString}
+      startDate={localStartDate}
       startTime={localStartTime}
       endTime={localEndTime}
+      endDate={localEndDate}
       timeZone="Europe/London"
       location={location}
       styleDark="--btn-shadow: none; --btn-shadow-hover: none; --bth-shadow-active: none; --list-shadow: none; --list-shadow-hover: none; --list-shadow-active: none;
-      --btn-background: var(--background); --btn-background-hover: var(--foreground);"
+      --btn-background: var(--background); --btn-background-hover: var(--background);"
       styleLight="--btn-shadow: none; --btn-shadow-hover: none; --bth-shadow-active: none; --list-shadow: none; --list-shadow-hover: none; --list-shadow-active: none;
-      --btn-background: var(--background); --btn-background-hover: var(--foreground);"
+      --btn-background: var(--background); --btn-background-hover: var(--background);"
       options="'Apple','Google','iCal'"
       trigger="click"
       hideTextLabelButton

@@ -1,13 +1,13 @@
 "use client";
-import Link from "next/link";
-import Image from "next/image";
-import _mediaMap from "public/notion-media/media-map.json";
-import { mediaMapInterface } from "notion-on-next/types/types";
-import siteConfig from "site.config";
+
 import { ParsedEventsPageObjectResponse } from "app/get";
-import SignUpStatus from "./event-sign-up-status";
-const mediaMap = _mediaMap as mediaMapInterface;
 import dynamic from "next/dynamic";
+import Image from "next/image";
+import Link from "next/link";
+import { mediaMapInterface } from "notion-on-next/types/types";
+import _mediaMap from "public/notion-media/media-map.json";
+import siteConfig from "site.config";
+const mediaMap = _mediaMap as mediaMapInterface;
 
 const AddToCal = dynamic(() => import("./add-to-cal"), { ssr: false });
 
