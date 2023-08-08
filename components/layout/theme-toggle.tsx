@@ -3,7 +3,7 @@
 import { useTheme } from "next-themes";
 import { Button } from "../ui/button";
 
-import { Palette } from "lucide-react";
+import { Moon, Palette, Sun } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -15,13 +15,16 @@ import {
 } from "../ui/dropdown-menu";
 
 const ThemeToggle = () => {
-  const { theme, setTheme } = useTheme();
+  const { theme, setTheme, resolvedTheme } = useTheme();
+
+  const Icon = resolvedTheme === "dark" ? Moon : Sun;
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="outline" size="icon">
-          <Palette className="h-[1.25rem] w-[1.25rem]" />
+        <Button variant="outline">
+          <Icon className="mr-2 h-[1.25rem] w-[1.25rem]" />
+          {capitalize(theme || "system")}
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-24">
@@ -36,5 +39,7 @@ const ThemeToggle = () => {
     </DropdownMenu>
   );
 };
+
+const capitalize = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
 
 export default ThemeToggle;
