@@ -1,4 +1,5 @@
 import React from "react";
+import TimeLine from "./timeline";
 
 const Page = () => {
   return (
@@ -16,6 +17,8 @@ const Page = () => {
         Have a side project you want to work on? We can help you get the
         resources you need to make it happen.
       </p>
+
+      <TimeLine className="mt-8" />
     </main>
   );
 };
