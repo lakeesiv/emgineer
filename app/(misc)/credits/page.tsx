@@ -62,8 +62,8 @@ const CreditsPage = () => {
           className="font-mono mt-2 animate-fade-up text-center text-emma-primary opacity-0 md:text-xl"
           style={{ animationDelay: "0.30s", animationFillMode: "forwards" }}
         >
-          Next.js, TailwindCSS, Next-Auth, notion-on-next, shadcn/ui, radix-ui,
-          tRPC
+          Next.js, TailwindCSS, NextAuth.js, notion-on-next, shadcn/ui,
+          radix-ui, tRPC
         </p>
         <p
           className="mt-2 animate-fade-up text-center text-muted-foreground/80 max-w-[600px]   opacity-0 md:text-xl"
