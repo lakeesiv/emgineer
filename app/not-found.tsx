@@ -1,8 +1,8 @@
 "use client";
+
 import { AnimatedTitle } from "components/text";
 import { Card } from "components/ui/card";
 import Image from "next/image";
-import Link from "next/link";
 import { FC } from "react";
 
 const NotFoud: FC = ({}) => {
@@ -21,30 +21,30 @@ const NotFoud: FC = ({}) => {
           <p className="font-extrabold text-emma-primary">What will you do?</p>
         </Card>
         <Card className="grid grid-cols-2 grid-rows-2 p-4 gap-4">
-          <Link
+          <a
             href="/"
             className="transition-colors text-emma-primary hover:text-emma-secondary font-extrabold underline underline-offset-4"
           >
             Home
-          </Link>
-          <Link
+          </a>
+          <a
             href="/blog"
             className="transition-colors text-emma-primary hover:text-emma-secondary font-extrabold underline underline-offset-4"
           >
             Blog
-          </Link>
-          <Link
+          </a>
+          <a
             href="/events"
             className="transition-colors text-emma-primary hover:text-emma-secondary font-extrabold underline underline-offset-4"
           >
             Events
-          </Link>
-          <Link
+          </a>
+          <a
             href="/credits"
             className="transition-colors text-emma-primary hover:text-emma-secondary font-extrabold underline underline-offset-4"
           >
             Credits
-          </Link>
+          </a>
         </Card>
       </div>
     </section>
