@@ -92,7 +92,19 @@ p.notion_paragraph a {
   text-decoration: underline;
   text-decoration-thickness: 2px;
   text-underline-offset: 6px;
-  @apply font-extrabold hover:brightness-150 hover:text-blue-500 hover:decoration-blue-500 transition-colors text-emma-primary decoration-emma-primary;
+  @apply font-extrabold hover:brightness-150 hover:text-emma-secondary hover:decoration-emma-secondary transition-colors text-emma-primary decoration-emma-primary;
+}
+
+h1.notion_heading_1 span {
+  @apply text-emma-primary;
+}
+
+h2.notion_heading_2 span {
+  @apply text-emma-primary;
+}
+
+h3.notion_heading_3 span {
+  @apply text-emma-primary;
 }
 
 @layer base {

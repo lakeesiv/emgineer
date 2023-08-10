@@ -40,7 +40,7 @@ export default async function BlogPage({ params }: { params: PageProps }) {
         )}
 
         <div className="mt-4">
-          <div className="text-3xl font-extrabold text-emma-primary hover:text-secondary transition ease-in duration-200 mb-2">
+          <div className="text-3xl font-extrabold text-emma-primary hover:text-emma-secondary transition ease-in duration-200 mb-2">
             {page.title}
           </div>
           <div className="text-gray-400">
