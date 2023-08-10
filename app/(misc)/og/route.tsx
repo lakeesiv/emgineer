@@ -1,18 +1,12 @@
 import { ImageResponse } from "next/server";
-// App router includes @vercel/og.
-// No need to install it.
 
 export const runtime = "edge";
 
 export async function GET(request: Request) {
   try {
-    const { searchParams } = new URL(request.url);
+    const req = new URL(request.url);
 
-    // ?title=<title>
-    const hasTitle = searchParams.has("title");
-    const title = hasTitle
-      ? searchParams.get("title")?.slice(0, 100)
-      : "Emgineers";
+    const title = "Emgineers";
 
     return new ImageResponse(
       (
@@ -40,8 +34,8 @@ export async function GET(request: Request) {
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              width="524"
-              height="532"
+              width="300"
+              height="300"
               viewBox="0 0 524 532"
               version="1.1"
             >
@@ -56,9 +50,9 @@ export async function GET(request: Request) {
           <div
             style={{
               fontSize: 60,
-              fontStyle: "normal",
               letterSpacing: "-0.025em",
               color: "#ffcccc",
+              fontWeight: 900,
               marginTop: 30,
               padding: "0 120px",
               lineHeight: 1.4,
