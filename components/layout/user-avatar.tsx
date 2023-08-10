@@ -10,6 +10,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "components/ui/dropdown-menu";
+import { Skeleton } from "components/ui/skeleton";
 import { LogIn, LogOut } from "lucide-react";
 import { signIn, signOut, useSession } from "next-auth/react";
 
@@ -25,7 +26,7 @@ const UserAvatar = () => {
   const { data: session, status } = useSession();
 
   if (status === "loading") {
-    return null;
+    return <Skeleton className="h-8 w-8 rounded-full" />;
   }
 
   /* The code block is checking if there is no session (user is not logged in). If there is no session,
