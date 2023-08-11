@@ -1,10 +1,6 @@
-import {
-  getServerSession,
-  type NextAuthOptions,
-  type DefaultSession,
-} from "next-auth";
+import { type NextAuthConfig, type DefaultSession } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
-
+import NextAuth from "next-auth";
 /**
  * Module augmentation for `next-auth` types. Allows us to add custom properties to the `session`
  * object and keep type safety.
@@ -31,7 +27,7 @@ declare module "next-auth" {
  *
  * @see https://next-auth.js.org/configuration/options
  */
-export const authOptions: NextAuthOptions = {
+export const authOptions: NextAuthConfig = {
   callbacks: {
     session: ({ session, token }) => ({
       ...session,
@@ -80,10 +76,15 @@ interface Session {
   };
 }
 
+export const {
+  handlers: { GET, POST },
+  auth,
+} = NextAuth(authOptions);
+
 /**
  * Wrapper for `getServerSession` so that you don't need to import the `authOptions` in every file.
  *
  * @see https://next-auth.js.org/configuration/nextjs
  */
 export const getServerAuthSession = () =>
-  getServerSession(authOptions) as unknown as Promise<Session | null>;
+  auth() as unknown as Promise<Session | null>;

@@ -2,6 +2,8 @@ import { fetchRequestHandler } from "@trpc/server/adapters/fetch";
 import { appRouter } from "server/api/root";
 import { createTRPCContext } from "server/api/trpc";
 
+// export const runtime = "edge";
+
 const handler = (req: Request) =>
   fetchRequestHandler({
     endpoint: "/api/trpc",
@@ -20,5 +22,3 @@ const handler = (req: Request) =>
 
 export const GET = handler;
 export const POST = handler;
-
-// export { handler as GET, handler as POST };

@@ -30,7 +30,7 @@
     "eslint-config-next": "13.0.5",
     "lucide-react": "^0.263.1",
     "next": "13.4.12",
-    "next-auth": "^4.22.3",
+    "next-auth": "0.0.0-manual.024ba3e6",
     "next-themes": "^0.2.1",
     "notion-on-next": "^1.0.7",
     "react": "18.2.0",
