@@ -2,7 +2,7 @@ import { BlogCard } from "components/blog-card";
 import { getBlogPages } from "../get";
 import { AnimatedTitle } from "components/text";
 
-export const revalidate = 600;
+export const revalidate = 64200;
 
 export default async function BlogIndex() {
   const pages = await getBlogPages();

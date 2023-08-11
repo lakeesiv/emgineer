@@ -5,7 +5,7 @@ import EventSignUpStatus from "./_components/event-sign-up-status";
 import { Suspense } from "react";
 import { Skeleton } from "components/ui/skeleton";
 
-export const revalidate = 60;
+export const revalidate = 64200;
 
 export default async function EventIndex() {
   const pages = await getParsedEventPages();
