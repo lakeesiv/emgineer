@@ -2,7 +2,7 @@ import {
   BlockObjectResponse,
   PartialBlockObjectResponse,
 } from "@notionhq/client/build/src/api-endpoints";
-import { getBlocks, getParsedPages } from "notion-on-next";
+import { getBlocks, getParsedPages } from "lib/non";
 import { cache } from "react";
 import {
   BlogPageObjectResponse,

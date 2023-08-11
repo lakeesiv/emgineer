@@ -5,6 +5,8 @@ import "components/globals.css";
 import { Providers } from "components/layout/providers";
 import { Analytics } from "@vercel/analytics/react";
 
+export const runtime = "edge";
+
 export default function RootLayout({
   children,
 }: {
