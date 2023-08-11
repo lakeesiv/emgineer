@@ -51,8 +51,10 @@ interface Session {
 
 export const {
   handlers: { GET, POST },
-  auth,
+  auth: _auth,
 } = NextAuth(authOptions);
 
+export const auth = _auth as unknown as () => Promise<Session | null>;
+
 export const getServerAuthSession = () =>
-  auth() as unknown as Promise<Session | null>;
+  _auth() as unknown as Promise<Session | null>;
