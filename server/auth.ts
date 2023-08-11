@@ -40,7 +40,7 @@ export const authOptions: NextAuthConfig = {
   ],
 };
 
-interface Session {
+export interface Session {
   user: {
     name: string;
     email: string;
