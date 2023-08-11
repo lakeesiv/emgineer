@@ -57,6 +57,7 @@ const AddToCal: FC<AddToCalProps> = ({
   return (
     <AddToCalendarButton
       name={name}
+      iCalFileName={name}
       description={description}
       startDate={localStartDate}
       startTime={localStartTime}
@@ -64,11 +65,11 @@ const AddToCal: FC<AddToCalProps> = ({
       endDate={localEndDate}
       timeZone="Europe/London"
       location={location}
-      styleDark="--btn-shadow: none; --btn-shadow-hover: none; --bth-shadow-active: none; --list-shadow: none; --list-shadow-hover: none; --list-shadow-active: none;
-      --btn-background: var(--background); --btn-background-hover: var(--background);"
-      styleLight="--btn-shadow: none; --btn-shadow-hover: none; --bth-shadow-active: none; --list-shadow: none; --list-shadow-hover: none; --list-shadow-active: none;
-      --btn-background: var(--background); --btn-background-hover: var(--background);"
-      options="'Apple','Google','iCal'"
+      styleDark="--btn-shadow: rgba(0,0,0,0); --btn-shadow-hover: rgba(0,0,0,0); --bth-shadow-active: rgba(0,0,0,0); --list-shadow: rgba(0,0,0,0); --list-shadow-hover: rgba(0,0,0,0); --list-shadow-active: rgba(0,0,0,0);
+      --btn-background: rgba(0,0,0,0); --btn-background-hover: rgba(0,0,0,0);"
+      styleLight="--btn-shadow: rgba(0,0,0,0); --btn-shadow-hover: rgba(0,0,0,0); --bth-shadow-active: rgba(0,0,0,0); --list-shadow: rgba(0,0,0,0); --list-shadow-hover: rgba(0,0,0,0); --list-shadow-active: rgba(0,0,0,0);
+      --btn-background: rgba(0,0,0,0); --btn-background-hover: rgba(0,0,0,0);"
+      options="'Google','iCal','Microsoft365'"
       trigger="click"
       hideTextLabelButton
       hideBackground
