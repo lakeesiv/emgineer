@@ -10,11 +10,11 @@
 import { experimental_createServerActionHandler } from "@trpc/next/app-dir/server";
 import { initTRPC, TRPCError } from "@trpc/server";
 import { type FetchCreateContextFnOptions } from "@trpc/server/adapters/fetch";
+import { Notion } from "lib/notion";
 import { headers } from "next/headers";
+import { auth } from "server/auth";
 import superjson from "superjson";
 import { ZodError } from "zod";
-import { getServerAuthSession } from "server/auth";
-import { Notion } from "lib/notion";
 
 /**
  * 1. CONTEXT
@@ -39,7 +39,7 @@ type CreateContextOptions = {
  * @see https://create.t3.gg/en/usage/trpc#-serverapitrpcts
  */
 export const createInnerTRPCContext = async (opts: CreateContextOptions) => {
-  const session = await getServerAuthSession();
+  const session = await auth();
   const notion = new Notion();
 
   return {
