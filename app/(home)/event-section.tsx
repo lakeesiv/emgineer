@@ -2,10 +2,16 @@ import { EventCard } from "app/events/_components/event-card";
 import EventSignUpStatus from "app/events/_components/event-sign-up-status";
 import { getParsedEventPages } from "app/get";
 import { Skeleton } from "components/ui/skeleton";
-import { Suspense } from "react";
+import { Suspense, cache } from "react";
+
+export const revalidate = 64200;
+const cachedGetParsedEventPages = cache(async () => {
+  const pages = await getParsedEventPages(true);
+  return pages;
+});
 
 const EventSection = async () => {
-  const pages = await getParsedEventPages(true);
+  const pages = await cachedGetParsedEventPages();
 
   return (
     <>
