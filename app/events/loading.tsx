@@ -1,9 +1,6 @@
 import { Title } from "components/text";
 import { Skeleton } from "components/ui/skeleton";
 
-export const runtime = "edge";
-export const revalidate = 86400;
-
 export default function EventIndex() {
   return (
     <div>
