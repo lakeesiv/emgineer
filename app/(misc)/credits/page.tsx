@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import Balancer from "react-wrap-balancer";
 
 const CreditsPage = () => {
   return (
@@ -66,13 +67,20 @@ const CreditsPage = () => {
           radix-ui, tRPC
         </p>
         <p
-          className="mt-2 animate-fade-up text-center text-muted-foreground/80 max-w-[600px]   opacity-0 md:text-xl"
+          className="mt-4 animate-fade-up text-center text-muted-foreground/80 max-w-[700px]   opacity-0 md:text-xl"
           style={{ animationDelay: "0.30s", animationFillMode: "forwards" }}
         >
-          This stack is on the bleeding edge 🩸🩸🩸 at the moment, so lots of
-          experimental features are being used. Expect bugs and breaking changes
-          in the future if you decided to upgrade to the latest versions of
-          these packages.
+          <Balancer>🩸🩸🩸 100% on the Edge Runtime 🩸🩸🩸</Balancer>
+        </p>
+        <p
+          className="mt-4 animate-fade-up text-center text-muted-foreground/80 max-w-[700px]   opacity-0 md:text-xl"
+          style={{ animationDelay: "0.30s", animationFillMode: "forwards" }}
+        >
+          <Balancer>
+            Lots of bleeding edge experimental features are being used ( Next 13
+            App Router, NextAuth.js on the edge, tRPC App Router ) so expect API
+            changes if you use this code and update your dependencies.
+          </Balancer>
         </p>
       </section>
     </>
