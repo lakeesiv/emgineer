@@ -6,7 +6,7 @@ import { Suspense } from "react";
 import { Skeleton } from "components/ui/skeleton";
 import ClientEventSignUpStatus from "./_components/client-even-sign-up-status";
 
-export const revalidate = 64200;
+export const runtime = "edge";
 
 export default async function EventIndex() {
   const pages = await getParsedEventPages();

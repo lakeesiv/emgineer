@@ -5,7 +5,6 @@ import { getParsedEventPages } from "app/get";
 import { Skeleton } from "components/ui/skeleton";
 import { Suspense, cache } from "react";
 
-export const revalidate = 64200;
 const cachedGetParsedEventPages = cache(async () => {
   const pages = await getParsedEventPages(true);
   return pages;

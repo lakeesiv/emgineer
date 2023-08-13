@@ -6,6 +6,7 @@ import { Providers } from "components/layout/providers";
 import { Analytics } from "@vercel/analytics/react";
 
 // export const runtime = "edge";
+export const revalidate = 86400;
 
 export default function RootLayout({
   children,

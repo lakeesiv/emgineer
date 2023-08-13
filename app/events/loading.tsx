@@ -5,8 +5,6 @@ import EventSignUpStatus from "./_components/event-sign-up-status";
 import { Suspense } from "react";
 import { Skeleton } from "components/ui/skeleton";
 
-export const revalidate = 64200;
-
 export default function EventIndex() {
   return (
     <div>

@@ -10,8 +10,6 @@ import {
 } from "types/notion-on-next.types";
 import siteConfig from "site.config";
 
-export const revalidate = 64200;
-
 export const getBlogPages = cache(
   async (limit?: number): Promise<BlogPageObjectResponse[]> => {
     const pages: BlogPageObjectResponse[] = await getParsedPages(
