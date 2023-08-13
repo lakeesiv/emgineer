@@ -35,7 +35,7 @@ const EventSignUpStatus: FC<EventSignUpStatusProps> = async ({
         buttonClassName += "bg-blue-500 hover:bg-blue-600";
         break;
       case "Awaiting Payment/Approval":
-        buttonClassName += "bg-yellow-500 hover:bg-yellow-600";
+        buttonClassName += "bg-orange-500 hover:bg-orange-600";
         break;
     }
 
