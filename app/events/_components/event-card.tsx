@@ -81,14 +81,14 @@ export const EventCard = ({
 };
 
 export const formatDate = (date: Date) => {
-  const days = date.toLocaleDateString(undefined, {
+  const days = date.toLocaleDateString("en-GB", {
     month: "short",
     day: "numeric",
     year: "numeric",
   });
 
   // time: HH:MM AM/PM
-  const time = date.toLocaleTimeString(undefined, {
+  const time = date.toLocaleTimeString("en-GB", {
     hour: "numeric",
     minute: "numeric",
     hour12: true,

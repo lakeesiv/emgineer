@@ -52,8 +52,6 @@ const AddToCal: FC<AddToCalProps> = ({
 
   const localEndDate = localEndTimeString.split("T")[0];
 
-  console.log(localStartTime, localEndTime);
-
   return (
     <AddToCalendarButton
       name={name}
