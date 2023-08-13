@@ -1,7 +1,9 @@
+"use client";
+
 import { cn } from "lib/utils";
 import { FC } from "react";
 
-interface AnimatedTitleProps
+interface TitleProps
   extends React.DetailedHTMLProps<
     React.HTMLAttributes<HTMLHeadingElement>,
     HTMLHeadingElement
@@ -9,12 +11,14 @@ interface AnimatedTitleProps
   variant?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
   size?: "sm" | "md" | "lg";
   children: React.ReactNode;
+  animate?: boolean;
 }
 
-export const AnimatedTitle: FC<AnimatedTitleProps> = ({
+export const Title: FC<TitleProps> = ({
   variant = "h1",
   size = "lg",
   children,
+  animate = false,
   ...props
 }) => {
   const Comp = variant;
@@ -28,8 +32,10 @@ export const AnimatedTitle: FC<AnimatedTitleProps> = ({
       ? "text-6xl md:text-7xl/[5rem]"
       : "text-5xl md:text-6xl/[4rem]";
 
+  const animateClass = animate ? "animate-fade-up opacity-0 " : "";
+
   const className = cn(
-    `${textClass}  animate-fade-up bg-gradient-to-br from-emma-primary to-emma-secondary bg-clip-text text-center font-extrabold tracking-[-0.02em] text-transparent opacity-0 drop-shadow-sm pb-[0.8rem] `,
+    `${textClass}  ${animateClass} bg-gradient-to-br from-emma-primary to-emma-secondary bg-clip-text text-center font-extrabold tracking-[-0.02em] text-transparent drop-shadow-sm pb-[0.8rem] `,
     props.className
   );
 
@@ -37,14 +43,18 @@ export const AnimatedTitle: FC<AnimatedTitleProps> = ({
     <Comp
       {...props}
       className={className}
-      style={{ animationDelay: "0.20s", animationFillMode: "forwards" }}
+      style={
+        animate
+          ? { animationDelay: "0.20s", animationFillMode: "forwards" }
+          : {}
+      }
     >
       {children}
     </Comp>
   );
 };
 
-interface AnimatedDescriptionProps
+interface DescriptionProps
   extends React.DetailedHTMLProps<
     React.HTMLAttributes<HTMLParagraphElement>,
     HTMLParagraphElement
@@ -52,10 +62,7 @@ interface AnimatedDescriptionProps
   children: React.ReactNode;
 }
 
-export const AnimatedDescription: FC<AnimatedDescriptionProps> = ({
-  children,
-  ...props
-}) => (
+export const Description: FC<DescriptionProps> = ({ children, ...props }) => (
   <p
     {...props}
     className={cn(

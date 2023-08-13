@@ -1,6 +1,6 @@
 import { BlogCard } from "components/blog-card";
 import { getBlogPages } from "../get";
-import { AnimatedTitle } from "components/text";
+import { Title } from "components/text";
 
 export const runtime = "edge";
 
@@ -9,9 +9,9 @@ export default async function BlogIndex() {
 
   return (
     <div>
-      <AnimatedTitle variant="h3" size="sm">
+      <Title variant="h3" size="sm">
         Blog Posts
-      </AnimatedTitle>
+      </Title>
       <div className="space-y-8 gap-8 max-w-[800px] mx-auto p-12">
         {pages.map((page) => (
           <BlogCard page={page} key={page.id} />

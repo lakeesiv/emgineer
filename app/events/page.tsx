@@ -1,4 +1,4 @@
-import { AnimatedTitle } from "components/text";
+import { Title } from "components/text";
 import { getParsedEventPages } from "../get";
 import { EventCard } from "./_components/event-card";
 import EventSignUpStatus from "./_components/event-sign-up-status";
@@ -15,9 +15,9 @@ export default async function EventIndex() {
 
   return (
     <div>
-      <AnimatedTitle variant="h3" size="sm" className="mt-4">
+      <Title variant="h3" size="sm" className="mt-4">
         Upcoming Events
-      </AnimatedTitle>
+      </Title>
       <div className="space-y-8 gap-8 max-w-[800px] mx-auto p-12">
         {upcomingPages.map((page) => (
           <>
@@ -34,9 +34,9 @@ export default async function EventIndex() {
           </>
         ))}
       </div>
-      <AnimatedTitle variant="h3" size="sm">
+      <Title variant="h3" size="sm">
         Past Events
-      </AnimatedTitle>
+      </Title>
       <div className="space-y-8 gap-8 max-w-[800px] mx-auto p-12">
         {pastPages.map((page) => (
           <>

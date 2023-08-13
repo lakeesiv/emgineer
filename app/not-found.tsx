@@ -1,6 +1,6 @@
 "use client";
 
-import { AnimatedTitle } from "components/text";
+import { Title } from "components/text";
 import { Card } from "components/ui/card";
 import Image from "next/image";
 import { FC } from "react";
@@ -8,7 +8,7 @@ import { FC } from "react";
 const NotFoud: FC = ({}) => {
   return (
     <section className="flex flex-col items-center justify-center p-12">
-      <AnimatedTitle>404 Not Found</AnimatedTitle>
+      <Title>404 Not Found</Title>
       <Image
         src="/missingno.webp"
         alt="Missingno"
