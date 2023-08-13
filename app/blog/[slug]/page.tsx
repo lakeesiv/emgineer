@@ -5,6 +5,7 @@ import _mediaMap from "public/notion-media/media-map.json";
 import React from "react";
 import siteConfig from "site.config";
 import { cachedGetBlocks, getBlogPages } from "../../get";
+
 export const revalidate = 86400;
 
 const mediaMap = _mediaMap as mediaMapInterface;

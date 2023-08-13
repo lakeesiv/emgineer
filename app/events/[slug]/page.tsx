@@ -7,6 +7,8 @@ import siteConfig from "site.config";
 import { cachedGetBlocks, getEventPages, getParsedEventPages } from "app/get";
 import RegisterForm from "../_components/register-form";
 
+export const revalidate = 86400;
+
 const mediaMap = _mediaMap as mediaMapInterface;
 const databaseId = siteConfig.eventsDatabaseId;
 

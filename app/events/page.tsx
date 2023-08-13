@@ -5,7 +5,7 @@ import { getParsedEventPages } from "../get";
 import ClientEventSignUpStatus from "./_components/client-even-sign-up-status";
 import { EventCard } from "./_components/event-card";
 
-export const runtime = "edge";
+// export const runtime = "edge";
 export const revalidate = 86400;
 
 export default async function EventIndex() {
