@@ -1,5 +1,3 @@
-"use client";
-
 import { Title } from "components/text";
 import { Card } from "components/ui/card";
 import Image from "next/image";
