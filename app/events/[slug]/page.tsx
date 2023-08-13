@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { notFound } from "next/navigation";
-import { mediaMapInterface, NotionPageBody } from "notion-on-next";
+import { mediaMapInterface, NotionPageBody } from "lib/non";
 import _mediaMap from "public/notion-media/media-map.json";
 import React from "react";
 import siteConfig from "site.config";

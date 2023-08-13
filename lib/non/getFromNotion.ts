@@ -1,11 +1,3 @@
-/**
- * This file is taken from notion-on-next, and removes
- * dependencies on 'fs' which allows this to be used in
- * the Edge Runtime.
- *
- * @credit https://github.com/williamlmao/notion-on-next/blob/main/src/getFromNotion.ts
- */
-
 import {
   Client,
   collectPaginatedAPI,
@@ -17,6 +9,7 @@ import {
   PageObjectResponse,
   PartialPageObjectResponse,
 } from "@notionhq/client/build/src/api-endpoints";
+import { pascalCase } from "./utils";
 
 export const notion = new Client({
   auth: process.env.NOTION_KEY,
@@ -28,32 +21,6 @@ export const notion = new Client({
     });
   },
 });
-
-export const spinalCase = (text: string | undefined) => {
-  if (!text) {
-    return "";
-  }
-  return text
-    .toLowerCase()
-    .replace(/ /g, "-")
-    .replace(/[^a-z0-9-]/gi, "");
-};
-
-export const pascalCase = (text: string | undefined) => {
-  if (!text) {
-    return "";
-  }
-  return spinalCase(text)
-    .split("-")
-    .map((word) => {
-      if (word.length === 0) {
-        return "";
-      }
-      return word?.[0]?.toUpperCase() + word?.slice(1);
-    })
-    .join("");
-};
-
 export const getDatabase = async (
   databaseId: string
 ): Promise<DatabaseObjectResponse | undefined> => {

@@ -1,11 +1,11 @@
 import Footer from "components/layout/footer";
 import NavBar from "components/layout/navbar";
-import "notion-on-next/non.css";
+import "lib/non/styles.css";
 import "components/globals.css";
 import { Providers } from "components/layout/providers";
 import { Analytics } from "@vercel/analytics/react";
 
-// export const runtime = "edge";
+export const runtime = "edge";
 export const revalidate = 86400;
 
 export default function RootLayout({
