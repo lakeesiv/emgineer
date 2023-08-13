@@ -15,12 +15,12 @@ export default function Home() {
           Emmanuel College Engineering Society
         </AnimatedDescription>
       </section>
-      {/* <Suspense fallback={<EventSectionLoading />}> */}
-      <EventSection />
-      {/* </Suspense> */}
-      {/* <Suspense fallback={<BlogSectionLoading />}> */}
-      <BlogSection />
-      {/* </Suspense> */}
+      <Suspense fallback={<EventSectionLoading />}>
+        <EventSection />
+      </Suspense>
+      <Suspense fallback={<BlogSectionLoading />}>
+        <BlogSection />
+      </Suspense>
     </>
   );
 }
