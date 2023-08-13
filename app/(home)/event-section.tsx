@@ -1,3 +1,4 @@
+import ClientEventSignUpStatus from "app/events/_components/client-even-sign-up-status";
 import { EventCard } from "app/events/_components/event-card";
 import EventSignUpStatus from "app/events/_components/event-sign-up-status";
 import { getParsedEventPages } from "app/get";
@@ -26,7 +27,7 @@ const EventSection = async () => {
                 <Suspense
                   fallback={<Skeleton className="w-full p-5 mt-4"></Skeleton>}
                 >
-                  <EventSignUpStatus
+                  <ClientEventSignUpStatus
                     eventId={page.parsed.eventId}
                     slug={page.parsed.eventId}
                   />

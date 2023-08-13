@@ -4,6 +4,7 @@ import { EventCard } from "./_components/event-card";
 import EventSignUpStatus from "./_components/event-sign-up-status";
 import { Suspense } from "react";
 import { Skeleton } from "components/ui/skeleton";
+import ClientEventSignUpStatus from "./_components/client-even-sign-up-status";
 
 export const revalidate = 64200;
 
@@ -24,7 +25,7 @@ export default async function EventIndex() {
               <Suspense
                 fallback={<Skeleton className="w-full p-5 mt-4"></Skeleton>}
               >
-                <EventSignUpStatus
+                <ClientEventSignUpStatus
                   eventId={page.parsed.eventId}
                   slug={page.parsed.eventId}
                 />

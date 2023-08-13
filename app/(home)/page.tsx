@@ -4,7 +4,7 @@ import EventSection, { EventSectionLoading } from "./event-section";
 import { AnimatedDescription, AnimatedTitle } from "components/text";
 
 export const revalidate = 64200;
-// export const runtime = "edge";
+export const runtime = "edge";
 
 export default function Home() {
   return (
