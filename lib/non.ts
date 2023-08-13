@@ -18,7 +18,16 @@ import {
   PartialPageObjectResponse,
 } from "@notionhq/client/build/src/api-endpoints";
 
-export const notion = new Client({ auth: process.env.NOTION_KEY });
+export const notion = new Client({
+  auth: process.env.NOTION_KEY,
+  fetch: (url, opts) => {
+    return fetch(url, {
+      ...opts,
+      next: { tags: ["notion"] },
+      cache: "force-cache",
+    });
+  },
+});
 
 export const spinalCase = (text: string | undefined) => {
   if (!text) {
