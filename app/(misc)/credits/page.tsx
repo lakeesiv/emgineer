@@ -70,16 +70,18 @@ const CreditsPage = () => {
           className="mt-4 animate-fade-up text-center text-muted-foreground/80 max-w-[700px]   opacity-0 md:text-xl"
           style={{ animationDelay: "0.30s", animationFillMode: "forwards" }}
         >
-          <Balancer>🩸🩸🩸 100% on the Edge Runtime 🩸🩸🩸</Balancer>
+          <Balancer>🩸🩸🩸 Almost Fully on the Edge Runtime 🩸🩸🩸</Balancer>
         </p>
         <p
           className="mt-4 animate-fade-up text-center text-muted-foreground/80 max-w-[700px]   opacity-0 md:text-xl"
           style={{ animationDelay: "0.30s", animationFillMode: "forwards" }}
         >
           <Balancer>
-            Lots of bleeding edge experimental features are being used ( Next 13
-            App Router, NextAuth.js on the edge, tRPC App Router ) so expect API
-            changes if you use this code and update your dependencies.
+            (ISR {"doesn't"} work on edge yet :( so the ISR pages are on the
+            Node) runtime) Lots of bleeding edge experimental features are being
+            used ( Next 13 App Router, NextAuth.js on the edge, tRPC App Router
+            ) so expect API changes if you use this code and update your
+            dependencies.
           </Balancer>
         </p>
       </section>
