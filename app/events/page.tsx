@@ -20,18 +20,16 @@ export default async function EventIndex() {
       </Title>
       <div className="space-y-8 gap-8 max-w-[800px] mx-auto p-12">
         {upcomingPages.map((page) => (
-          <>
-            <EventCard page={page}>
-              <Suspense
-                fallback={<Skeleton className="w-full p-5 mt-4"></Skeleton>}
-              >
-                <ClientEventSignUpStatus
-                  eventId={page.parsed.eventId}
-                  slug={page.parsed.eventId}
-                />
-              </Suspense>
-            </EventCard>
-          </>
+          <EventCard page={page} key={page.id}>
+            <Suspense
+              fallback={<Skeleton className="w-full p-5 mt-4"></Skeleton>}
+            >
+              <ClientEventSignUpStatus
+                eventId={page.parsed.eventId}
+                slug={page.parsed.eventId}
+              />
+            </Suspense>
+          </EventCard>
         ))}
       </div>
       <Title variant="h3" size="sm">
@@ -39,9 +37,7 @@ export default async function EventIndex() {
       </Title>
       <div className="space-y-8 gap-8 max-w-[800px] mx-auto p-12">
         {pastPages.map((page) => (
-          <>
-            <EventCard page={page} />
-          </>
+          <EventCard page={page} key={page.id} />
         ))}
       </div>
     </div>
