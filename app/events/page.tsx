@@ -1,12 +1,12 @@
 import { Title } from "components/text";
-import { getParsedEventPages } from "../get";
-import { EventCard } from "./_components/event-card";
-import EventSignUpStatus from "./_components/event-sign-up-status";
-import { Suspense } from "react";
 import { Skeleton } from "components/ui/skeleton";
+import { Suspense } from "react";
+import { getParsedEventPages } from "../get";
 import ClientEventSignUpStatus from "./_components/client-even-sign-up-status";
+import { EventCard } from "./_components/event-card";
 
 export const runtime = "edge";
+export const revalidate = 86400;
 
 export default async function EventIndex() {
   const pages = await getParsedEventPages();

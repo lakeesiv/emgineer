@@ -3,6 +3,7 @@ import { getBlogPages } from "../get";
 import { Title } from "components/text";
 
 export const runtime = "edge";
+export const revalidate = 86400;
 
 export default async function BlogIndex() {
   const pages = await getBlogPages();
