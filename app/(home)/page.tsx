@@ -3,7 +3,7 @@ import BlogSection, { BlogSectionLoading } from "./blog-section";
 import EventSection, { EventSectionLoading } from "./event-section";
 import { Description, Title } from "components/text";
 
-export const runtime = "edge";
+export const runtime = "nodejs";
 export const revalidate = 86400;
 
 export default function Home() {

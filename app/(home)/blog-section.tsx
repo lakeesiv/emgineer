@@ -3,8 +3,6 @@ import { BlogCard } from "components/blog-card";
 import { Skeleton } from "components/ui/skeleton";
 import React from "react";
 
-export const revalidate = 86400;
-
 const BlogSection = async () => {
   const pages = await getBlogPages(4);
 

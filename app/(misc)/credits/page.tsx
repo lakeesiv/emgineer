@@ -70,7 +70,7 @@ const CreditsPage = () => {
           className="mt-4 animate-fade-up text-center text-muted-foreground/80 max-w-[700px]   opacity-0 md:text-xl"
           style={{ animationDelay: "0.30s", animationFillMode: "forwards" }}
         >
-          <Balancer>🩸🩸🩸 Almost Fully on the Edge Runtime 🩸🩸🩸</Balancer>
+          <Balancer>🩸🩸🩸 Edge Runtime Compliant 🩸🩸🩸</Balancer>
         </p>
         <p
           className="mt-4 animate-fade-up text-center text-muted-foreground/80 max-w-[700px]   opacity-0 md:text-xl"
@@ -78,10 +78,11 @@ const CreditsPage = () => {
         >
           <Balancer>
             (ISR {"doesn't"} work on edge yet :( so the ISR pages are on the
-            Node) runtime) Lots of bleeding edge experimental features are being
-            used ( Next 13 App Router, NextAuth.js on the edge, tRPC App Router
-            ) so expect API changes if you use this code and update your
-            dependencies.
+            Node runtime however these can be made into edge runtime pages to
+            make the site fully on the edge.) Lots of bleeding edge experimental
+            features are being used ( Next 13 App Router, NextAuth.js on the
+            edge, tRPC App Router ) so expect API changes if you use this code
+            and update your dependencies.
           </Balancer>
         </p>
       </section>
