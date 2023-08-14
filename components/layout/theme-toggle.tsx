@@ -23,8 +23,10 @@ const ThemeToggle = () => {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant="outline">
-          <Icon className="mr-2 h-[1.25rem] w-[1.25rem]" />
-          {capitalize(theme || "system")}
+          <Icon className="h-[1.25rem] w-[1.25rem]" />
+
+          {/* <Icon className="mr-2 h-[1.25rem] w-[1.25rem]" /> */}
+          {/* {capitalize(theme || "system")} */}
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-24">
