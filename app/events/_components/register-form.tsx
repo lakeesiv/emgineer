@@ -30,10 +30,11 @@ import { Skeleton } from "components/ui/skeleton";
 import AddToCal from "./add-to-cal";
 import { ParsedEventsPageObjectResponse } from "app/get";
 import { Badge } from "components/ui/badge";
+import { useToast } from "components/ui/use-toast";
 
 const formSchema = z.object({
   going: z.enum(["Yes", "No", "Maybe"]),
-  extraDetails: z.string().optional(),
+  extraDetails: z.string().optional().default(""),
 });
 
 interface RegisterFormProps extends ParsedEventsPageObjectResponse {}
@@ -53,8 +54,11 @@ const RegisterForm = ({
   const eventSignUpForm = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
   });
+  const [submitting, setSubmitting] = useState<boolean>(false);
+  const { toast } = useToast();
 
   function onSubmit(values: z.infer<typeof formSchema>) {
+    setSubmitting(true);
     userSignUp({
       going: values.going,
       extraDetails: values.extraDetails,
@@ -116,9 +120,24 @@ const RegisterForm = ({
         extraDetails: extraDetails,
       });
       // redirect to /events
+
+      toast({
+        title: "Event Sign Up",
+        description:
+          "You have successfully updated your sign up for this event",
+      });
+
+      // wait for 1 second to allow toast to show
+      setTimeout(() => {}, 2000);
+
       window.location.href = "/events";
     } catch (error) {
       console.log((error as { message: string }).message);
+      toast({
+        title: "Event Sign Up",
+        description: "Something went wrong, please try again later",
+        variant: "destructive",
+      });
     }
   }
 
@@ -190,7 +209,9 @@ const RegisterForm = ({
             />
           )}
           <div className="flex flex-row items-center space-x-2">
-            <Button type="submit">Submit</Button>
+            <Button type="submit" disabled={submitting}>
+              Submit
+            </Button>
             <AddToCal
               start={date}
               duration={duration}
