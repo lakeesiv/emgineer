@@ -9,6 +9,7 @@ import {
   EventsPageObjectResponse,
 } from "types/notion-on-next.types";
 import siteConfig from "site.config";
+import { ParsedEventDetails, parseEvent } from "lib/notion";
 
 export const revalidate = 86400;
 
@@ -48,17 +49,7 @@ export const getEventPages = cache(
 
 export interface ParsedEventsPageObjectResponse
   extends EventsPageObjectResponse {
-  parsed: {
-    title: string;
-    eventId: string;
-    description: string;
-    location: string;
-    date: Date;
-    duration: number;
-    hide: boolean;
-    requiresPayment: boolean;
-    extraDetails?: string;
-  };
+  parsed: ParsedEventDetails;
 }
 
 export const getParsedEventPages = cache(
@@ -70,44 +61,9 @@ export const getParsedEventPages = cache(
     );
     const parsedPages = pages.map((page) => {
       try {
-        //@ts-ignore
-        const title = page.properties.Name.title[0].plain_text as string;
-        //@ts-ignore
-        const description = page.properties.Description.rich_text[0]
-          .plain_text as string;
-        //@ts-ignore
-        const location = page.properties.Location.rich_text[0]
-          .plain_text as string;
-        //@ts-ignore
-        const eventId = page.properties["Id"].rich_text[0].plain_text as string;
-        //@ts-ignore
-        const duration = page.properties["Duration (hrs)"].number as number;
-        // @ts-ignore
-        const extraDetails = page.properties["Extra Details"]?.rich_text[0]
-          ?.plain_text as string;
+        const parsedResults = parseEvent(page);
 
-        const fixedTypesProps = {
-          title,
-          description,
-          location,
-          duration,
-          eventId,
-          extraDetails,
-        };
-
-        const date =
-          new Date(page.properties.Date.date?.start as string) || new Date();
-        const hide = page.properties.Hide.checkbox as boolean;
-
-        if (hide) return null;
-
-        const parsedResults = {
-          ...fixedTypesProps,
-          date: date,
-          hide: hide,
-          requiresPayment: page.properties["Requires Payment"]
-            .checkbox as boolean,
-        };
+        if (!parsedResults) return null;
 
         const parsedPage: ParsedEventsPageObjectResponse = {
           ...page,
