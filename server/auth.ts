@@ -3,13 +3,13 @@ import GoogleProvider from "next-auth/providers/google";
 import NextAuth from "next-auth";
 import { DrizzleAdapter } from "@auth/drizzle-adapter";
 import { db } from "lib/db";
+import { AdapterUser } from "@auth/core/adapters";
 
 declare module "next-auth" {
   interface Session extends DefaultSession {
     user: {
       id: string;
       crsid: string;
-      stripeId?: string;
     } & DefaultSession["user"];
   }
 }
@@ -18,6 +18,7 @@ export const authOptions: NextAuthConfig = {
   callbacks: {
     session: ({ session, token, user }) => {
       const crsid = user.email.split("@")[0];
+      // console.log(user);
 
       return {
         ...session,
@@ -57,7 +58,6 @@ export interface Session {
     image: string;
     id: string;
     crsid: string;
-    stripeId?: string;
   };
 }
 

@@ -20,9 +20,16 @@ export const stripeRouter = createTRPCRouter({
         notion,
       } = ctx;
 
-      let stripeId = user.stripeId;
+      const userQuery = await ctx.db.query.users.findFirst({
+        where: eq(users.id, user.id),
+        columns: {
+          stripeId: true,
+        },
+      });
 
-      if (!user.stripeId) {
+      let stripeId = userQuery?.stripeId;
+
+      if (!stripeId) {
         // create stripe customer
         const customer = await stripe.customers.create({
           email: user.email,
@@ -44,13 +51,12 @@ export const stripeRouter = createTRPCRouter({
         stripeId = updatedUser[0].stripeId as string;
       }
 
-      const { email, name, id } = user;
       const url = getUrl() + "/events/" + eventId;
 
       const session = await stripe.checkout.sessions.create({
         payment_method_types: ["card"],
         mode: "payment",
-        client_reference_id: id,
+        client_reference_id: user.id,
         customer: stripeId,
         cancel_url: url,
         success_url: url,
