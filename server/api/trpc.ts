@@ -4,6 +4,7 @@ import { Notion } from "lib/notion";
 import superjson from "superjson";
 import { ZodError } from "zod";
 import { Session } from "../auth";
+import { db } from "lib/db";
 
 interface ModfiedRequest extends Request {
   auth: Session;
@@ -20,6 +21,7 @@ export const createInnerTRPCContext = async (opts: CreateContextOptions) => {
 
   return {
     session,
+    db,
     headers: opts.headers,
     notion,
   };

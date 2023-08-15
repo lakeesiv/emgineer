@@ -4,6 +4,7 @@ import {
   publicProcedure,
   protectedProcedure,
 } from "server/api/trpc";
+import { eventSignUps } from "lib/db/schema";
 
 export const signUp = protectedProcedure
   .input(
@@ -14,7 +15,31 @@ export const signUp = protectedProcedure
     })
   )
   .mutation(async ({ ctx, input: { going, eventId, extraDetails } }) => {
-    const { name, email } = ctx.session.user;
+    const { name, email, id } = ctx.session.user;
+    const event = ctx.notion.getEvent(eventId);
+    // @ts-ignore
+    const eventName = event.properties.Name.title[0].plain_text as string;
+
+    const dbRes = await ctx.db
+      .insert(eventSignUps)
+      .values({
+        name,
+        id: email + "-" + eventId,
+        userId: id,
+        extraDetails,
+        email: email,
+        going: going,
+        eventId: eventId,
+        event: eventName,
+      })
+      .onConflictDoUpdate({
+        target: eventSignUps.id,
+        set: {
+          going,
+          extraDetails,
+        },
+      });
+
     const res = ctx.notion.upsertSignUp(
       name,
       email,

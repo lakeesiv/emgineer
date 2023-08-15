@@ -4,8 +4,11 @@ import {
   text,
   primaryKey,
   integer,
+  pgEnum,
+  serial,
 } from "drizzle-orm/pg-core";
 import type { AdapterAccount } from "@auth/core/adapters";
+import { sql } from "drizzle-orm";
 
 export const users = pgTable("user", {
   id: text("id").notNull().primaryKey(),
@@ -56,3 +59,20 @@ export const verificationTokens = pgTable(
     compoundKey: primaryKey(vt.identifier, vt.token),
   })
 );
+
+const goingEnum = pgEnum("going", ["No", "Maybe", "Yes"]);
+
+export const eventSignUps = pgTable("eventSignUp", {
+  id: text("id").primaryKey(),
+  userId: text("userId").notNull(),
+  name: text("name").notNull(),
+  email: text("email").notNull(),
+  eventId: text("eventId").notNull(),
+  event: text("event").notNull(),
+  going: goingEnum("going").notNull(),
+  extraDetails: text("extraDetails"),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").default(
+    sql`CURRENT_TIMESTAMP(3) on update CURRENT_TIMESTAMP(3)`
+  ),
+});
