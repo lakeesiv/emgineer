@@ -20,6 +20,12 @@ export const stripeRouter = createTRPCRouter({
         notion,
       } = ctx;
 
+      const { stripePriceId } = await notion.getParsedEvent(eventId);
+
+      if (!stripePriceId) {
+        throw new Error("Stripe price ID not found");
+      }
+
       const userQuery = await ctx.db.query.users.findFirst({
         where: eq(users.id, user.id),
         columns: {
@@ -62,7 +68,7 @@ export const stripeRouter = createTRPCRouter({
         success_url: url,
         line_items: [
           {
-            price: "price_1NfMHfJanqXBQ5sgF9BfZwLu",
+            price: stripePriceId,
             quantity: 1,
           },
         ],
