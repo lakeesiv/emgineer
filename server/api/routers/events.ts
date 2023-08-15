@@ -17,9 +17,9 @@ export const signUp = protectedProcedure
   )
   .mutation(async ({ ctx, input: { going, eventId, extraDetails } }) => {
     const { name, email, crsid, id } = ctx.session.user;
-    const event = await ctx.notion.getEvent(eventId);
+    const { eventName, paymentRequired } =
+      await ctx.notion.eventValidateAndPaymentCheck(eventId);
     // @ts-ignore
-    const eventName = event.properties.Name.title[0].plain_text as string;
 
     const dbRes = await ctx.db
       .insert(eventSignUps)
@@ -30,6 +30,7 @@ export const signUp = protectedProcedure
         extraDetails,
         email: email,
         going: going,
+        paid: paymentRequired ? false : null, // by default, if payment is required, then the user has not paid
         eventId: eventId,
         event: eventName,
       })
@@ -67,7 +68,7 @@ export const userSignUpStatus = protectedProcedure
         going: "",
       };
     }
-    const { going } = signUpRow;
+    const { going, paid } = signUpRow;
     const payment = "Paid";
 
     let status = "RVSP";
@@ -79,15 +80,16 @@ export const userSignUpStatus = protectedProcedure
       status = "Maybe";
     }
 
-    if (going === "Yes" && payment === "Paid") {
+    if (going === "Yes" && paid === true) {
       status = "Going (Paid)";
     }
 
-    if (going === "Yes" && payment === "Not Paid") {
+    if (going === "Yes" && paid === false) {
       status = "Awaiting Payment/Approval";
     }
 
-    if (going === "Yes" && payment === "Not Needed") {
+    if (going === "Yes" && paid === null) {
+      // payment not required
       status = "Going";
     }
 

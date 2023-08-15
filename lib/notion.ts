@@ -32,7 +32,7 @@ export class Notion {
     return res.results[0] as EventsPageObjectResponse;
   }
 
-  private async eventValidateAndPaymentCheck(id: string) {
+  async eventValidateAndPaymentCheck(id: string) {
     const event = await this.getEvent(id);
 
     if (!event) {

@@ -6,6 +6,7 @@ import {
   integer,
   pgEnum,
   serial,
+  boolean,
 } from "drizzle-orm/pg-core";
 import type { AdapterAccount } from "@auth/core/adapters";
 import { sql } from "drizzle-orm";
@@ -70,6 +71,7 @@ export const eventSignUps = pgTable("eventSignUp", {
   eventId: text("eventId").notNull(),
   event: text("event").notNull(),
   going: goingEnum("going").notNull(),
+  paid: boolean("paid"),
   extraDetails: text("extraDetails"),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
 });
