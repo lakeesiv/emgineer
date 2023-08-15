@@ -17,8 +17,10 @@ type CreateContextOptions = {
 
 export const createInnerTRPCContext = async (opts: CreateContextOptions) => {
   const session = opts.req.auth;
-  const crsid = session.user.email.split("@")[0];
-  session.user.crsid = crsid;
+  if (session.user) {
+    const crsid = session?.user?.email && session.user.email.split("@")[0];
+    session.user.crsid = crsid;
+  }
   const notion = new Notion();
 
   return {
