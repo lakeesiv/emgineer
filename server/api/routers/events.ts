@@ -57,12 +57,26 @@ export const userSignUpStatus = protectedProcedure
       where: eq(eventSignUps.id, id),
     });
 
+    interface SignUpStatus {
+      status:
+        | "RVSP"
+        | "Going"
+        | "Going (Paid)"
+        | "Awaiting Payment/Approval"
+        | "Not Going"
+        | "Maybe";
+
+      extraDetails?: string;
+      going?: "Yes" | "No" | "Maybe";
+      payment?: boolean | null;
+    }
+
     if (!signUpRow) {
       return {
         status: "RVSP",
         extraDetails: "",
-        going: "",
-      };
+        going: undefined,
+      } as SignUpStatus;
     }
     const { going, paid } = signUpRow;
 
@@ -94,7 +108,7 @@ export const userSignUpStatus = protectedProcedure
       extraDetails: signUpRow.extraDetails,
       going,
       payment: paid,
-    };
+    } as SignUpStatus;
   });
 
 export const eventRouter = createTRPCRouter({
