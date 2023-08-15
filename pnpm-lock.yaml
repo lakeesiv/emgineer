@@ -4,6 +4,11 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+patchedDependencies:
+  drizzle-kit@0.19.12:
+    hash: n5yvjchmlsqyjyo73ebghtls5e
+    path: patches/drizzle-kit@0.19.12.patch
+
 dependencies:
   '@auth/core':
     specifier: ^0.12.0
@@ -147,7 +152,7 @@ devDependencies:
     version: 16.0.3
   drizzle-kit:
     specifier: ^0.19.12
-    version: 0.19.12
+    version: 0.19.12(patch_hash=n5yvjchmlsqyjyo73ebghtls5e)
   encoding:
     specifier: ^0.1.13
     version: 0.1.13
@@ -5016,7 +5021,7 @@ packages:
       wordwrap: 1.0.0
     dev: true
 
-  /drizzle-kit@0.19.12:
+  /drizzle-kit@0.19.12(patch_hash=n5yvjchmlsqyjyo73ebghtls5e):
     resolution: {integrity: sha512-rcsmh5gUIkvuD0WrbEc+aLpqY2q2J8ltynRcJiJo2l01hhsYvPnX0sgxWlFXlfAIa5ZXNw2nJZhYlslI6tG3MA==}
     hasBin: true
     dependencies:
@@ -5035,6 +5040,7 @@ packages:
     transitivePeerDependencies:
       - supports-color
     dev: true
+    patched: true
 
   /drizzle-orm@0.28.2(@vercel/postgres@0.4.1)(pg@8.11.2):
     resolution: {integrity: sha512-QRyuzvpJr7GE6LpvZ/sg2nAKNg2if1uGGkgFTiXn4auuYId//vVJe6HBsDTktfKfcaDGzIYos+/f+PS5EkBmrg==}
