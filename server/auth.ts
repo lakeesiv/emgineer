@@ -8,6 +8,7 @@ declare module "next-auth" {
   interface Session extends DefaultSession {
     user: {
       id: string;
+      crsid: string;
     } & DefaultSession["user"];
   }
 }
@@ -15,11 +16,14 @@ declare module "next-auth" {
 export const authOptions: NextAuthConfig = {
   callbacks: {
     session: ({ session, token, user }) => {
+      const crsid = user.email.split("@")[0];
+
       return {
         ...session,
         user: {
           ...session.user,
           id: user.id,
+          crsid,
         },
       };
     },
@@ -51,6 +55,7 @@ export interface Session {
     email: string;
     image: string;
     id: string;
+    crsid: string;
   };
 }
 
