@@ -253,7 +253,7 @@ export const parseEvent = (page: EventsPageObjectResponse) => {
   // @ts-ignore
   const price = page.properties["Price"]?.number as number | undefined;
   //@ts-ignore
-  const stripePriceId = page.properties["stripePriceId"].rich_text[0]
+  const stripePriceId = page.properties["stripePriceId"]?.rich_text[0]
     ?.plain_text as string;
 
   const fixedTypesProps = {
