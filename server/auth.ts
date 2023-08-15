@@ -14,13 +14,15 @@ declare module "next-auth" {
 
 export const authOptions: NextAuthConfig = {
   callbacks: {
-    session: ({ session, token }) => ({
-      ...session,
-      user: {
-        ...session.user,
-        id: token.sub,
-      },
-    }),
+    session: ({ session, token, user }) => {
+      return {
+        ...session,
+        user: {
+          ...session.user,
+          id: user.id,
+        },
+      };
+    },
     signIn: async ({ account, profile }) => {
       if (
         account?.provider === "google" &&
