@@ -13,9 +13,7 @@ export const signUp = protectedProcedure
   )
   .mutation(async ({ ctx, input: { going, eventId, extraDetails } }) => {
     const { name, email, crsid, id } = ctx.session.user;
-    const { eventName, paymentRequired } =
-      await ctx.notion.eventValidateAndPaymentCheck(eventId);
-    // @ts-ignore
+    const { title, requiresPayment } = await ctx.notion.getParsedEvent(eventId);
 
     const dbRes = await ctx.db
       .insert(eventSignUps)
@@ -26,9 +24,9 @@ export const signUp = protectedProcedure
         extraDetails,
         email: email,
         going: going,
-        paid: paymentRequired ? false : null, // by default, if payment is required, then the user has not paid
+        paid: requiresPayment ? false : null, // by default, if payment is required, then the user has not paid
         eventId: eventId,
-        event: eventName,
+        event: title,
       })
       .onConflictDoUpdate({
         target: eventSignUps.id,

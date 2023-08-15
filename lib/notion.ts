@@ -32,7 +32,20 @@ export class Notion {
     return res.results[0] as EventsPageObjectResponse;
   }
 
-  async getParsedEvent(id: string) {}
+  async getParsedEvent(id: string) {
+    const event = await this.getEvent(id);
+
+    if (!event) {
+      throw new Error(`Event ${id} not found`);
+    }
+    const res = parseEvent(event);
+
+    if (!res) {
+      throw new Error(`Event ${id} not found`);
+    }
+
+    return res;
+  }
 
   async eventValidateAndPaymentCheck(id: string) {
     const event = await this.getEvent(id);
