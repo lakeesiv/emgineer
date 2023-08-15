@@ -71,6 +71,7 @@ export const getParsedEventPages = cache(
         };
         return parsedPage;
       } catch (error) {
+        console.error(error);
         return null;
       }
     });

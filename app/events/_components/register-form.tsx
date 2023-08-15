@@ -46,7 +46,7 @@ const RegisterForm = ({
     date,
     description,
     location,
-    requiresPayment,
+    price,
     title,
     duration,
   },
@@ -145,9 +145,9 @@ const RegisterForm = ({
     <Card className="mt-10 p-6">
       <div className="flex flex-col mb-6 space-y-4">
         <h1 className="text-4xl font-extrabold  text-emma-primary">Sign Up</h1>
-        {requiresPayment && (
+        {price && (
           <div>
-            <Badge>Requires Payment</Badge>
+            <Badge>Requires Payment (£{price})</Badge>
           </div>
         )}
       </div>

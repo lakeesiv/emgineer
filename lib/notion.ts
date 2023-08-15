@@ -47,20 +47,6 @@ export class Notion {
     return res;
   }
 
-  async eventValidateAndPaymentCheck(id: string) {
-    const event = await this.getEvent(id);
-
-    if (!event) {
-      throw new Error(`Event ${id} not found`);
-    }
-
-    return {
-      paymentRequired: event.properties["Requires Payment"].checkbox,
-      // @ts-ignore
-      eventName: event.properties.Name.title[0].plain_text,
-    };
-  }
-
   async getSignUp(name: string, email: string, eventId: string) {
     const res = await this.notion.databases.query({
       database_id: this.signUpDatabaseId,
@@ -150,8 +136,9 @@ export class Notion {
     status: "Yes" | "No" | "Maybe",
     extraDetails?: string
   ) {
-    const { eventName, paymentRequired } =
-      await this.eventValidateAndPaymentCheck(eventId);
+    const { title, price } = await this.getParsedEvent(eventId);
+    const eventName = title;
+    const paymentRequired = price !== undefined && price > 0;
 
     const properties: Partial<SignUpPageObjectResponse["properties"]> = {
       Event: {
@@ -243,7 +230,8 @@ export interface ParsedEventDetails {
   date: Date;
   duration: number;
   hide: boolean;
-  requiresPayment: boolean;
+  price?: number;
+  stripePriceId?: string;
   extraDetails?: string;
 }
 
@@ -262,6 +250,11 @@ export const parseEvent = (page: EventsPageObjectResponse) => {
   // @ts-ignore
   const extraDetails = page.properties["Extra Details"]?.rich_text[0]
     ?.plain_text as string;
+  // @ts-ignore
+  const price = page.properties["Price"]?.number as number | undefined;
+  //@ts-ignore
+  const stripePriceId = page.properties["stripePriceId"].rich_text[0]
+    ?.plain_text as string;
 
   const fixedTypesProps = {
     title,
@@ -270,6 +263,8 @@ export const parseEvent = (page: EventsPageObjectResponse) => {
     duration,
     eventId,
     extraDetails,
+    price,
+    stripePriceId,
   };
 
   const date =
@@ -282,7 +277,6 @@ export const parseEvent = (page: EventsPageObjectResponse) => {
     ...fixedTypesProps,
     date: date,
     hide: hide,
-    requiresPayment: page.properties["Requires Payment"].checkbox as boolean,
   };
 
   return parsedResults as ParsedEventDetails;

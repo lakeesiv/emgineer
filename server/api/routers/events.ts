@@ -13,7 +13,9 @@ export const signUp = protectedProcedure
   )
   .mutation(async ({ ctx, input: { going, eventId, extraDetails } }) => {
     const { name, email, crsid, id } = ctx.session.user;
-    const { title, requiresPayment } = await ctx.notion.getParsedEvent(eventId);
+    const { title, price } = await ctx.notion.getParsedEvent(eventId);
+
+    const requiresPayment = price ? (price > 0 ? true : false) : false;
 
     const dbRes = await ctx.db
       .insert(eventSignUps)
