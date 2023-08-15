@@ -1,11 +1,7 @@
-import { z } from "zod";
-import {
-  createTRPCRouter,
-  publicProcedure,
-  protectedProcedure,
-} from "server/api/trpc";
+import { eq } from "drizzle-orm";
 import { eventSignUps } from "lib/db/schema";
-import { eq, lt, gte, ne } from "drizzle-orm";
+import { createTRPCRouter, protectedProcedure } from "server/api/trpc";
+import { z } from "zod";
 
 export const signUp = protectedProcedure
   .input(
@@ -69,7 +65,6 @@ export const userSignUpStatus = protectedProcedure
       };
     }
     const { going, paid } = signUpRow;
-    const payment = "Paid";
 
     let status = "RVSP";
 
@@ -98,7 +93,7 @@ export const userSignUpStatus = protectedProcedure
       // @ts-ignore
       extraDetails: signUpRow.extraDetails,
       going,
-      payment,
+      payment: paid,
     };
   });
 
