@@ -8,6 +8,27 @@
       "when": 1692093118085,
       "tag": "0000_slimy_quasar",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1692105519137,
+      "tag": "0001_tough_titania",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1692105612056,
+      "tag": "0002_deep_slipstream",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "5",
+      "when": 1692105691714,
+      "tag": "0003_elite_mathemanic",
+      "breakpoints": true
     }
   ]
 }

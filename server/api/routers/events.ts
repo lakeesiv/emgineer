@@ -16,7 +16,7 @@ export const signUp = protectedProcedure
   )
   .mutation(async ({ ctx, input: { going, eventId, extraDetails } }) => {
     const { name, email, id } = ctx.session.user;
-    const event = ctx.notion.getEvent(eventId);
+    const event = await ctx.notion.getEvent(eventId);
     // @ts-ignore
     const eventName = event.properties.Name.title[0].plain_text as string;
 
@@ -40,15 +40,13 @@ export const signUp = protectedProcedure
         },
       });
 
-    const res = ctx.notion.upsertSignUp(
-      name,
-      email,
-      eventId,
-      going,
-      extraDetails
-    );
+    if (dbRes.rowCount === 0) {
+      throw new Error("Failed to insert");
+    }
 
-    return res;
+    return {
+      success: true,
+    };
   });
 
 export const userSignUpStatus = protectedProcedure

@@ -60,7 +60,7 @@ export const verificationTokens = pgTable(
   })
 );
 
-const goingEnum = pgEnum("going", ["No", "Maybe", "Yes"]);
+export const goingEnum = pgEnum("going", ["No", "Maybe", "Yes"]);
 
 export const eventSignUps = pgTable("eventSignUp", {
   id: text("id").primaryKey(),
@@ -72,7 +72,4 @@ export const eventSignUps = pgTable("eventSignUp", {
   going: goingEnum("going").notNull(),
   extraDetails: text("extraDetails"),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
-  updatedAt: timestamp("updated_at").default(
-    sql`CURRENT_TIMESTAMP(3) on update CURRENT_TIMESTAMP(3)`
-  ),
 });
