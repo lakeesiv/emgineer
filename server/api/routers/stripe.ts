@@ -45,12 +45,11 @@ export const stripeRouter = createTRPCRouter({
       }
 
       const { email, name, id } = user;
-      const url = getUrl() + "/event/" + eventId;
+      const url = getUrl() + "/events/" + eventId;
 
       const session = await stripe.checkout.sessions.create({
         payment_method_types: ["card"],
         mode: "payment",
-        customer_email: email,
         client_reference_id: id,
         customer: stripeId,
         cancel_url: url,
