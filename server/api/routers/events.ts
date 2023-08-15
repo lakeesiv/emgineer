@@ -5,6 +5,7 @@ import {
   protectedProcedure,
 } from "server/api/trpc";
 import { eventSignUps } from "lib/db/schema";
+import { eq, lt, gte, ne } from "drizzle-orm";
 
 export const signUp = protectedProcedure
   .input(
@@ -15,7 +16,7 @@ export const signUp = protectedProcedure
     })
   )
   .mutation(async ({ ctx, input: { going, eventId, extraDetails } }) => {
-    const { name, email, id } = ctx.session.user;
+    const { name, email, crsid, id } = ctx.session.user;
     const event = await ctx.notion.getEvent(eventId);
     // @ts-ignore
     const eventName = event.properties.Name.title[0].plain_text as string;
@@ -24,7 +25,7 @@ export const signUp = protectedProcedure
       .insert(eventSignUps)
       .values({
         name,
-        id: email + "-" + eventId,
+        id: crsid + "-" + eventId,
         userId: id,
         extraDetails,
         email: email,
@@ -52,35 +53,24 @@ export const signUp = protectedProcedure
 export const userSignUpStatus = protectedProcedure
   .input(z.object({ eventId: z.string() }))
   .query(async ({ ctx, input: { eventId } }) => {
-    const { name, email } = ctx.session.user;
-    const res = await ctx.notion.getSignUp(name, email, eventId);
+    const { crsid } = ctx.session.user;
 
-    const going = res?.properties?.Going?.select?.name as
-      | "Yes"
-      | "No"
-      | "Maybe";
+    const id = crsid + "-" + eventId;
+    const signUpRow = await ctx.db.query.eventSignUps.findFirst({
+      where: eq(eventSignUps.id, id),
+    });
 
-    let status = "RVSP" as
-      | "RVSP"
-      | "Not Going"
-      | "Going (Paid)"
-      | "Going"
-      | "Awaiting Payment/Approval"
-      | "Maybe";
-
-    const payment = res?.properties?.Payment?.select?.name as
-      | "Paid"
-      | "Not Paid"
-      | "Not Needed";
-
-    if (!res) {
+    if (!signUpRow) {
       return {
-        status: status,
+        status: "RVSP",
         extraDetails: "",
-        going: going,
-        payment: "Not Needed",
+        going: "",
       };
     }
+    const { going } = signUpRow;
+    const payment = "Paid";
+
+    let status = "RVSP";
 
     if (going === "No") {
       status = "Not Going";
@@ -104,7 +94,7 @@ export const userSignUpStatus = protectedProcedure
     return {
       status,
       // @ts-ignore
-      extraDetails: res.properties["Extra Details"].rich_text[0].plain_text,
+      extraDetails: signUpRow.extraDetails,
       going,
       payment,
     };
