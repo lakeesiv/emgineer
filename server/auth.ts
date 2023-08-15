@@ -9,6 +9,7 @@ declare module "next-auth" {
     user: {
       id: string;
       crsid: string;
+      stripeId?: string;
     } & DefaultSession["user"];
   }
 }
@@ -56,6 +57,7 @@ export interface Session {
     image: string;
     id: string;
     crsid: string;
+    stripeId?: string;
   };
 }
 
