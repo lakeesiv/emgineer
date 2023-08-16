@@ -32,7 +32,8 @@ export const authOptions: NextAuthConfig = {
     signIn: async ({ account, profile }) => {
       if (
         account?.provider === "google" &&
-        profile?.email?.endsWith("@cam.ac.uk")
+        (process.env.NODE_ENV === "development" ||
+          profile?.email?.endsWith("@cam.ac.uk"))
       ) {
         return true;
       } else {
@@ -46,7 +47,9 @@ export const authOptions: NextAuthConfig = {
       clientId: process.env.GOOGLE_CLIENT_ID as string,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
       authorization:
-        "https://accounts.google.com/o/oauth2/auth?response_type=code&hd=cam.ac.uk&prompt=consent&access_type=offline",
+        process.env.NODE_ENV === "production"
+          ? "https://accounts.google.com/o/oauth2/auth?response_type=code&hd=cam.ac.uk&prompt=consent&access_type=offline"
+          : undefined, // Only use cam.ac.uk accounts in production
     }),
   ],
 };
