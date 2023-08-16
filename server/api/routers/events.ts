@@ -68,7 +68,7 @@ export const userSignUpStatus = protectedProcedure
 
       extraDetails?: string;
       going?: "Yes" | "No" | "Maybe";
-      payment?: boolean | null;
+      paid?: boolean | null;
     }
 
     if (!signUpRow) {
@@ -107,7 +107,7 @@ export const userSignUpStatus = protectedProcedure
       // @ts-ignore
       extraDetails: signUpRow.extraDetails,
       going,
-      payment: paid,
+      paid,
     } as SignUpStatus;
   });
 

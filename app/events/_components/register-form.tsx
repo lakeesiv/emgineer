@@ -1,13 +1,10 @@
 "use client";
 
-import { Button } from "components/ui/button";
-import React, { use, useEffect, useState } from "react";
-import { api, RouterOutputs } from "trpc/client";
-import Login from "./login-in";
-import Link from "next/link";
-import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
+import { ParsedEventsPageObjectResponse } from "app/get";
+import { Badge } from "components/ui/badge";
+import { Button } from "components/ui/button";
+import { Card } from "components/ui/card";
 import {
   Form,
   FormControl,
@@ -24,13 +21,16 @@ import {
   SelectTrigger,
   SelectValue,
 } from "components/ui/select";
-import { Textarea } from "components/ui/textarea";
-import { Card } from "components/ui/card";
 import { Skeleton } from "components/ui/skeleton";
-import AddToCal from "./add-to-cal";
-import { ParsedEventsPageObjectResponse } from "app/get";
-import { Badge } from "components/ui/badge";
+import { Textarea } from "components/ui/textarea";
 import { useToast } from "components/ui/use-toast";
+import { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+import { RouterOutputs, api } from "trpc/client";
+import * as z from "zod";
+import AddToCal from "./add-to-cal";
+import Login from "./login-in";
+import { PaymentNotice } from "./payment-components";
 
 const formSchema = z.object({
   going: z.enum(["Yes", "No", "Maybe"]),
@@ -160,11 +160,15 @@ const RegisterForm = ({
   return (
     <Card className="mt-10 p-6">
       <div className="flex flex-col mb-6 space-y-4">
-        <h1 className="text-4xl font-extrabold  text-emma-primary">Sign Up</h1>
-        {price && (
-          <div>
-            <Badge>Requires Payment (£{price})</Badge>
-          </div>
+        <h1 className="text-4xl font-extrabold mb-2  text-emma-primary">
+          Sign Up
+        </h1>
+        {price && price > 0 && (
+          <PaymentNotice
+            eventId={eventId}
+            signUpStatus={userSignUpStatus}
+            price={price}
+          />
         )}
       </div>
       <Form {...eventSignUpForm}>
@@ -172,39 +176,41 @@ const RegisterForm = ({
           onSubmit={eventSignUpForm.handleSubmit(onSubmit)}
           className="space-y-8"
         >
-          <FormField
-            control={eventSignUpForm.control}
-            defaultValue={userSignUpStatus.going}
-            name="going"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Are you going to event?</FormLabel>
-                <FormDescription className="pb-2">
-                  If you change your mind, you can always change it later by
-                  going back to this page
-                </FormDescription>
-                <Select
-                  onValueChange={field.onChange}
-                  defaultValue={field.value}
-                >
-                  <FormControl>
-                    <SelectTrigger>
-                      <SelectValue
-                        defaultValue={userSignUpStatus.going}
-                        placeholder={userSignUpStatus.going}
-                      />
-                    </SelectTrigger>
-                  </FormControl>
-                  <SelectContent>
-                    <SelectItem value="Yes">Yes</SelectItem>
-                    <SelectItem value="Maybe">Maybe</SelectItem>
-                    <SelectItem value="No">No</SelectItem>
-                  </SelectContent>
-                </Select>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+          {userSignUpStatus.status !== "Going (Paid)" && (
+            <FormField
+              control={eventSignUpForm.control}
+              defaultValue={userSignUpStatus.going}
+              name="going"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Are you going to event?</FormLabel>
+                  <FormDescription className="pb-2">
+                    If you change your mind, you can always change it later by
+                    going back to this page
+                  </FormDescription>
+                  <Select
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}
+                  >
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue
+                          defaultValue={userSignUpStatus.going}
+                          placeholder={userSignUpStatus.going}
+                        />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      <SelectItem value="Yes">Yes</SelectItem>
+                      <SelectItem value="Maybe">Maybe</SelectItem>
+                      <SelectItem value="No">No</SelectItem>
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          )}
           {extraDetails && (
             <FormField
               control={eventSignUpForm.control}
