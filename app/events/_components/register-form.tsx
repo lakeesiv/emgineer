@@ -119,23 +119,39 @@ const RegisterForm = ({
         eventId: eventId,
         extraDetails: extraDetails,
       });
-      // redirect to /events
+
+      const isPaid = price && price > 0;
+      const redirectToPayment = isPaid && going === "Yes";
 
       toast({
         title: "Event Sign Up",
-        description:
-          "You have successfully updated your sign up for this event",
+        description: redirectToPayment
+          ? "Redirecting to payment"
+          : "You have successfully updated your sign up for this event",
       });
 
-      // wait for 1 second to allow toast to show
-      setTimeout(() => {}, 2000);
+      if (redirectToPayment) {
+        const { url, success } = await api.stripe.createSession.mutate({
+          eventId: eventId,
+        });
+        if (!success) {
+          throw new Error("Failed to checkout create session");
+        }
 
-      window.location.href = "/events";
+        // Redirect to payment page
+        setTimeout(() => {
+          window.location.href = url;
+        }, 3000);
+      } else {
+        setTimeout(() => {
+          window.location.href = "/events";
+        }, 3000);
+      }
     } catch (error) {
-      console.log((error as { message: string }).message);
+      const message = (error as { message: string }).message;
       toast({
         title: "Event Sign Up",
-        description: "Something went wrong, please try again later",
+        description: "Something went: " + message,
         variant: "destructive",
       });
     }
