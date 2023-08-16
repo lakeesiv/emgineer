@@ -6,6 +6,7 @@ const siteConfig = {
   eventsDatabaseId: "533a35ca-b69f-4a5d-add8-35c083eaa97e",
   signUpDatabaseId: "68bdc66c-47c7-4ec3-8353-895c3fce0ecc",
   commmittee: committee as CommitteeMember[],
+  primarySiteUrl: "https://emgineer.vercel.app",
 };
 
 export default siteConfig;
