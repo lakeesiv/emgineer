@@ -3,8 +3,9 @@ import type { Stripe } from "stripe";
 import { NextResponse } from "next/server";
 
 import { stripe } from "lib/stripe";
-
-export const runtime = "edge";
+import { db } from "lib/db";
+import { eventSignUps } from "lib/db/schema";
+import { eq } from "drizzle-orm";
 
 export async function POST(req: Request) {
   let event: Stripe.DiscriminatedEvent;
@@ -27,7 +28,7 @@ export async function POST(req: Request) {
   }
 
   // Successfully constructed event.
-  console.log("✅ Success:", event.id);
+  console.log("Event", event.id);
 
   const permittedEvents: string[] = [
     "checkout.session.completed",
@@ -43,13 +44,33 @@ export async function POST(req: Request) {
         case "checkout.session.completed":
           data = event.data.object;
           console.log(`💰 CheckoutSession status: ${data.payment_status}`);
+          //   const userId = data.client_reference_id;
+          const email = data?.customer_details?.email as string;
+          //   const customerId = data.customer;
+          const successUrl = data.success_url as string;
+          const eventId = successUrl.split("/").pop() as string;
+          const crsId = email.split("@")[0];
+          const eventSignUpId = crsId + "-" + eventId;
+
+          const payment_intent = await stripe.paymentIntents.retrieve(
+            data.payment_intent as string
+          );
+          const paymentStatus = payment_intent.status === "succeeded";
+          //   console.log(data, paymentStatus);
+          await db
+            .update(eventSignUps)
+            .set({
+              paid: paymentStatus,
+            })
+            .where(eq(eventSignUps.id, eventSignUpId));
+
           break;
         case "payment_intent.payment_failed":
           data = event.data.object;
           console.log(`❌ Payment failed: ${data.last_payment_error?.message}`);
           break;
         case "payment_intent.succeeded":
-          data = event.data.object;
+          data = event.data.object as Stripe.PaymentIntent;
           console.log(`💰 PaymentIntent status: ${data.status}`);
           break;
         default:
