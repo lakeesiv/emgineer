@@ -1,1 +1,0 @@
-ALTER TABLE "eventSignUp" DROP COLUMN IF EXISTS "updated_at";

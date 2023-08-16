@@ -19,6 +19,9 @@ dependencies:
   '@hookform/resolvers':
     specifier: ^3.1.1
     version: 3.1.1(react-hook-form@7.45.2)
+  '@neondatabase/serverless':
+    specifier: ^0.6.0
+    version: 0.6.0
   '@notionhq/client':
     specifier: ^2.2.2
     version: 2.2.2(encoding@0.1.13)
@@ -75,7 +78,7 @@ dependencies:
     version: 2.0.0
   drizzle-orm:
     specifier: ^0.28.2
-    version: 0.28.2(@vercel/postgres@0.4.1)(pg@8.11.2)
+    version: 0.28.2(@neondatabase/serverless@0.6.0)(@vercel/postgres@0.4.1)(pg@8.11.2)
   eslint:
     specifier: 8.28.0
     version: 8.28.0
@@ -2339,6 +2342,12 @@ packages:
 
   /@neondatabase/serverless@0.5.6:
     resolution: {integrity: sha512-Ru0lG6W/nQtHRkDFVQFF+1PJYx8wd3jereln0Ep0YkiHey50hjTLVUycQoE4X977605pXMuFWORweuktzph+Xg==}
+    dependencies:
+      '@types/pg': 8.6.6
+    dev: false
+
+  /@neondatabase/serverless@0.6.0:
+    resolution: {integrity: sha512-qXxBRYN0m2v8kVQBfMxbzNGn2xFAhTXFibzQlE++NfJ56Shz3m7+MyBBtXDlEH+3Wfa6lToDXf1MElocY4sJ3w==}
     dependencies:
       '@types/pg': 8.6.6
     dev: false
@@ -5042,7 +5051,7 @@ packages:
     dev: true
     patched: true
 
-  /drizzle-orm@0.28.2(@vercel/postgres@0.4.1)(pg@8.11.2):
+  /drizzle-orm@0.28.2(@neondatabase/serverless@0.6.0)(@vercel/postgres@0.4.1)(pg@8.11.2):
     resolution: {integrity: sha512-QRyuzvpJr7GE6LpvZ/sg2nAKNg2if1uGGkgFTiXn4auuYId//vVJe6HBsDTktfKfcaDGzIYos+/f+PS5EkBmrg==}
     peerDependencies:
       '@aws-sdk/client-rds-data': '>=3'
@@ -5104,6 +5113,7 @@ packages:
       sqlite3:
         optional: true
     dependencies:
+      '@neondatabase/serverless': 0.6.0
       '@vercel/postgres': 0.4.1
       pg: 8.11.2
     dev: false

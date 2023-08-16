@@ -1,3 +1,9 @@
+DO $$ BEGIN
+ CREATE TYPE "going" AS ENUM('No', 'Maybe', 'Yes');
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;
+--> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "account" (
 	"userId" text NOT NULL,
 	"type" text NOT NULL,
@@ -13,6 +19,19 @@ CREATE TABLE IF NOT EXISTS "account" (
 	CONSTRAINT account_provider_providerAccountId PRIMARY KEY("provider","providerAccountId")
 );
 --> statement-breakpoint
+CREATE TABLE IF NOT EXISTS "eventSignUp" (
+	"id" text PRIMARY KEY NOT NULL,
+	"userId" text NOT NULL,
+	"name" text NOT NULL,
+	"email" text NOT NULL,
+	"eventId" text NOT NULL,
+	"event" text NOT NULL,
+	"going" "going" NOT NULL,
+	"paid" boolean,
+	"extraDetails" text,
+	"createdAt" timestamp DEFAULT now() NOT NULL
+);
+--> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "session" (
 	"sessionToken" text PRIMARY KEY NOT NULL,
 	"userId" text NOT NULL,
@@ -24,7 +43,8 @@ CREATE TABLE IF NOT EXISTS "user" (
 	"name" text,
 	"email" text NOT NULL,
 	"emailVerified" timestamp,
-	"image" text
+	"image" text,
+	"stripeId" text
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "verificationToken" (

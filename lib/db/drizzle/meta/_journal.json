@@ -5,43 +5,8 @@
     {
       "idx": 0,
       "version": "5",
-      "when": 1692093118085,
-      "tag": "0000_slimy_quasar",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "5",
-      "when": 1692105519137,
-      "tag": "0001_tough_titania",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "5",
-      "when": 1692105612056,
-      "tag": "0002_deep_slipstream",
-      "breakpoints": true
-    },
-    {
-      "idx": 3,
-      "version": "5",
-      "when": 1692105691714,
-      "tag": "0003_elite_mathemanic",
-      "breakpoints": true
-    },
-    {
-      "idx": 4,
-      "version": "5",
-      "when": 1692108162377,
-      "tag": "0004_broad_wrecking_crew",
-      "breakpoints": true
-    },
-    {
-      "idx": 5,
-      "version": "5",
-      "when": 1692123696883,
-      "tag": "0005_overrated_rictor",
+      "when": 1692223477413,
+      "tag": "0000_pretty_devos",
       "breakpoints": true
     }
   ]
