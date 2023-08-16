@@ -7,14 +7,14 @@ import { stripe } from "lib/stripe";
 export const runtime = "edge";
 
 export async function POST(req: Request) {
-  let event: Stripe.Event;
+  let event: Stripe.DiscriminatedEvent;
 
   try {
     event = stripe.webhooks.constructEvent(
       await (await req.blob()).text(),
       req.headers.get("stripe-signature") as string,
       process.env.STRIPE_WEBHOOK_SECRET as string
-    );
+    ) as Stripe.DiscriminatedEvent;
   } catch (err) {
     const errorMessage = err instanceof Error ? err.message : "Unknown error";
     // On error, log and return the error message.
@@ -41,15 +41,15 @@ export async function POST(req: Request) {
     try {
       switch (event.type) {
         case "checkout.session.completed":
-          data = event.data.object as Stripe.Checkout.Session;
+          data = event.data.object;
           console.log(`💰 CheckoutSession status: ${data.payment_status}`);
           break;
-        case "payment_intent.failed":
-          data = event.data.object as Stripe.PaymentIntent;
+        case "payment_intent.payment_failed":
+          data = event.data.object;
           console.log(`❌ Payment failed: ${data.last_payment_error?.message}`);
           break;
         case "payment_intent.succeeded":
-          data = event.data.object as Stripe.PaymentIntent;
+          data = event.data.object;
           console.log(`💰 PaymentIntent status: ${data.status}`);
           break;
         default:
