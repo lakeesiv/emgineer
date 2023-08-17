@@ -4,7 +4,7 @@ import { createTRPCContext } from "server/api/trpc";
 import { _auth } from "server/auth";
 
 export const runtime = "edge";
-export const preferredRegion = "fra1";
+// export const preferredRegion = "fra1";
 
 const handler = _auth((req: Request) =>
   fetchRequestHandler({
