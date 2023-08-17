@@ -73,4 +73,5 @@ export const eventSignUps = pgTable("eventSignUp", {
   paid: boolean("paid"),
   extraDetails: text("extraDetails"),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().notNull(),
 });

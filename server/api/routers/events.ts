@@ -29,6 +29,7 @@ export const signUp = protectedProcedure
         paid: requiresPayment ? false : null, // by default, if payment is required, then the user has not paid
         eventId: eventId,
         event: title,
+        updatedAt: new Date(),
       })
       .onConflictDoUpdate({
         target: eventSignUps.id,
