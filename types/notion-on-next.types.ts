@@ -45,16 +45,3 @@ export type EventsPageObjectResponse = NotionOnNextPageObjectResponse & {
     Name: TitlePropertyItemObjectResponse;
   };
 };
-export type SignUpPageObjectResponse = NotionOnNextPageObjectResponse & {
-  properties: {
-    Email: EmailPropertyItemObjectResponse;
-    "Extra Details": RichTextPropertyItemObjectResponse;
-    Going: SelectPropertyItemObjectResponse;
-    "Last edited time": LastEditedByPropertyItemObjectResponse;
-    Event: RichTextPropertyItemObjectResponse;
-    Payment: SelectPropertyItemObjectResponse;
-    "Created time": CreatedTimePropertyItemObjectResponse;
-    EventId: RichTextPropertyItemObjectResponse;
-    Name: TitlePropertyItemObjectResponse;
-  };
-};
