@@ -5,6 +5,7 @@ import superjson from "superjson";
 import { ZodError } from "zod";
 import { Session } from "../auth";
 import { db } from "lib/db";
+import siteConfig from "site.config";
 
 interface ModfiedRequest extends Request {
   auth: Session;
@@ -69,4 +70,22 @@ const enforceUserIsAuthed = t.middleware(({ ctx, next }) => {
   });
 });
 
+const enforceUserIsAdmin = t.middleware(({ ctx, next }) => {
+  if (!ctx.session || !ctx.session.user) {
+    throw new TRPCError({ code: "UNAUTHORIZED" });
+  }
+  const crsid = ctx.session.user.email.split("@")[0];
+
+  if (!siteConfig.admins.includes(crsid)) {
+    throw new TRPCError({ code: "UNAUTHORIZED" });
+  }
+
+  return next({
+    ctx: {
+      // infers the `session` as non-nullable
+      session: { ...ctx.session, user: ctx.session.user },
+    },
+  });
+});
 export const protectedProcedure = t.procedure.use(enforceUserIsAuthed);
+export const adminProcedure = t.procedure.use(enforceUserIsAdmin);
