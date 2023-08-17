@@ -1,6 +1,5 @@
 import ClientEventSignUpStatus from "app/events/_components/client-even-sign-up-status";
 import { EventCard } from "app/events/_components/event-card";
-import EventSignUpStatus from "app/events/_components/event-sign-up-status";
 import { getParsedEventPages } from "app/get";
 import { Skeleton } from "components/ui/skeleton";
 import { Suspense, cache } from "react";
