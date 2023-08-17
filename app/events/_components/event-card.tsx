@@ -1,6 +1,7 @@
 "use client";
 
 import { ParsedEventsPageObjectResponse } from "app/get";
+import { Skeleton } from "components/ui/skeleton";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import Link from "next/link";
@@ -9,7 +10,14 @@ import _mediaMap from "public/notion-media/media-map.json";
 import siteConfig from "site.config";
 const mediaMap = _mediaMap as mediaMapInterface;
 
-const AddToCal = dynamic(() => import("./add-to-cal"), { ssr: false });
+const AddToCal = dynamic(() => import("./add-to-cal"), {
+  ssr: false,
+  loading: () => (
+    <div className="my-[0.35rem]">
+      <Skeleton className="w-[2.125rem] h-8 rounded-md ml-2" />
+    </div>
+  ),
+});
 
 export const EventCard = ({
   page,
