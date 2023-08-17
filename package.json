@@ -5,9 +5,9 @@
   "scripts": {
     "dev": "next dev",
     "build": "pnpm media && next build",
-    "db:push": "drizzle-kit push:mysql ",
-    "db:migrate": "drizzle-kit generate:mysql ",
-    "db": "drizzle-kit generate:mysql  && drizzle-kit push:mysql ",
+    "db:push": "drizzle-kit push:pg ",
+    "db:migrate": "drizzle-kit generate:pg ",
+    "db": "drizzle-kit generate:pg  && drizzle-kit push:pg",
     "studio": "drizzle-kit studio",
     "start": "next start",
     "lint": "next lint",

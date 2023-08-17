@@ -1,19 +1,12 @@
 {
   "version": "5",
-  "dialect": "mysql",
+  "dialect": "pg",
   "entries": [
     {
       "idx": 0,
       "version": "5",
-      "when": 1692265007893,
-      "tag": "0000_worthless_wild_pack",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "5",
-      "when": 1692265379099,
-      "tag": "0001_common_johnny_blaze",
+      "when": 1692266328610,
+      "tag": "0000_greedy_reavers",
       "breakpoints": true
     }
   ]

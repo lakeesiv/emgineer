@@ -1,7 +1,8 @@
 import { type NextAuthConfig, type DefaultSession } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import NextAuth from "next-auth";
-import { DrizzleAdapter } from "@auth/drizzle-adapter";
+// import { DrizzleAdapter } from "@auth/drizzle-adapter";
+import { DrizzleAdapter } from "lib/adapter";
 import { db } from "lib/db";
 import { AdapterUser } from "@auth/core/adapters";
 
