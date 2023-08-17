@@ -35,17 +35,19 @@ const Member: FC<MemberProps> = ({
         <p className="text-md flex-grow text-muted-foreground/80">
           {description}
         </p>
-        <div className="mt-4">
-          <a
-            className="text-emma-primary font-mono"
-            type="email"
-            href={`mailto:${email}`}
-          >
-            {"<"}
-            {email}
-            {">"}
-          </a>
-        </div>
+        {email && (
+          <div className="mt-4">
+            <a
+              className="text-emma-primary font-mono"
+              type="email"
+              href={`mailto:${email}`}
+            >
+              {"<"}
+              {email}
+              {">"}
+            </a>
+          </div>
+        )}
       </div>
     </div>
   );
