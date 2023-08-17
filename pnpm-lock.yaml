@@ -25,6 +25,9 @@ dependencies:
   '@notionhq/client':
     specifier: ^2.2.2
     version: 2.2.2(encoding@0.1.13)
+  '@planetscale/database':
+    specifier: ^1.10.0
+    version: 1.10.0
   '@radix-ui/react-avatar':
     specifier: ^1.0.3
     version: 1.0.3(@types/react-dom@18.0.9)(@types/react@18.2.18)(react-dom@18.2.0)(react@18.2.0)
@@ -78,7 +81,7 @@ dependencies:
     version: 2.0.0
   drizzle-orm:
     specifier: ^0.28.2
-    version: 0.28.2(@neondatabase/serverless@0.6.0)(@vercel/postgres@0.4.1)(pg@8.11.2)
+    version: 0.28.2(@neondatabase/serverless@0.6.0)(@planetscale/database@1.10.0)(@vercel/postgres@0.4.1)(pg@8.11.2)
   eslint:
     specifier: 8.28.0
     version: 8.28.0
@@ -2502,6 +2505,11 @@ packages:
 
   /@panva/hkdf@1.1.1:
     resolution: {integrity: sha512-dhPeilub1NuIG0X5Kvhh9lH4iW3ZsHlnzwgwbOlgwQ2wG1IqFzsgHqmKPk3WzsdWAeaxKJxgM0+W433RmN45GA==}
+    dev: false
+
+  /@planetscale/database@1.10.0:
+    resolution: {integrity: sha512-XMfNRjIPgGTga6g1YpGr7E21CcnHZcHZdyhRUIiZ/AlpD+ts65UF2B3wKjcu7MKMynmmcOGs6R9kAT6D1OTlZQ==}
+    engines: {node: '>=16'}
     dev: false
 
   /@radix-ui/number@1.0.1:
@@ -5051,7 +5059,7 @@ packages:
     dev: true
     patched: true
 
-  /drizzle-orm@0.28.2(@neondatabase/serverless@0.6.0)(@vercel/postgres@0.4.1)(pg@8.11.2):
+  /drizzle-orm@0.28.2(@neondatabase/serverless@0.6.0)(@planetscale/database@1.10.0)(@vercel/postgres@0.4.1)(pg@8.11.2):
     resolution: {integrity: sha512-QRyuzvpJr7GE6LpvZ/sg2nAKNg2if1uGGkgFTiXn4auuYId//vVJe6HBsDTktfKfcaDGzIYos+/f+PS5EkBmrg==}
     peerDependencies:
       '@aws-sdk/client-rds-data': '>=3'
@@ -5114,6 +5122,7 @@ packages:
         optional: true
     dependencies:
       '@neondatabase/serverless': 0.6.0
+      '@planetscale/database': 1.10.0
       '@vercel/postgres': 0.4.1
       pg: 8.11.2
     dev: false
