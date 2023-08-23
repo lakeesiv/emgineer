@@ -3,10 +3,33 @@ import { FC } from "react";
 import { getServerAuthSession } from "server/auth";
 import siteConfig from "site.config";
 import RevalidateButton from "./_components/revalidate-button";
+import { getEventPages, getParsedEventPages } from "app/get";
 
 interface AdminPageProps {}
 
 const AdminPage: FC<AdminPageProps> = async ({}) => {
+  const session = await useAdminOnly();
+  const events = await getParsedEventPages(true);
+
+  return (
+    <main className="flex flex-col items-center justify-center px-12 pt-2">
+      <Title size="md">Admin Page</Title>
+      <RevalidateButton className="my-2" />
+      <div className="mt-4">
+        <Title size="sm">Active Events</Title>
+        {events.map((event) => {
+          return (
+            <div key={event.id}>
+              <p>{event.parsed.title}</p>
+            </div>
+          );
+        })}
+      </div>
+    </main>
+  );
+};
+
+const useAdminOnly = async () => {
   const session = await getServerAuthSession();
 
   if (!session?.user?.email) {
@@ -18,13 +41,7 @@ const AdminPage: FC<AdminPageProps> = async ({}) => {
   if (!siteConfig.admins.includes(crsid)) {
     throw new Error("Unauthorized");
   }
-
-  return (
-    <main className="flex flex-col items-center justify-center p-12">
-      <Title>Admin Page</Title>
-      <RevalidateButton />
-    </main>
-  );
+  return session;
 };
 
 export default AdminPage;
