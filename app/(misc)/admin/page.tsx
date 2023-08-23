@@ -37,7 +37,9 @@ const AdminPage: FC<AdminPageProps> = async ({}) => {
         {signUps.map((signUp) => {
           return (
             <div key={signUp.id}>
-              <p>{signUp.id}</p>
+              <span className="pre-wrap font-mono">
+                {JSON.stringify(signUp)}
+              </span>
             </div>
           );
         })}
