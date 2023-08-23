@@ -8,7 +8,7 @@ import { BlogPageObjectResponse } from "types/notion-on-next.types";
 import siteConfig from "site.config";
 import dynamic from "next/dynamic";
 const mediaMap = _mediaMap as mediaMapInterface;
-import { Skeleton } from "./ui/skeleton";
+import { Skeleton } from "../../../components/ui/skeleton";
 
 const BlogDate = dynamic(() => import("./blog-date"), {
   ssr: false,

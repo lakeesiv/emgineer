@@ -1,5 +1,5 @@
 import { getBlogPages } from "app/get";
-import { BlogCard } from "components/blog-card";
+import { BlogCard } from "app/blog/_components/blog-card";
 import { Skeleton } from "components/ui/skeleton";
 import React from "react";
 

@@ -1,4 +1,4 @@
-import { BlogCard } from "components/blog-card";
+import { BlogCard } from "app/blog/_components/blog-card";
 import { getBlogPages } from "../get";
 import { Title } from "components/text";
 
