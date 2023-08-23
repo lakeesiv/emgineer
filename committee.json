@@ -3,49 +3,42 @@
     "email": "example@email.com",
     "title": "President",
     "name": "Barack Obama",
-    "img": "obama.jpg",
     "description": "Barack Hussein Obama II is the 44th and current President of the United States, and the first African American to hold the office. Born in Honolulu, Hawaii, Obama is a graduate of Columbia University and Harvard Law School, where he was president of the Harvard Law Review. He was a community organizer in Chicago before earning his law degree. He worked as a civil rights attorney in Chicago and taught constitutional law at the University of Chicago Law School from 1992 to 2004. He served three terms representing the 13th District in the Illinois Senate from 1997 to 2004, running unsuccessfully for the United States House of Representatives in 2000."
   },
   {
     "email": "example@email.com",
     "title": "Physicist",
     "name": "Albert Einstein",
-    "img": "einstein.jpg",
     "description": "Albert Einstein was a renowned physicist best known for developing the theory of relativity, one of the two pillars of modern physics (alongside quantum mechanics). Born in Germany in 1879, Einstein revolutionized our understanding of the universe with his groundbreaking contributions to theoretical physics, earning him the Nobel Prize in Physics in 1921."
   },
   {
     "email": "example@email.com",
     "title": "Author",
     "name": "Jane Austen",
-    "img": "austen.jpg",
     "description": "Jane Austen was a prominent English novelist known for her works, including 'Pride and Prejudice,' 'Sense and Sensibility,' and 'Emma.' Born in 1775, her novels continue to be widely read and admired for their wit, social commentary, and portrayal of female characters in Regency-era England."
   },
   {
     "email": "example@email.com",
     "title": "Civil Rights Activist",
     "name": "Martin Luther King Jr.",
-    "img": "mlk.jpg",
     "description": "Martin Luther King Jr. was a prominent leader in the American civil rights movement. Born in 1929, he advocated for racial equality and justice through nonviolent civil disobedience. His famous speeches, including the iconic 'I Have a Dream' speech, continue to inspire people around the world in the fight against racial discrimination."
   },
   {
     "email": "example@email.com",
     "title": "Primatologist",
     "name": "Jane Goodall",
-    "img": "goodall.jpg",
     "description": "Jane Goodall is a renowned primatologist and conservationist, best known for her groundbreaking research on chimpanzees in Gombe Stream National Park, Tanzania. Born in 1934, her work has revolutionized our understanding of animal behavior and the relationship between humans and primates."
   },
   {
     "email": "example@email.com",
     "title": "Painter",
     "name": "Vincent van Gogh",
-    "img": "vangogh.jpg",
     "description": "Vincent van Gogh was a Dutch post-impressionist painter who created some of the most famous and influential artworks in the history of art. Born in 1853, his unique style and emotional intensity are evident in masterpieces such as 'Starry Night' and 'Sunflowers,' though he faced challenges and mental health issues during his lifetime."
   },
   {
     "email": "example@email.com",
     "title": "Archaeologist",
     "name": "Howard Carter",
-    "img": "carter.jpg",
     "description": "Howard Carter was a British archaeologist who gained worldwide fame for discovering the tomb of Tutankhamun, an ancient Egyptian pharaoh, in 1922. Born in 1874, his excavation revealed a treasure trove of artifacts, providing invaluable insights into ancient Egyptian history and culture."
   },
 
@@ -53,7 +46,6 @@
     "email": "example@email.com",
     "title": "Suffragist",
     "name": "Emmeline Pankhurst",
-    "img": "pankhurst.jpg",
     "description": "Emmeline Pankhurst was a British political activist and leader of the suffragette movement, which fought for women's right to vote in the early 20th century. Born in 1858, she played a crucial role in advancing women's suffrage and equality, leaving a lasting impact on the women's rights movement."
   },
 
@@ -61,7 +53,6 @@
     "email": "example@email.com",
     "title": "Inventor",
     "name": "Thomas Edison",
-    "img": "edison.jpg",
     "description": "Thomas Edison was an American inventor and businessman who held over 1,000 patents for various inventions. Born in 1847, he is best known for his contributions to the development of the electric light bulb, phonograph, and motion picture camera, profoundly shaping modern technology and entertainment."
   }
 ]

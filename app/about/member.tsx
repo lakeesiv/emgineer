@@ -19,7 +19,7 @@ const Member: FC<MemberProps> = ({
         <div className="relative h-0 pb-[56.25%] md:pb-[75%] md:h-80 lg:pb-[56.25%] overflow-hidden bg-gray-400 dark:bg-slate-700 rounded shadow-lg">
           <Image
             alt={title || "Cover Image for " + title}
-            src={"/public/committee/" + img}
+            src={"/committee/" + img}
             className="max-h-[300px] w-full rounded-md  object-cover object-center"
             width={300}
             height={300}
