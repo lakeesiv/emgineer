@@ -1,15 +1,24 @@
+import { getParsedEventPages } from "app/get";
 import { Title } from "components/text";
+import { inArray } from "drizzle-orm";
+import { db } from "lib/db";
+import { eventSignUps } from "lib/db/schema";
 import { FC } from "react";
 import { getServerAuthSession } from "server/auth";
 import siteConfig from "site.config";
 import RevalidateButton from "./_components/revalidate-button";
-import { getEventPages, getParsedEventPages } from "app/get";
 
 interface AdminPageProps {}
 
 const AdminPage: FC<AdminPageProps> = async ({}) => {
   const session = await useAdminOnly();
   const events = await getParsedEventPages(true);
+  const eventIds = events.map((event) => event.parsed.eventId);
+
+  const signUps = await db
+    .select()
+    .from(eventSignUps)
+    .where(inArray(eventSignUps.eventId, eventIds));
 
   return (
     <main className="flex flex-col items-center justify-center px-12 pt-2">
@@ -21,6 +30,14 @@ const AdminPage: FC<AdminPageProps> = async ({}) => {
           return (
             <div key={event.id}>
               <p>{event.parsed.title}</p>
+            </div>
+          );
+        })}
+        <Title size="sm">Event Sign Ups</Title>
+        {signUps.map((signUp) => {
+          return (
+            <div key={signUp.id}>
+              <p>{signUp.id}</p>
             </div>
           );
         })}
