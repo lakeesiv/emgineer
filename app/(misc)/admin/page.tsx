@@ -7,6 +7,8 @@ import { FC } from "react";
 import { getServerAuthSession } from "server/auth";
 import siteConfig from "site.config";
 import RevalidateButton from "./_components/revalidate-button";
+import { DataTable } from "./table/data-table";
+import { columns } from "./table/columns";
 
 interface AdminPageProps {}
 
@@ -34,15 +36,7 @@ const AdminPage: FC<AdminPageProps> = async ({}) => {
           );
         })}
         <Title size="sm">Event Sign Ups</Title>
-        {signUps.map((signUp) => {
-          return (
-            <div key={signUp.id}>
-              <span className="pre-wrap font-mono">
-                {JSON.stringify(signUp)}
-              </span>
-            </div>
-          );
-        })}
+        <DataTable data={signUps} columns={columns} />
       </div>
     </main>
   );
