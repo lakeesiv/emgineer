@@ -1,11 +1,23 @@
 "use client";
+
 import Link from "next/link";
 import Image from "next/image";
 import _mediaMap from "public/notion-media/media-map.json";
 import { mediaMapInterface } from "notion-on-next/types/types";
 import { BlogPageObjectResponse } from "types/notion-on-next.types";
 import siteConfig from "site.config";
+import dynamic from "next/dynamic";
 const mediaMap = _mediaMap as mediaMapInterface;
+import { Skeleton } from "./ui/skeleton";
+
+const BlogDate = dynamic(() => import("./blog-date"), {
+  ssr: false,
+  loading: () => (
+    <Skeleton>
+      <span className="text-gray-500 dark:text-slate-400 p-1 m-1 my-3"></span>
+    </Skeleton>
+  ),
+});
 
 export const BlogCard = ({ page }: { page: BlogPageObjectResponse }) => {
   const image = mediaMap[siteConfig.blogDatabaseId]?.[page.id]?.cover;
@@ -44,22 +56,10 @@ export const BlogCard = ({ page }: { page: BlogPageObjectResponse }) => {
         </p>
         <footer className="mt-4">
           <div>
-            <span className="text-gray-500 dark:text-slate-400">
-              {formatDate(page.properties.Date.date?.start)}
-            </span>
+            <BlogDate date={page.properties.Date.date?.start!} />
           </div>
         </footer>
       </div>
     </article>
   );
-};
-
-export const formatDate = (date: string | undefined) => {
-  const d = new Date(date as string) || new Date();
-  // format date as Mon, Day Year (e.g. Nov 4, 2020)
-  return d.toLocaleDateString(undefined, {
-    month: "short",
-    day: "numeric",
-    year: "numeric",
-  });
 };
