@@ -28,9 +28,6 @@ export const stripeRouter = createTRPCRouter({
 
       const userQuery = await ctx.db.query.users.findFirst({
         where: eq(users.id, user.id),
-        columns: {
-          stripeId: true,
-        },
       });
 
       let stripeId = userQuery?.stripeId;
@@ -43,8 +40,7 @@ export const stripeRouter = createTRPCRouter({
         });
         const customerId = customer.id;
 
-        // update user
-        const updatedUser = await db
+        await db
           .update(users)
           .set({
             stripeId: customerId,
@@ -54,7 +50,7 @@ export const stripeRouter = createTRPCRouter({
             stripeId: users.stripeId,
           });
 
-        stripeId = updatedUser[0].stripeId as string;
+        stripeId = customerId as string;
       }
 
       const url = getUrl() + "/events/" + eventId;
