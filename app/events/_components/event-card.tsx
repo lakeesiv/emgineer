@@ -8,6 +8,7 @@ import Link from "next/link";
 import { mediaMapInterface } from "notion-on-next/types/types";
 import _mediaMap from "public/notion-media/media-map.json";
 import siteConfig from "site.config";
+// import LocationAndTime from "./location-and-time";
 const mediaMap = _mediaMap as mediaMapInterface;
 
 const AddToCal = dynamic(() => import("./add-to-cal"), {
@@ -16,6 +17,15 @@ const AddToCal = dynamic(() => import("./add-to-cal"), {
     <div className="my-[0.35rem]">
       <Skeleton className="w-[2.125rem] h-8 rounded-md ml-2" />
     </div>
+  ),
+});
+
+const LocationAndTime = dynamic(() => import("./location-and-time"), {
+  ssr: false,
+  loading: () => (
+    <Skeleton>
+      <span className="text-gray-500 dark:text-slate-400 p-1 m-1 my-3"></span>
+    </Skeleton>
   ),
 });
 
@@ -62,12 +72,9 @@ export const EventCard = ({
             </Link>
           </h2>
         </header>
-        {/* <p className="text-md sm:text-lg flex-grow">{description}</p> */}
         <footer className="mt-4">
           <div className="flex flex-col">
-            <span className="text-gray-500 dark:text-slate-400">
-              {formatDate(page.parsed.date)} @ {page.parsed.location}
-            </span>
+            <LocationAndTime page={page} />
             <div className="flex space-x-4 items-center mt-2">
               <span className="text-gray-500 dark:text-slate-400 mb-1">
                 Duration ~ {page.parsed.duration} hrs
@@ -88,19 +95,36 @@ export const EventCard = ({
   );
 };
 
-export const formatDate = (date: Date) => {
-  const days = date.toLocaleDateString("en-GB", {
-    month: "short",
-    day: "numeric",
-    year: "numeric",
-  });
+// const LocationAndTime = ({
+//   page,
+//   children,
+// }: {
+//   page: ParsedEventsPageObjectResponse;
+//   children?: React.ReactNode;
+// }) => {
+//   // only renedr on client
+//   if (typeof window === "undefined") return null;
 
-  // time: HH:MM AM/PM
-  const time = date.toLocaleTimeString("en-GB", {
-    hour: "numeric",
-    minute: "numeric",
-    hour12: true,
-  });
+//   return (
+//     <span className="text-gray-500 dark:text-slate-400">
+//       {formatDate(page.parsed.date)} @ {page.parsed.location}
+//     </span>
+//   );
+// };
 
-  return `${time}, ${days}`;
-};
+// export const formatDate = (date: Date) => {
+//   const days = date.toLocaleDateString("en-GB", {
+//     month: "short",
+//     day: "numeric",
+//     year: "numeric",
+//   });
+
+//   // time: HH:MM AM/PM
+//   const time = date.toLocaleTimeString("en-GB", {
+//     hour: "numeric",
+//     minute: "numeric",
+//     hour12: true,
+//   });
+
+//   return `${time}, ${days}`;
+// };
