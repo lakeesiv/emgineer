@@ -16,6 +16,7 @@ const AdminPage: FC<AdminPageProps> = async ({}) => {
   const session = await useAdminOnly();
   const events = await getParsedEventPages(true);
   const eventIds = events.map((event) => event.parsed.eventId);
+  const eventNames = events.map((event) => event.parsed.title);
 
   const signUps = await db
     .select()
@@ -36,7 +37,7 @@ const AdminPage: FC<AdminPageProps> = async ({}) => {
           );
         })}
         <Title size="sm">Event Sign Ups</Title>
-        <DataTable data={signUps} columns={columns} />
+        <DataTable events={eventNames} data={signUps} columns={columns} />
       </div>
     </main>
   );
