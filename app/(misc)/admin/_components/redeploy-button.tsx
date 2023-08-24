@@ -22,7 +22,7 @@ const RedeployButton: FC<RedeployButtonProps> = ({ ...props }) => {
           setDisabled(
             (s) => true // disable button
           );
-          await api.web.revalidate.query();
+          await api.web.redeploy.query();
           toast({
             title: "Redeployed Website",
             description:
