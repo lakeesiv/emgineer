@@ -6,6 +6,7 @@ import React from "react";
 import siteConfig from "site.config";
 import { cachedGetBlocks, getEventPages, getParsedEventPages } from "app/get";
 import RegisterForm from "../_components/register-form";
+import { Metadata } from "next";
 
 export const runtime = "nodejs";
 export const revalidate = 86400;
@@ -15,6 +16,26 @@ const databaseId = siteConfig.eventsDatabaseId;
 
 interface PageProps {
   slug: string;
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: PageProps;
+}): Promise<Metadata> {
+  const { slug } = params;
+  const decodedSlug = decodeURIComponent(slug).replace(" ", "-");
+  const pages = await getParsedEventPages();
+
+  const page = pages.find((page) => page.parsed.eventId === decodedSlug);
+  if (!page) {
+    notFound();
+  }
+
+  return {
+    title: "Emgineers | " + page.parsed.title,
+    description: `${formatDate(page.parsed.date)} @ ${page.parsed.location}`,
+  };
 }
 
 export default async function EventPage({ params }: { params: PageProps }) {
