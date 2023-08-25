@@ -1,8 +1,8 @@
 import { type NextAuthConfig, type DefaultSession } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import NextAuth from "next-auth";
-import { DrizzleAdapter } from "@auth/drizzle-adapter";
-// import { DrizzleAdapter } from "lib/adapter";
+// import { DrizzleAdapter } from "@auth/drizzle-adapter";
+import { DrizzleAdapter } from "lib/adapter";
 import { db } from "lib/db";
 import { AdapterUser } from "@auth/core/adapters";
 
@@ -53,6 +53,17 @@ export const authOptions: NextAuthConfig = {
           : undefined, // Only use cam.ac.uk accounts in production
     }),
   ],
+  cookies: {
+    pkceCodeVerifier: {
+      name: "next-auth.pkce.code_verifier",
+      options: {
+        httpOnly: true,
+        sameSite: "none",
+        path: "/",
+        secure: true,
+      },
+    },
+  },
 };
 
 export interface Session {

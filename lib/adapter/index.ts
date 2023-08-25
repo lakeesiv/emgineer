@@ -1,12 +1,17 @@
 import { PgTableFn } from "drizzle-orm/pg-core/index";
-import { pgDrizzleAdapter } from "./lib/pg";
+import { SQLiteDrizzleAdapter } from "./lib/sqlite";
 import { AnyPgDatabase, TableFn } from "./lib/utils";
 
 import type { Adapter } from "@auth/core/adapters";
+import {
+  BaseSQLiteDatabase,
+  SQLiteTableFn,
+  sqliteTable,
+} from "drizzle-orm/sqlite-core";
 
 export function DrizzleAdapter<SqlFlavor extends AnyPgDatabase>(
-  db: SqlFlavor,
-  table?: TableFn<SqlFlavor>
+  db: InstanceType<typeof BaseSQLiteDatabase>,
+  table = sqliteTable
 ): Adapter {
-  return pgDrizzleAdapter(db, table as PgTableFn);
+  return SQLiteDrizzleAdapter(db, table);
 }

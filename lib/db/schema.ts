@@ -13,7 +13,7 @@ export const users = sqliteTable("user", {
   email: text("email").notNull(),
   emailVerified: integer("emailVerified", { mode: "timestamp_ms" }),
   image: text("image"),
-  stripeId: text("stripeId"),
+  stripeId: text("stripeId").default(""),
 });
 
 export const accounts = sqliteTable(

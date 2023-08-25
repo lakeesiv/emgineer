@@ -29,7 +29,7 @@ export const signUp = protectedProcedure
         paid: requiresPayment ? false : null, // by default, if payment is required, then the user has not paid
         eventId: eventId,
         event: title,
-        updatedAt: new Date(),
+        updatedAt: new Date().toISOString(),
       })
       .onConflictDoUpdate({
         target: eventSignUps.id,
@@ -38,10 +38,6 @@ export const signUp = protectedProcedure
           extraDetails,
         },
       });
-
-    if (dbRes.rowCount === 0) {
-      throw new Error("Failed to insert");
-    }
 
     return {
       success: true,
