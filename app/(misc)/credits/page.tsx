@@ -57,37 +57,60 @@ const CreditsPage = () => {
           className="mt-6 animate-fade-up text-center text-muted-foreground/80 opacity-0 md:text-xl"
           style={{ animationDelay: "0.30s", animationFillMode: "forwards" }}
         >
-          {"Wouldn't"} be possible without these:
+          {"Wouldn't"} be possible without these projects
         </p>
-        <p
-          className="font-mono mt-2 animate-fade-up text-center text-emma-primary opacity-0 md:text-xl"
+        <ul
+          className="font-mono mt-6 animate-fade-up list-disc  text-emma-primary opacity-0 md:text-xl"
           style={{ animationDelay: "0.30s", animationFillMode: "forwards" }}
         >
-          Next.js, TailwindCSS, NextAuth.js, notion-on-next, shadcn/ui,
-          radix-ui, tRPC
-        </p>
-        <p
-          className="mt-4 animate-fade-up text-center text-muted-foreground/80 max-w-[700px]   opacity-0 md:text-xl"
-          style={{ animationDelay: "0.30s", animationFillMode: "forwards" }}
-        >
-          <Balancer>🩸🩸🩸 Edge Runtime Compliant 🩸🩸🩸</Balancer>
-        </p>
-        <p
-          className="mt-4 animate-fade-up text-center text-muted-foreground/80 max-w-[700px]   opacity-0 md:text-xl"
-          style={{ animationDelay: "0.30s", animationFillMode: "forwards" }}
-        >
-          <Balancer>
-            (ISR {"doesn't"} work on edge yet :( so the ISR pages are on the
-            Node runtime however these can be made into edge runtime pages to
-            make the site fully on the edge.) Lots of bleeding edge experimental
-            features are being used ( Next 13 App Router, NextAuth.js on the
-            edge, tRPC App Router ) so expect API changes if you use this code
-            and update your dependencies.
-          </Balancer>
-        </p>
+          <LinkedListItem href="https://nextjs.org/">
+            Next.js 13 (App Router)
+          </LinkedListItem>
+          <LinkedListItem href="https://tailwindcss.com/">
+            TailwindCSS
+          </LinkedListItem>
+          <LinkedListItem href="https://next-auth.js.org/">
+            NextAuth.js
+          </LinkedListItem>
+          <LinkedListItem href="https://github.com/williamlmao/notion-on-next">
+            notion-on-next
+          </LinkedListItem>
+          <LinkedListItem href="https://ui.shadcn.com/">
+            shadcn/ui
+          </LinkedListItem>
+          <LinkedListItem href="https://trpc.io/">tRPC</LinkedListItem>
+          <LinkedListItem href="https://orm.drizzle.team/">
+            DrizzleORM
+          </LinkedListItem>
+          <LinkedListItem href="https://neon.tech/">
+            Neon Serverless PostgresSQL
+          </LinkedListItem>
+          <LinkedListItem href="https://vercel.com/">
+            Vercel + Edge Runtime
+          </LinkedListItem>
+        </ul>
       </section>
     </>
   );
 };
+
+const LinkedListItem = ({
+  href,
+  children,
+}: {
+  href: string;
+  children: React.ReactNode;
+}) => (
+  <li className="text-emma-primary">
+    <a
+      href={href}
+      target="_blank"
+      rel="noreferrer"
+      className="hover:text-emma-secondary"
+    >
+      {children}
+    </a>
+  </li>
+);
 
 export default CreditsPage;
