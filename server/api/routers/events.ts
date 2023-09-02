@@ -17,7 +17,7 @@ export const signUp = protectedProcedure
 
     const requiresPayment = price ? (price > 0 ? true : false) : false;
 
-    const dbRes = await ctx.db
+    const dbRes = ctx.db
       .insert(eventSignUps)
       .values({
         name,
@@ -37,7 +37,8 @@ export const signUp = protectedProcedure
           going,
           extraDetails,
         },
-      });
+      })
+      .run();
 
     return {
       success: true,

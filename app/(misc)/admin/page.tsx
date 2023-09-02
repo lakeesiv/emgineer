@@ -20,7 +20,8 @@ const AdminPage: FC<AdminPageProps> = async ({}) => {
   const signUps = await db
     .select()
     .from(eventSignUps)
-    .where(inArray(eventSignUps.eventId, eventIds));
+    .where(inArray(eventSignUps.eventId, eventIds))
+    .run();
 
   return (
     <main className="flex flex-col items-center justify-center px-12 pt-2">

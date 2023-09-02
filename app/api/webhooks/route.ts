@@ -57,12 +57,12 @@ export async function POST(req: Request) {
           );
           const paymentStatus = payment_intent.status === "succeeded";
           //   console.log(data, paymentStatus);
-          await db
-            .update(eventSignUps)
+          db.update(eventSignUps)
             .set({
               paid: paymentStatus,
             })
-            .where(eq(eventSignUps.id, eventSignUpId));
+            .where(eq(eventSignUps.id, eventSignUpId))
+            .run();
 
           break;
         case "payment_intent.payment_failed":

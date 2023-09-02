@@ -40,15 +40,15 @@ export const stripeRouter = createTRPCRouter({
         });
         const customerId = customer.id;
 
-        await db
-          .update(users)
+        db.update(users)
           .set({
             stripeId: customerId,
           })
           .where(eq(users.id, user.id))
           .returning({
             stripeId: users.stripeId,
-          });
+          })
+          .run();
 
         stripeId = customerId as string;
       }
