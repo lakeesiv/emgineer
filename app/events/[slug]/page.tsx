@@ -93,9 +93,9 @@ export default async function EventPage({ params }: { params: PageProps }) {
 
 export async function generateStaticParams() {
   // This generates routes using the slugs created from getParsedPages
-  const pages = await getEventPages();
+  const pages = await getParsedEventPages();
   return pages.map((page) => ({
-    slug: page.slug,
+    slug: page.parsed.eventId,
   }));
 }
 
