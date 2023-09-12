@@ -8,9 +8,10 @@ import {
   SQLiteTableFn,
   sqliteTable,
 } from "drizzle-orm/sqlite-core";
+import { LibSQLDatabase } from "drizzle-orm/libsql";
 
 export function DrizzleAdapter<SqlFlavor extends AnyPgDatabase>(
-  db: InstanceType<typeof BaseSQLiteDatabase>,
+  db: InstanceType<typeof LibSQLDatabase>,
   table = sqliteTable
 ): Adapter {
   return SQLiteDrizzleAdapter(db, table);

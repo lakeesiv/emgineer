@@ -9,6 +9,7 @@ import {
 } from "drizzle-orm/sqlite-core";
 
 import type { Adapter, AdapterAccount } from "@auth/core/adapters";
+import { LibSQLDatabase } from "drizzle-orm/libsql";
 
 export function createTables(sqliteTable: SQLiteTableFn) {
   const users = sqliteTable("user", {
@@ -67,7 +68,7 @@ export function createTables(sqliteTable: SQLiteTableFn) {
 export type DefaultSchema = ReturnType<typeof createTables>;
 
 export function SQLiteDrizzleAdapter(
-  client: InstanceType<typeof BaseSQLiteDatabase>,
+  client: InstanceType<typeof LibSQLDatabase>,
   tableFn = defaultSqliteTableFn
 ): Adapter {
   const { users, accounts, sessions, verificationTokens } =
