@@ -10,6 +10,8 @@ import RevalidateButton from "./_components/revalidate-button";
 import { DataTable } from "./table/data-table";
 import { columns } from "./table/columns";
 
+type EventSignUp = typeof eventSignUps.$inferSelect;
+
 interface AdminPageProps {}
 
 const AdminPage: FC<AdminPageProps> = async ({}) => {
@@ -21,7 +23,7 @@ const AdminPage: FC<AdminPageProps> = async ({}) => {
     .select()
     .from(eventSignUps)
     .where(inArray(eventSignUps.eventId, eventIds))
-    .run();
+    .all();
 
   return (
     <main className="flex flex-col items-center justify-center px-12 pt-2">
@@ -37,7 +39,7 @@ const AdminPage: FC<AdminPageProps> = async ({}) => {
           );
         })}
         <Title size="sm">Event Sign Ups</Title>
-        <DataTable data={signUps} columns={columns} />
+        <DataTable data={fixSignUps(signUps)} columns={columns} />
       </div>
     </main>
   );
@@ -59,3 +61,18 @@ const useAdminOnly = async () => {
 };
 
 export default AdminPage;
+
+type FixedEventSignUp = Omit<EventSignUp, "createdAt" | "updatedAt"> & {
+  createdAt: Date;
+  updatedAt: Date;
+};
+
+const fixSignUps = (signUps: EventSignUp[]): FixedEventSignUp[] => {
+  return signUps.map((signUp) => {
+    return {
+      ...signUp,
+      createdAt: signUp.createdAt ? new Date(signUp.createdAt) : new Date(),
+      updatedAt: signUp.updatedAt ? new Date(signUp.updatedAt) : new Date(),
+    };
+  });
+};
