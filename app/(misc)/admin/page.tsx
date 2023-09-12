@@ -6,9 +6,12 @@ import { eventSignUps } from "lib/db/schema";
 import { FC } from "react";
 import { getServerAuthSession } from "server/auth";
 import siteConfig from "site.config";
-import RevalidateButton from "./_components/revalidate-button";
+import RevalidateButton, {
+  RevalidateDialog,
+} from "./_components/revalidate-button";
 import { DataTable } from "./table/data-table";
 import { columns } from "./table/columns";
+import { RedeployDialog } from "./_components/redeploy-button";
 
 type EventSignUp = typeof eventSignUps.$inferSelect;
 
@@ -18,6 +21,7 @@ const AdminPage: FC<AdminPageProps> = async ({}) => {
   const session = await useAdminOnly();
   const events = await getParsedEventPages(true);
   const eventIds = events.map((event) => event.parsed.eventId);
+  const eventNames = events.map((event) => event.parsed.title);
 
   const signUps = await db
     .select()
@@ -27,19 +31,16 @@ const AdminPage: FC<AdminPageProps> = async ({}) => {
 
   return (
     <main className="flex flex-col items-center justify-center px-12 pt-2">
-      <Title size="md">Admin Page</Title>
-      <RevalidateButton className="my-2" />
-      <div className="mt-4">
-        <Title size="sm">Active Events</Title>
-        {events.map((event) => {
-          return (
-            <div key={event.id}>
-              <p>{event.parsed.title}</p>
-            </div>
-          );
-        })}
+      <div className="flex flex-col my-6 gap-6 w-[80vw]">
         <Title size="sm">Event Sign Ups</Title>
         <DataTable data={fixSignUps(signUps)} columns={columns} />
+      </div>
+      <div className="flex flex-col my-6">
+        <Title size="sm">Updated Website</Title>
+        <div className="flex flex-row gap-6 mt-4">
+          <RevalidateDialog />
+          <RedeployDialog />
+        </div>
       </div>
     </main>
   );

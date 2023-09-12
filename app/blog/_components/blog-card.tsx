@@ -24,7 +24,7 @@ export const BlogCard = ({ page }: { page: BlogPageObjectResponse }) => {
 
   return (
     <article
-      className={`max-w-md mx-auto md:max-w-none grid gap-6 md:gap-8 ${
+      className={`max-w-md mx md:max-w-none grid gap-6 md:gap-8 ${
         image ? "md:grid-cols-2" : ""
       }`}
     >

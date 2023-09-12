@@ -4,6 +4,16 @@ import "lib/non/styles.css";
 import "components/globals.css";
 import { Providers } from "components/layout/providers";
 import { Analytics } from "@vercel/analytics/react";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Emgineers",
+  description: "Emmanuel College Engineering Society",
+  openGraph: {
+    title: "Emgineers",
+    description: "Emmanuel College Engineering Society",
+  },
+};
 
 export default function RootLayout({
   children,
@@ -14,15 +24,6 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <head>
         <title>Emgineers</title>
-        <meta
-          name="description"
-          content="Emmanuel College Engineering Society"
-        />
-        <meta property="og:title" content="Emgineers" />
-        <meta
-          property="og:description"
-          content="Emmanuel College Engineering Society"
-        />
         <meta content="width=device-width, initial-scale=1" name="viewport" />
         <meta property="og:image" content="https://emgineer.vercel.app/og/" />
         <link rel="icon" href="/favicon.ico" />

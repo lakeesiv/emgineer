@@ -41,6 +41,9 @@ export const columns: ColumnDef<SignUpRow>[] = [
   {
     accessorKey: "event",
     header: "Event",
+    filterFn: (row, id, value) => {
+      return value.includes(row.getValue(id));
+    },
   },
   {
     accessorKey: "going",
@@ -64,6 +67,9 @@ export const columns: ColumnDef<SignUpRow>[] = [
         </span>
       );
     },
+    filterFn: (row, id, value) => {
+      return value.includes(row.getValue(id));
+    },
   },
   {
     accessorKey: "paid",
@@ -81,6 +87,9 @@ export const columns: ColumnDef<SignUpRow>[] = [
           {paid ? "Yes" : "No"}
         </span>
       );
+    },
+    filterFn: (row, id, value) => {
+      return value.includes(row.getValue(id));
     },
   },
   {

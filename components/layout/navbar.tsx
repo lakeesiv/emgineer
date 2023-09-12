@@ -5,9 +5,11 @@ import Logo from "./logo";
 import MobileNav from "./mobile-nav";
 import dynamic from "next/dynamic";
 import { Suspense } from "react";
+import { Skeleton } from "components/ui/skeleton";
 
 const UserAvatar = dynamic(() => import("components/layout/user-avatar"), {
   ssr: false,
+  loading: () => <Skeleton className="h-8 w-8 rounded-full" />,
 });
 
 const links = [

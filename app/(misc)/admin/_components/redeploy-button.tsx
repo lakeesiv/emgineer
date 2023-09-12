@@ -1,13 +1,14 @@
 "use client";
+
 import { Button } from "components/ui/button";
 import { useToast } from "components/ui/use-toast";
 import { FC, useState } from "react";
 import { api } from "trpc/client";
 
-interface RevalidateButtonProps
+interface RedeployButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {}
 
-const RevalidateButton: FC<RevalidateButtonProps> = ({ ...props }) => {
+const RedeployButton: FC<RedeployButtonProps> = ({ ...props }) => {
   const { toast } = useToast();
   const [disabled, setDisabled] = useState(false);
 
@@ -21,25 +22,27 @@ const RevalidateButton: FC<RevalidateButtonProps> = ({ ...props }) => {
           setDisabled(
             (s) => true // disable button
           );
-          await api.web.revalidate.query();
+          await api.web.redeploy.query();
           toast({
-            title: "Synced with Notion",
-            description: "The website has been synced with Notion",
+            title: "Redeployed Website",
+            description:
+              "A deploy has been triggered. Please wait a few minutes for it to complete.",
             duration: 1000,
           });
           setDisabled(
             (s) => false // reset disabled
           );
-        } catch (error) {
+        } catch (error: unknown) {
+          const e = error as Error;
           toast({
             title: "Error",
-            description: "Something went wrong",
+            description: "Something went wrong: " + e.message,
             variant: "destructive",
           });
         }
       }}
     >
-      Sync With Notion
+      Redeploy Website
     </Button>
   );
 };
@@ -54,28 +57,26 @@ import {
   DialogTrigger,
 } from "components/ui/dialog";
 
-export function RevalidateDialog() {
+export function RedeployDialog() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="outline">Sync With Notion</Button>
+        <Button variant="outline">Redeploy Website</Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="sm:max-w-[425px] bg-red-800">
         <DialogHeader>
-          <DialogTitle>Sync With Notion</DialogTitle>
+          <DialogTitle>Redeploy Website</DialogTitle>
           <DialogDescription>
-            This will update the website with the latest data from Notion
-            however it will not update any images, for that you will need to
-            redeploy the website. Note: It should immediately update the
-            website, no need to wait a few minutes.
+            This will update the website by redeploying it. Do not do this
+            often, please also wait a few minutes before doing this again.
           </DialogDescription>
         </DialogHeader>
         <DialogFooter>
-          <RevalidateButton className="my-2" />
+          <RedeployButton className="my-2" />
         </DialogFooter>
       </DialogContent>
     </Dialog>
   );
 }
 
-export default RevalidateButton;
+export default RedeployButton;
