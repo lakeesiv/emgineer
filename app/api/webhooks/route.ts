@@ -57,7 +57,8 @@ export async function POST(req: Request) {
           );
           const paymentStatus = payment_intent.status === "succeeded";
           //   console.log(data, paymentStatus);
-          db.update(eventSignUps)
+          await db
+            .update(eventSignUps)
             .set({
               paid: paymentStatus,
             })
