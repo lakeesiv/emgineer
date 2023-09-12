@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "pnpm media && next build",
+    "build": "bun media && next build",
     "db:push": "drizzle-kit push:pg ",
     "db:migrate": "drizzle-kit generate:pg ",
     "db": "drizzle-kit generate:pg  && drizzle-kit push:pg",
