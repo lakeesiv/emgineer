@@ -53,6 +53,17 @@ export const authOptions: NextAuthConfig = {
           : undefined, // Only use cam.ac.uk accounts in production
     }),
   ],
+  cookies: {
+    pkceCodeVerifier: {
+      name: "next-auth.pkce.code_verifier",
+      options: {
+        httpOnly: true,
+        sameSite: "none",
+        path: "/",
+        secure: true,
+      },
+    },
+  },
 };
 
 export interface Session {

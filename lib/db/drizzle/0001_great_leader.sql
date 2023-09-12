@@ -1,1 +1,0 @@
-ALTER TABLE "eventSignUp" ADD COLUMN "updatedAt" timestamp DEFAULT CURRENT_TIMESTAMP(3) on update CURRENT_TIMESTAMP(3);

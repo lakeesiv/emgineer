@@ -1,26 +1,19 @@
 {
   "version": "5",
-  "dialect": "pg",
+  "dialect": "sqlite",
   "entries": [
     {
       "idx": 0,
       "version": "5",
-      "when": 1692266328610,
-      "tag": "0000_greedy_reavers",
+      "when": 1692818669979,
+      "tag": "0000_slimy_amphibian",
       "breakpoints": true
     },
     {
       "idx": 1,
       "version": "5",
-      "when": 1692276082243,
-      "tag": "0001_great_leader",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "5",
-      "when": 1692276175193,
-      "tag": "0002_curved_goliath",
+      "when": 1693692637210,
+      "tag": "0001_tense_groot",
       "breakpoints": true
     }
   ]

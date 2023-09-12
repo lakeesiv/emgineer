@@ -7,8 +7,9 @@ dotenv.config({
 export default {
   schema: "./lib/db/schema.ts",
   out: "./lib/db/drizzle",
-  driver: "pg",
+  driver: "turso",
   dbCredentials: {
-    connectionString: process.env.DRIZZLE_DB_URL as string,
+    url: process.env.TURSO_DB_URL as string,
+    authToken: process.env.TURSO_DB_AUTH_TOKEN as string,
   },
 } satisfies Config;
