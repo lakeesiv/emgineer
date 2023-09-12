@@ -33,7 +33,11 @@ const AdminPage: FC<AdminPageProps> = async ({}) => {
     <main className="flex flex-col items-center justify-center px-12 pt-2">
       <div className="flex flex-col my-6 gap-6 w-[80vw]">
         <Title size="sm">Event Sign Ups</Title>
-        <DataTable data={fixSignUps(signUps)} columns={columns} />
+        <DataTable
+          data={fixSignUps(signUps)}
+          columns={columns}
+          events={eventNames}
+        />
       </div>
       <div className="flex flex-col my-6">
         <Title size="sm">Updated Website</Title>
