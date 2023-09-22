@@ -1,6 +1,6 @@
 import { Suspense } from "react";
-import BlogSection, { BlogSectionLoading } from "./blog-section";
-import EventSection, { EventSectionLoading } from "./event-section";
+import BlogSection, { BlogSectionLoading } from "./_components/blog-section";
+import EventSection, { EventSectionLoading } from "./_components/event-section";
 import { Description, Title } from "components/text";
 
 export const runtime = "nodejs";
