@@ -2,7 +2,7 @@ type StarSize = "big" | "medium" | "small";
 
 const CONFIG = {
   count: 15,
-  speed: 0.7,
+  speed: 0.5,
   sizes: {
     big: 3,
     medium: 2,
