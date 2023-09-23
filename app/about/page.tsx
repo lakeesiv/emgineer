@@ -2,6 +2,12 @@ import React from "react";
 import siteConfig from "site.config";
 import Member from "./member";
 import { Title } from "components/text";
+import { getMetaData } from "lib/meta";
+
+export const metadata = getMetaData({
+  title: "About",
+  description: "About the Emgineers",
+});
 
 const Page = () => {
   return (

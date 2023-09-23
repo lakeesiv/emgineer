@@ -5,15 +5,12 @@ import "components/globals.css";
 import { Providers } from "components/layout/providers";
 import { Analytics } from "@vercel/analytics/react";
 import type { Metadata } from "next";
+import { getMetaData } from "lib/meta";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = getMetaData({
   title: "Emgineers",
   description: "Emmanuel College Engineering Society",
-  openGraph: {
-    title: "Emgineers",
-    description: "Emmanuel College Engineering Society",
-  },
-};
+});
 
 export default function RootLayout({
   children,
