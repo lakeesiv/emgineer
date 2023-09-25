@@ -6,7 +6,7 @@ import { _auth } from "server/auth";
 export const runtime = "edge";
 // export const preferredRegion = "fra1";
 
-const handler = _auth((req: Request) =>
+const handler = _auth((req: Request): Response | Promise<Response> =>
   fetchRequestHandler({
     endpoint: "/api/trpc",
     req,
@@ -22,6 +22,5 @@ const handler = _auth((req: Request) =>
         : undefined,
   })
 );
-
-export const GET = handler;
-export const POST = handler;
+export const GET = handler as (req: Request) => Response | Promise<Response>;
+export const POST = handler as (req: Request) => Response | Promise<Response>;
