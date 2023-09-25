@@ -11,9 +11,14 @@ const LocationAndTime = ({
   if (typeof window === "undefined") return null;
 
   return (
-    <span className="text-gray-500 dark:text-slate-400">
-      {formatDate(page.parsed.date)} @ {page.parsed.location}
-    </span>
+    <>
+      <span className="text-gray-500 dark:text-slate-400">
+        {formatDate(page.parsed.date)}
+      </span>
+      <span className="text-gray-500 dark:text-slate-400 mt-2">
+        📍 {page.parsed.location}
+      </span>
+    </>
   );
 };
 export const formatDate = (date: Date) => {
