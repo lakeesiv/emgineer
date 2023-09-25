@@ -24,7 +24,7 @@ export default async function EventIndex() {
       <Title variant="h3" size="sm" className="mt-4">
         Upcoming Events
       </Title>
-      <div className="space-y-8 gap-8 max-w-[800px] mx-auto p-12">
+      <div className="space-y-10 max-w-[800px] mx-auto p-12">
         {upcomingPages.map((page) => (
           <EventCard page={page} key={page.id}>
             <Suspense
@@ -41,7 +41,7 @@ export default async function EventIndex() {
       <Title variant="h3" size="sm">
         Past Events
       </Title>
-      <div className="space-y-8 gap-8 max-w-[800px] mx-auto p-12">
+      <div className="space-y-10 max-w-[800px] mx-auto p-12">
         {pastPages.map((page) => (
           <EventCard page={page} key={page.id} />
         ))}
