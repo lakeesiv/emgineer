@@ -23,11 +23,7 @@ export const BlogCard = ({ page }: { page: BlogPageObjectResponse }) => {
   const image = mediaMap[siteConfig.blogDatabaseId]?.[page.id]?.cover;
 
   return (
-    <article
-      className={`max-w-md mx md:max-w-none grid gap-6 md:gap-8 ${
-        image ? "md:grid-cols-2" : ""
-      }`}
-    >
+    <article className={`grid gap-6 md:gap-8 ${image ? "md:grid-cols-2" : ""}`}>
       {image && (
         <Link className="relative block group" href={`/blog/${page.slug}`}>
           <Image
