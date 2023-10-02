@@ -19,6 +19,23 @@ interface PageProps {
   slug: string;
 }
 
+const formatDate = (date: Date) => {
+  const days = date.toLocaleDateString("en-GB", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+  });
+
+  // time: HH:MM AM/PM
+  const time = date.toLocaleTimeString("en-GB", {
+    hour: "numeric",
+    minute: "numeric",
+    hour12: true,
+  });
+
+  return `${time}, ${days}`;
+};
+
 export async function generateMetadata({
   params,
 }: {
@@ -99,20 +116,3 @@ export async function generateStaticParams() {
     slug: page.parsed.eventId,
   }));
 }
-
-const formatDate = (date: Date) => {
-  const days = date.toLocaleDateString(undefined, {
-    month: "short",
-    day: "numeric",
-    year: "numeric",
-  });
-
-  // time: HH:MM AM/PM
-  const time = date.toLocaleTimeString(undefined, {
-    hour: "numeric",
-    minute: "numeric",
-    hour12: true,
-  });
-
-  return `${time}, ${days}`;
-};
