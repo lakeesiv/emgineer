@@ -1,26 +1,26 @@
-import { and, eq } from "drizzle-orm";
+import { eq, and } from "drizzle-orm";
 import {
-  timestamp,
-  pgTable as defaultPgTableFn,
+  integer,
+  sqliteTable as defaultSqliteTableFn,
   text,
   primaryKey,
-  integer,
-  PgTableFn,
-} from "drizzle-orm/pg-core";
+  BaseSQLiteDatabase,
+  SQLiteTableFn,
+} from "drizzle-orm/sqlite-core";
 
-import type { PostgresJsDatabase } from "drizzle-orm/postgres-js";
 import type { Adapter, AdapterAccount } from "@auth/core/adapters";
+import { LibSQLDatabase } from "drizzle-orm/libsql";
 
-export function createTables(pgTable: PgTableFn) {
-  const users = pgTable("user", {
+export function createTables(sqliteTable: SQLiteTableFn) {
+  const users = sqliteTable("user", {
     id: text("id").notNull().primaryKey(),
     name: text("name"),
     email: text("email").notNull(),
-    emailVerified: timestamp("emailVerified", { mode: "date" }),
+    emailVerified: integer("emailVerified", { mode: "timestamp_ms" }),
     image: text("image"),
   });
 
-  const accounts = pgTable(
+  const accounts = sqliteTable(
     "account",
     {
       userId: text("userId")
@@ -42,20 +42,20 @@ export function createTables(pgTable: PgTableFn) {
     })
   );
 
-  const sessions = pgTable("session", {
+  const sessions = sqliteTable("session", {
     sessionToken: text("sessionToken").notNull().primaryKey(),
     userId: text("userId")
       .notNull()
       .references(() => users.id, { onDelete: "cascade" }),
-    expires: timestamp("expires", { mode: "date" }).notNull(),
+    expires: integer("expires", { mode: "timestamp_ms" }).notNull(),
   });
 
-  const verificationTokens = pgTable(
+  const verificationTokens = sqliteTable(
     "verificationToken",
     {
       identifier: text("identifier").notNull(),
       token: text("token").notNull(),
-      expires: timestamp("expires", { mode: "date" }).notNull(),
+      expires: integer("expires", { mode: "timestamp_ms" }).notNull(),
     },
     (vt) => ({
       compoundKey: primaryKey(vt.identifier, vt.token),
@@ -67,84 +67,82 @@ export function createTables(pgTable: PgTableFn) {
 
 export type DefaultSchema = ReturnType<typeof createTables>;
 
-export function pgDrizzleAdapter(
-  client: PostgresJsDatabase<Record<string, never>>,
-  tableFn = defaultPgTableFn
+export function SQLiteDrizzleAdapter(
+  client: InstanceType<typeof LibSQLDatabase>,
+  tableFn = defaultSqliteTableFn
 ): Adapter {
   const { users, accounts, sessions, verificationTokens } =
     createTables(tableFn);
 
   return {
     async createUser(data) {
-      return await client
+      return client
         .insert(users)
         .values({ ...data, id: crypto.randomUUID() })
         .returning()
-        .then((res) => res[0] ?? null);
+        .get();
     },
     async getUser(data) {
-      return await client
-        .select()
-        .from(users)
-        .where(eq(users.id, data))
-        .then((res) => res[0] ?? null);
+      return (
+        (await client.select().from(users).where(eq(users.id, data)).get()) ??
+        null
+      );
     },
     async getUserByEmail(data) {
-      return await client
-        .select()
-        .from(users)
-        .where(eq(users.email, data))
-        .then((res) => res[0] ?? null);
+      return (
+        (await client
+          .select()
+          .from(users)
+          .where(eq(users.email, data))
+          .get()) ?? null
+      );
     },
     async createSession(data) {
-      return await client
-        .insert(sessions)
-        .values(data)
-        .returning()
-        .then((res) => res[0]);
+      return client.insert(sessions).values(data).returning().get();
     },
     async getSessionAndUser(data) {
-      return await client
-        .select({
-          session: sessions,
-          user: users,
-        })
-        .from(sessions)
-        .where(eq(sessions.sessionToken, data))
-        .innerJoin(users, eq(users.id, sessions.userId))
-        .then((res) => res[0] ?? null);
+      return (
+        (await client
+          .select({
+            session: sessions,
+            user: users,
+          })
+          .from(sessions)
+          .where(eq(sessions.sessionToken, data))
+          .innerJoin(users, eq(users.id, sessions.userId))
+          .get()) ?? null
+      );
     },
     async updateUser(data) {
       if (!data.id) {
         throw new Error("No user id.");
       }
 
-      return await client
+      return client
         .update(users)
         .set(data)
         .where(eq(users.id, data.id))
         .returning()
-        .then((res) => res[0]);
+        .get();
     },
     async updateSession(data) {
-      return await client
+      return client
         .update(sessions)
         .set(data)
         .where(eq(sessions.sessionToken, data.sessionToken))
         .returning()
-        .then((res) => res[0]);
+        .get();
     },
     async linkAccount(rawAccount) {
       const updatedAccount = await client
         .insert(accounts)
         .values(rawAccount)
         .returning()
-        .then((res) => res[0]);
+        .get();
 
-      // Drizzle will return `null` for fields that are not defined.
-      // However, the return type is expecting `undefined`.
-      const account = {
+      const account: AdapterAccount = {
         ...updatedAccount,
+        type: updatedAccount.type,
         access_token: updatedAccount.access_token ?? undefined,
         token_type: updatedAccount.token_type ?? undefined,
         id_token: updatedAccount.id_token ?? undefined,
@@ -157,66 +155,55 @@ export function pgDrizzleAdapter(
       return account;
     },
     async getUserByAccount(account) {
-      const dbAccount =
-        (await client
-          .select()
-          .from(accounts)
-          .where(
-            and(
-              eq(accounts.providerAccountId, account.providerAccountId),
-              eq(accounts.provider, account.provider)
-            )
+      const results = await client
+        .select()
+        .from(accounts)
+        .leftJoin(users, eq(users.id, accounts.userId))
+        .where(
+          and(
+            eq(accounts.provider, account.provider),
+            eq(accounts.providerAccountId, account.providerAccountId)
           )
-          .leftJoin(users, eq(accounts.userId, users.id))
-          .then((res) => res[0])) ?? null;
+        )
+        .get();
 
-      if (!dbAccount) {
-        return null;
-      }
-
-      return dbAccount.user;
+      return results?.user ?? null;
     },
     async deleteSession(sessionToken) {
-      const session = await client
-        .delete(sessions)
-        .where(eq(sessions.sessionToken, sessionToken))
-        .returning()
-        .then((res) => res[0] ?? null);
-
-      return session;
+      return (
+        (await client
+          .delete(sessions)
+          .where(eq(sessions.sessionToken, sessionToken))
+          .returning()
+          .get()) ?? null
+      );
     },
     async createVerificationToken(token) {
-      return await client
-        .insert(verificationTokens)
-        .values(token)
-        .returning()
-        .then((res) => res[0]);
+      return client.insert(verificationTokens).values(token).returning().get();
     },
     async useVerificationToken(token) {
       try {
-        return await client
-          .delete(verificationTokens)
-          .where(
-            and(
-              eq(verificationTokens.identifier, token.identifier),
-              eq(verificationTokens.token, token.token)
+        return (
+          (await client
+            .delete(verificationTokens)
+            .where(
+              and(
+                eq(verificationTokens.identifier, token.identifier),
+                eq(verificationTokens.token, token.token)
+              )
             )
-          )
-          .returning()
-          .then((res) => res[0] ?? null);
+            .returning()
+            .get()) ?? null
+        );
       } catch (err) {
         throw new Error("No verification token found.");
       }
     },
     async deleteUser(id) {
-      await client
-        .delete(users)
-        .where(eq(users.id, id))
-        .returning()
-        .then((res) => res[0] ?? null);
+      return client.delete(users).where(eq(users.id, id)).returning().get();
     },
     async unlinkAccount(account) {
-      const { type, provider, providerAccountId, userId } = await client
+      await client
         .delete(accounts)
         .where(
           and(
@@ -224,10 +211,9 @@ export function pgDrizzleAdapter(
             eq(accounts.provider, account.provider)
           )
         )
-        .returning()
-        .then((res) => res[0] ?? null);
+        .run();
 
-      return { provider, type, providerAccountId, userId };
+      return undefined;
     },
   };
 }

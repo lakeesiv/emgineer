@@ -60,8 +60,7 @@ export const parseEvent = (page: EventsPageObjectResponse) => {
   //@ts-ignore
   const title = page.properties.Name.title[0].plain_text as string;
   //@ts-ignore
-  const description = page.properties.Description.rich_text[0]
-    .plain_text as string;
+  const description = page?.properties?.Description?.rich_text[0].plain_text;
   //@ts-ignore
   const location = page.properties.Location.rich_text[0].plain_text as string;
   //@ts-ignore

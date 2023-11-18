@@ -13,6 +13,8 @@ import { DataTable } from "./table/data-table";
 import { columns } from "./table/columns";
 import { RedeployDialog } from "./_components/redeploy-button";
 
+type EventSignUp = typeof eventSignUps.$inferSelect;
+
 interface AdminPageProps {}
 
 const AdminPage: FC<AdminPageProps> = async ({}) => {
@@ -24,13 +26,18 @@ const AdminPage: FC<AdminPageProps> = async ({}) => {
   const signUps = await db
     .select()
     .from(eventSignUps)
-    .where(inArray(eventSignUps.eventId, eventIds));
+    .where(inArray(eventSignUps.eventId, eventIds))
+    .all();
 
   return (
     <main className="flex flex-col items-center justify-center px-12 pt-2">
       <div className="flex flex-col my-6 gap-6 w-[80vw]">
         <Title size="sm">Event Sign Ups</Title>
-        <DataTable events={eventNames} data={signUps} columns={columns} />
+        <DataTable
+          data={fixSignUps(signUps)}
+          columns={columns}
+          events={eventNames}
+        />
       </div>
       <div className="flex flex-col my-6">
         <Title size="sm">Updated Website</Title>
@@ -59,3 +66,18 @@ const useAdminOnly = async () => {
 };
 
 export default AdminPage;
+
+type FixedEventSignUp = Omit<EventSignUp, "createdAt" | "updatedAt"> & {
+  createdAt: Date;
+  updatedAt: Date;
+};
+
+const fixSignUps = (signUps: EventSignUp[]): FixedEventSignUp[] => {
+  return signUps.map((signUp) => {
+    return {
+      ...signUp,
+      createdAt: signUp.createdAt ? new Date(signUp.createdAt) : new Date(),
+      updatedAt: signUp.updatedAt ? new Date(signUp.updatedAt) : new Date(),
+    };
+  });
+};

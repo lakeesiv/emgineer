@@ -121,7 +121,8 @@ const RegisterForm = ({
       });
 
       const isPaid = price && price > 0;
-      const redirectToPayment = isPaid && going === "Yes";
+      const redirectToPayment =
+        isPaid && going === "Yes" && !userSignUpStatus?.paid;
 
       toast({
         title: "Event Sign Up",
@@ -176,41 +177,45 @@ const RegisterForm = ({
           onSubmit={eventSignUpForm.handleSubmit(onSubmit)}
           className="space-y-8"
         >
-          {userSignUpStatus.status !== "Going (Paid)" && (
-            <FormField
-              control={eventSignUpForm.control}
-              defaultValue={userSignUpStatus.going}
-              name="going"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Are you going to event?</FormLabel>
-                  <FormDescription className="pb-2">
-                    If you change your mind, you can always change it later by
-                    going back to this page
-                  </FormDescription>
-                  <Select
-                    onValueChange={field.onChange}
-                    defaultValue={field.value}
-                  >
-                    <FormControl>
-                      <SelectTrigger>
-                        <SelectValue
-                          defaultValue={userSignUpStatus.going}
-                          placeholder={userSignUpStatus.going}
-                        />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent>
-                      <SelectItem value="Yes">Yes</SelectItem>
-                      <SelectItem value="Maybe">Maybe</SelectItem>
-                      <SelectItem value="No">No</SelectItem>
-                    </SelectContent>
-                  </Select>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          )}
+          <FormField
+            control={eventSignUpForm.control}
+            defaultValue={userSignUpStatus.going}
+            name="going"
+            render={({ field }) => (
+              <FormItem
+                style={
+                  userSignUpStatus.status === "Going (Paid)"
+                    ? { display: "none" } // Hide the form if the user has already paid
+                    : {}
+                }
+              >
+                <FormLabel>Are you going to event?</FormLabel>
+                <FormDescription className="pb-2">
+                  If you change your mind, you can always change it later by
+                  going back to this page
+                </FormDescription>
+                <Select
+                  onValueChange={field.onChange}
+                  defaultValue={field.value}
+                >
+                  <FormControl>
+                    <SelectTrigger>
+                      <SelectValue
+                        defaultValue={userSignUpStatus.going}
+                        placeholder={userSignUpStatus.going}
+                      />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    <SelectItem value="Yes">Yes</SelectItem>
+                    <SelectItem value="Maybe">Maybe</SelectItem>
+                    <SelectItem value="No">No</SelectItem>
+                  </SelectContent>
+                </Select>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
           {extraDetails && (
             <FormField
               control={eventSignUpForm.control}

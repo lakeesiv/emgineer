@@ -7,6 +7,7 @@ import siteConfig from "site.config";
 import { cachedGetBlocks, getEventPages, getParsedEventPages } from "app/get";
 import RegisterForm from "../_components/register-form";
 import { Metadata } from "next";
+import { getMetaData } from "lib/meta";
 
 export const runtime = "nodejs";
 export const revalidate = 86400;
@@ -17,6 +18,23 @@ const databaseId = siteConfig.eventsDatabaseId;
 interface PageProps {
   slug: string;
 }
+
+const formatDate = (date: Date) => {
+  const days = date.toLocaleDateString("en-GB", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+  });
+
+  // time: HH:MM AM/PM
+  const time = date.toLocaleTimeString("en-GB", {
+    hour: "numeric",
+    minute: "numeric",
+    hour12: true,
+  });
+
+  return `${time}, ${days}`;
+};
 
 export async function generateMetadata({
   params,
@@ -32,10 +50,10 @@ export async function generateMetadata({
     notFound();
   }
 
-  return {
-    title: "Emgineers | " + page.parsed.title,
+  return getMetaData({
+    title: page.parsed.title,
     description: `${formatDate(page.parsed.date)} @ ${page.parsed.location}`,
-  };
+  });
 }
 
 export default async function EventPage({ params }: { params: PageProps }) {
@@ -98,20 +116,3 @@ export async function generateStaticParams() {
     slug: page.parsed.eventId,
   }));
 }
-
-const formatDate = (date: Date) => {
-  const days = date.toLocaleDateString(undefined, {
-    month: "short",
-    day: "numeric",
-    year: "numeric",
-  });
-
-  // time: HH:MM AM/PM
-  const time = date.toLocaleTimeString(undefined, {
-    hour: "numeric",
-    minute: "numeric",
-    hour12: true,
-  });
-
-  return `${time}, ${days}`;
-};

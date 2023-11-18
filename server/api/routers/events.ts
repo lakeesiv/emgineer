@@ -17,7 +17,7 @@ export const signUp = protectedProcedure
 
     const requiresPayment = price ? (price > 0 ? true : false) : false;
 
-    const dbRes = await ctx.db
+    const dbRes = ctx.db
       .insert(eventSignUps)
       .values({
         name,
@@ -29,7 +29,7 @@ export const signUp = protectedProcedure
         paid: requiresPayment ? false : null, // by default, if payment is required, then the user has not paid
         eventId: eventId,
         event: title,
-        updatedAt: new Date(),
+        updatedAt: new Date().toISOString(),
       })
       .onConflictDoUpdate({
         target: eventSignUps.id,
@@ -37,11 +37,8 @@ export const signUp = protectedProcedure
           going,
           extraDetails,
         },
-      });
-
-    if (dbRes.rowCount === 0) {
-      throw new Error("Failed to insert");
-    }
+      })
+      .run();
 
     return {
       success: true,

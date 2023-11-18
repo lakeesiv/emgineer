@@ -82,8 +82,8 @@ const CreditsPage = () => {
           <LinkedListItem href="https://orm.drizzle.team/">
             DrizzleORM
           </LinkedListItem>
-          <LinkedListItem href="https://neon.tech/">
-            Neon Serverless PostgresSQL
+          <LinkedListItem href="https://turso.tech/">
+            Turso Serverless SQLite
           </LinkedListItem>
           <LinkedListItem href="https://vercel.com/">
             Vercel + Edge Runtime

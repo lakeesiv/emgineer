@@ -62,7 +62,8 @@ export async function POST(req: Request) {
             .set({
               paid: paymentStatus,
             })
-            .where(eq(eventSignUps.id, eventSignUpId));
+            .where(eq(eventSignUps.id, eventSignUpId))
+            .run();
 
           break;
         case "payment_intent.payment_failed":

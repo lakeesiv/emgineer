@@ -2,6 +2,12 @@ import React from "react";
 import TimeLine from "./timeline";
 import { Title } from "components/text";
 import siteConfig from "site.config";
+import { getMetaData } from "lib/meta";
+
+export const metadata = getMetaData({
+  title: "Funding",
+  description: "Get funding for your side project from the Emgineers",
+});
 
 const Page = () => {
   return (

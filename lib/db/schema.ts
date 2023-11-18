@@ -1,24 +1,22 @@
 import {
-  timestamp,
-  pgTable,
+  integer,
+  sqliteTable,
   text,
   primaryKey,
-  integer,
-  pgEnum,
-  boolean,
-} from "drizzle-orm/pg-core";
+} from "drizzle-orm/sqlite-core";
 import type { AdapterAccount } from "@auth/core/adapters";
+import { sql } from "drizzle-orm";
 
-export const users = pgTable("user", {
+export const users = sqliteTable("user", {
   id: text("id").notNull().primaryKey(),
   name: text("name"),
   email: text("email").notNull(),
-  emailVerified: timestamp("emailVerified", { mode: "date" }),
+  emailVerified: integer("emailVerified", { mode: "timestamp_ms" }),
   image: text("image"),
-  stripeId: text("stripeId"),
+  stripeId: text("stripeId").default(""),
 });
 
-export const accounts = pgTable(
+export const accounts = sqliteTable(
   "account",
   {
     userId: text("userId")
@@ -40,38 +38,36 @@ export const accounts = pgTable(
   })
 );
 
-export const sessions = pgTable("session", {
+export const sessions = sqliteTable("session", {
   sessionToken: text("sessionToken").notNull().primaryKey(),
   userId: text("userId")
     .notNull()
     .references(() => users.id, { onDelete: "cascade" }),
-  expires: timestamp("expires", { mode: "date" }).notNull(),
+  expires: integer("expires", { mode: "timestamp_ms" }).notNull(),
 });
 
-export const verificationTokens = pgTable(
+export const verificationTokens = sqliteTable(
   "verificationToken",
   {
     identifier: text("identifier").notNull(),
     token: text("token").notNull(),
-    expires: timestamp("expires", { mode: "date" }).notNull(),
+    expires: integer("expires", { mode: "timestamp_ms" }).notNull(),
   },
   (vt) => ({
     compoundKey: primaryKey(vt.identifier, vt.token),
   })
 );
 
-export const goingEnum = pgEnum("going", ["No", "Maybe", "Yes"]);
-
-export const eventSignUps = pgTable("eventSignUp", {
+export const eventSignUps = sqliteTable("eventSignUp", {
   id: text("id").primaryKey(),
   userId: text("userId").notNull(),
   name: text("name").notNull(),
   email: text("email").notNull(),
   eventId: text("eventId").notNull(),
   event: text("event").notNull(),
-  going: goingEnum("going").notNull(),
-  paid: boolean("paid"),
+  going: text("going", { enum: ["Yes", "No", "Maybe"] }).notNull(),
+  paid: integer("paid", { mode: "boolean" }),
   extraDetails: text("extraDetails"),
-  createdAt: timestamp("createdAt").defaultNow().notNull(),
-  updatedAt: timestamp("updatedAt").defaultNow().notNull(),
+  createdAt: text("createdAt").default(sql`CURRENT_TIMESTAMP`),
+  updatedAt: text("updatedAt").default(sql`CURRENT_TIMESTAMP`),
 });

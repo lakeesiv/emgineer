@@ -11,7 +11,7 @@ const BlogSection = async () => {
       <h2 className="text-3xl font-extrabold text-emma-primary sm:text-center md:text-left">
         Our Blog
       </h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8 px-4 md:p-0">
         {pages.map((page) => (
           <BlogCard key={page.id} page={page} />
         ))}
